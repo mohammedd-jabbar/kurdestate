@@ -1,33 +1,29 @@
 // react router
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // style
 import "./index.css";
 
 // pages
-// import Home from "./pages/Home.jsx";
+import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
+import Header from "./components/Header";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <>
-        <div>Navbar</div>
-        <Outlet />
-      </>
-    ),
+    element: <Header />,
     errorElement: <div>404</div>,
     children: [
       {
         index: true,
-        element: <div>index</div>,
+        element: <Home />,
         errorElement: <div>404</div>,
       },
       {
