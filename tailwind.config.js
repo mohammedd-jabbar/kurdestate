@@ -1,8 +1,12 @@
+/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
+    // colors: {
+    //   body: "#F0FDF4",
+    // },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

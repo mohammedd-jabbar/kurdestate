@@ -9,8 +9,8 @@ import "./index.css";
 // pages
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
 import Header from "./components/Header";
@@ -32,11 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: "sign-in",
-        element: <Signin />,
+        element: <SignIn />,
       },
       {
         path: "sign-up",
-        element: <Signup />,
+        element: <SignUp />,
       },
       {
         path: "forgot-password",

@@ -1,17 +1,32 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import OAuth from "../components/OAuth";
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+const SignIn = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  // this state will be used to toggle the password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
+  const { email, password } = formData;
+
+  // On change function for input fields to update state with user input
   const onChange = (e) => {
-    setEmail(e.target.value);
+    /// this function will update the state with the user input, setformdata is a function that will update the state
+    setFormData((prevState) => ({
+      // ...prevState will copy the previous state
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
   };
 
   return (
     <section>
-      <h1 className="text-3xl text-center mt-6 font-bold">Forgot Password</h1>
+      <h1 className="text-3xl text-center mt-6 font-bold">Sign In</h1>
 
       <div className="flex justify-center items-center flex-wrap px-6 py-12 mx-auto max-w-6xl">
         <div className="lg:w-[50%] md:w-[67%] mb-12 md:mb-6">
@@ -32,23 +47,43 @@ const ForgotPassword = () => {
               onChange={onChange}
               className="w-full px-4 py-2 mb-6 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
             />
-
+            <div className="relative mb-6 ">
+              <input
+                id="password"
+                value={password}
+                type={showPassword ? "text" : "password"} // if showPassword is true, show text, else show password
+                placeholder="Email Password"
+                onChange={onChange}
+                className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
+              />
+              {showPassword ? ( // if showPassword is true, show AiFillEyeInvisible icon
+                <AiFillEyeInvisible
+                  className="absolute right-3 top-[.9rem] cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <AiFillEye
+                  className="absolute right-3 top-[.9rem] cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              )}
+            </div>
             <div className="flex justify-between items-center mb-6 whitespace-nowrap text-sm sm:text-lg">
               <p className="">
-                Have a account?
+                Don't have a account?
                 <Link
                   to="/sign-up"
                   className="text-red-600 ml-1 hover:text-red-800 transition duration-200 ease-in-out"
                 >
-                  Sign in
+                  Register
                 </Link>
               </p>
               <p>
                 <Link
-                  to="/sign-in"
+                  to="/forgot-password"
                   className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out"
                 >
-                  Sign In Instead
+                  Forgot Password?
                 </Link>
               </p>
             </div>
@@ -56,7 +91,7 @@ const ForgotPassword = () => {
               type="submit"
               className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded-md shadow-md hover:bg-blue-700 transition duration-200 ease-in-out hover:shadow-lg active:bg-blue-800 active:shadow-lg"
             >
-              Send Reset Password
+              Sign In
             </button>
             <div className="my-4 flex before:border-t before:flex-1 items-center before:border-gray-300 after:border-t after:flex-1 after:border-gray-300 ">
               <p className="text-center font-semibold mx-4">OR</p>
@@ -69,4 +104,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default SignIn;
