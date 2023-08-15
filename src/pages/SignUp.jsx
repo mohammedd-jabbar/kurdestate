@@ -59,28 +59,29 @@ const SignUp = () => {
       // this will add the timestamp to the formDataCopy
       formDataCopy.timestamp = serverTimestamp();
 
-      // this will create a new document in the users firebase database with the user id
+      // this will create a new document in the users firebase database with the user id, it mean we add the user data to the database
       await setDoc(doc(db, "users", user.uid), formDataCopy);
 
       navigate("/");
-      toast.success("Sign Up was successful!", {
+      toast("Sign Up was successful!", {
         position: "top-center",
         autoClose: 3000,
-        hideProgressBar: false,
+        icon: "✅",
+        hideProgressBar: true,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "dark",
       });
     } catch (error) {
-      console.log(error);
       toast.error("Something went wrong, try again!", {
         position: "top-center",
+        icon: "🔴",
         autoClose: 3000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "dark",

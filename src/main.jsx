@@ -59,15 +59,15 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ToastContainer
-      position="top-center"
+      position="top-right"
       autoClose={3000}
-      hideProgressBar={false}
+      hideProgressBar
       newestOnTop
       closeOnClick
       rtl={false}
       pauseOnFocusLoss
       draggable
-      pauseOnHover
+      pauseOnHover={false}
       theme="dark"
     />
     {/* this is provider for react router */}
