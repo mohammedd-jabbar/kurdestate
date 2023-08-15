@@ -1,10 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { db } from "../../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,16 +23,69 @@ const SignUp = () => {
   // this state will be used to toggle the password visibility
   const [showPassword, setShowPassword] = useState(false);
 
-  const { email, password } = formData;
+  const { email, password, name } = formData;
 
   // On change function for input fields to update state with user input
   const onChange = (e) => {
-    /// this function will update the state with the user input, setformdata is a function that will update the state
+    /// this function will update the state with the user input, setFormData is a function that will update the state
     setFormData((prevState) => ({
       // ...prevState will copy the previous state
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const auth = getAuth();
+    try {
+      // this function will create a new user with email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      // this function will update the user profile with the name
+      updateProfile(auth.currentUser, { displayName: name });
+
+      // this function will create a new document in the users collection with the user id
+      const user = userCredential.user;
+      // this function will create a new document in the users collection with the user id
+      const formDataCopy = { ...formData };
+      // this will delete the password field from the formDataCopy
+      delete formDataCopy.password;
+      // this will add the timestamp to the formDataCopy
+      formDataCopy.timestamp = serverTimestamp();
+
+      // this will create a new document in the users firebase database with the user id
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+
+      navigate("/");
+      toast.success("Sign Up was successful!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong, try again!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   return (
@@ -39,7 +102,7 @@ const SignUp = () => {
         </div>
 
         <div className="w-full lg:w-[40%] md:w-[64%] lg:ml-20">
-          <form action="post">
+          <form onSubmit={onSubmit}>
             <input
               id="name"
               value={name}

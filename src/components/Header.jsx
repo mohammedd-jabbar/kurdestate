@@ -12,11 +12,11 @@ const Header = () => {
       <div className="bg-white border-b shadow-sm sticky top-0 z-50">
         <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
           <div>
-            <img
-              src="https://static.rdc.moveaws.com/images/logos/rdc-logo-default.svg"
-              className="h-5 cursor-pointer"
-              alt="logo"
-            />
+            <Link to="/">
+              <h1 className="h-5 cursor-pointer text-2xl flex items-center justify-center font-bold">
+                Kurd <span className="text-red-600">Homes</span>
+              </h1>
+            </Link>
           </div>
           <div>
             <ul className="flex space-x-10">
