@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { db } from "../../firebase";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { toast } from "react-toastify";
+import { notifications } from "../components/Notifications";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -62,30 +62,12 @@ const SignUp = () => {
       // this will create a new document in the users firebase database with the user id, it mean we add the user data to the database
       await setDoc(doc(db, "users", user.uid), formDataCopy);
 
+      // this will redirect the user to the home page
       navigate("/");
-      toast("Sign Up was successful!", {
-        position: "top-center",
-        autoClose: 3000,
-        icon: "✅",
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+
+      notifications("Sign Up was successful!");
     } catch (error) {
-      toast.error("Something went wrong, try again!", {
-        position: "top-center",
-        icon: "🔴",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      notifications("Something went wrong, try again!", true);
     }
   };
 

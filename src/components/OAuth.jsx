@@ -1,9 +1,9 @@
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import { toast } from "react-toastify";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { notifications } from "./Notifications";
 
 const OAuth = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const OAuth = () => {
       // check if user is new or existing
       const docRef = await doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
-
+      // if user is new then add it to the database
       if (!docSnap.exists()) {
         await setDoc(docRef, {
           name: user.displayName,
@@ -28,22 +28,13 @@ const OAuth = () => {
           timeStamp: serverTimestamp(),
         });
       }
+      notifications("Successfully authorized with Google!", false);
       navigate("/");
 
       console.log(user);
     } catch (error) {
       console.error(error);
-      toast.error("Could not authorize with Google!", {
-        position: "top-center",
-        icon: "🔴",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      notifications("Could not authorize with Google!", true);
     }
   };
 

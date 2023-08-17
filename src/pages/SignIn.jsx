@@ -1,10 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { notifications } from "../components/Notifications";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,6 +28,24 @@ const SignIn = () => {
     }));
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredential.user) {
+        navigate("/");
+        notifications("Successfully signed in!", false);
+      }
+    } catch (error) {
+      notifications("Could not sign in!", true);
+    }
+  };
+
   return (
     <section>
       <h1 className="text-3xl text-center mt-6 font-bold">Sign In</h1>
@@ -38,7 +60,7 @@ const SignIn = () => {
         </div>
 
         <div className="w-full lg:w-[40%] md:w-[64%] lg:ml-20">
-          <form action="post">
+          <form onSubmit={onSubmit}>
             <input
               id="email"
               value={email}
