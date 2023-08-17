@@ -16,6 +16,8 @@ const OAuth = () => {
       const result = await signInWithPopup(auth, provider); // this is to sign in with the popup
       const user = result.user; // this is to get the user
 
+      console.log(user);
+
       // check if user is new or existing
       const docRef = await doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
@@ -30,8 +32,6 @@ const OAuth = () => {
       }
       notifications("Successfully authorized with Google!", false);
       navigate("/");
-
-      console.log(user);
     } catch (error) {
       console.error(error);
       notifications("Could not authorize with Google!", true);

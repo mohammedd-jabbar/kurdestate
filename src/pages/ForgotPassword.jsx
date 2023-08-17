@@ -1,12 +1,27 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { notifications } from "../components/Notifications";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
 
   const onChange = (e) => {
     setEmail(e.target.value);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+
+      await sendPasswordResetEmail(auth, email);
+      notifications("Email was sent", false);
+    } catch (error) {
+      notifications("Could not send reset password", true);
+    }
   };
 
   return (
@@ -23,7 +38,7 @@ const ForgotPassword = () => {
         </div>
 
         <div className="w-full lg:w-[40%] md:w-[64%] lg:ml-20">
-          <form action="post">
+          <form onSubmit={onSubmit}>
             <input
               id="email"
               value={email}
@@ -37,7 +52,7 @@ const ForgotPassword = () => {
               <p className="">
                 Have a account?
                 <Link
-                  to="/sign-up"
+                  to="/sign-in"
                   className="text-red-600 ml-1 hover:text-red-800 transition duration-200 ease-in-out"
                 >
                   Sign in
