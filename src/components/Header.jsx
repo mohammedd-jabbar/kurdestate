@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-white border-b shadow-sm sticky top-0 z-50">
+      <div className="bg-white border-b shadow-sm sticky top-0 z-40">
         <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
           <div>
             <Link to="/">
@@ -44,21 +44,25 @@ const Header = () => {
                   Home
                 </li>
               </Link>
-              <li
-                className={`py-3 cursor-pointer text-base font-semibold text-gray-400 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
-                  "/offers"
-                )}`}
-              >
-                <Link to="/offers"> Offers </Link>
-              </li>
-              <li
-                className={`py-3 cursor-pointer text-base font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                  getActiveRouteStyles("/sign-in") ||
-                  getActiveRouteStyles("/profile")
-                }`}
-              >
-                <Link to="/profile">{pageState} </Link>
-              </li>
+              <Link to="/offers">
+                <li
+                  className={`py-3 cursor-pointer text-base font-semibold text-gray-400 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
+                    "/offers"
+                  )}`}
+                >
+                  Offers
+                </li>
+              </Link>
+              <Link to="/profile">
+                <li
+                  className={`py-3 cursor-pointer text-base font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
+                    getActiveRouteStyles("/sign-in") ||
+                    getActiveRouteStyles("/profile")
+                  }`}
+                >
+                  {pageState}
+                </li>
+              </Link>
             </ul>
           </div>
         </header>
