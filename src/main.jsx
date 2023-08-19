@@ -16,6 +16,7 @@ import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
 import Header from "./components/Header";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,14 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: <PrivateRoute />,
+        children: [
+          {
+            index: true,
+            element: <Profile />,
+            errorElement: <div>404</div>,
+          },
+        ],
       },
       {
         path: "sign-in",
