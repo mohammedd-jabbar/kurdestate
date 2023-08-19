@@ -12,8 +12,8 @@ const Profile = () => {
   const [isEditingName, setIsEditingName] = useState(false); // State to handle the name editing, default is false, so the name input is disabled by default and the user can't edit it, when the user click on the edit button, the state will be true and the name input will be enabled
 
   const [formData, steFormData] = useState({
-    name: auth.currentUser.displayName,
-    email: auth.currentUser.email,
+    name: auth.currentUser.displayName, // Set the name in the state to the current user name
+    email: auth.currentUser.email, // Set the email in the state to the current user email
   });
   const { name, email } = formData;
 
