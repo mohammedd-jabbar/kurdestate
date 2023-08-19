@@ -7,7 +7,7 @@ import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { notifications } from "../components/Notifications";
 
 const SignIn = () => {
-  const navigate = useNavigate();
+  const navigateTo = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -19,7 +19,7 @@ const SignIn = () => {
   const { email, password } = formData;
 
   // On change function for input fields to update state with user input
-  const onChange = (e) => {
+  const handleInputChange = (e) => {
     /// this function will update the state with the user input, setformdata is a function that will update the state
     setFormData((prevState) => ({
       // ...prevState will copy the previous state
@@ -28,7 +28,7 @@ const SignIn = () => {
     }));
   };
 
-  const onSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
       const auth = getAuth();
@@ -38,7 +38,7 @@ const SignIn = () => {
         password
       );
       if (userCredential.user) {
-        navigate("/");
+        navigateTo("/");
         notifications("Successfully signed in!", false);
       }
     } catch (error) {
@@ -60,13 +60,13 @@ const SignIn = () => {
         </div>
 
         <div className="w-full lg:w-[40%] md:w-[64%] lg:ml-20">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleFormSubmit}>
             <input
               id="email"
               value={email}
               type="email"
               placeholder="Email Address"
-              onChange={onChange}
+              onChange={handleInputChange}
               className="w-full px-4 py-2 mb-6 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
             />
             <div className="relative mb-6 ">
@@ -75,7 +75,7 @@ const SignIn = () => {
                 value={password}
                 type={showPassword ? "text" : "password"} // if showPassword is true, show text, else show password
                 placeholder="Email Password"
-                onChange={onChange}
+                onChange={handleInputChange}
                 className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
               />
               {showPassword ? ( // if showPassword is true, show AiFillEyeInvisible icon

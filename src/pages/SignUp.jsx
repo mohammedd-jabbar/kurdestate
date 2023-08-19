@@ -13,7 +13,7 @@ import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { notifications } from "../components/Notifications";
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  const navigateTo = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +26,7 @@ const SignUp = () => {
   const { email, password, name } = formData;
 
   // On change function for input fields to update state with user input
-  const onChange = (e) => {
+  const handleInputChange = (e) => {
     /// this function will update the state with the user input, setFormData is a function that will update the state
     setFormData((prevState) => ({
       // ...prevState will copy the previous state
@@ -35,7 +35,7 @@ const SignUp = () => {
     }));
   };
 
-  const onSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     const auth = getAuth();
@@ -50,9 +50,8 @@ const SignUp = () => {
       // this function will update the user profile with the name
       updateProfile(auth.currentUser, { displayName: name });
 
-      // this function will create a new document in the users collection with the user id
       const user = userCredential.user;
-      // this function will create a new document in the users collection with the user id
+
       const formDataCopy = { ...formData };
       // this will delete the password field from the formDataCopy
       delete formDataCopy.password;
@@ -63,7 +62,7 @@ const SignUp = () => {
       await setDoc(doc(db, "users", user.uid), formDataCopy);
 
       // this will redirect the user to the home page
-      navigate("/");
+      navigateTo("/");
 
       notifications("Sign Up was successful!");
     } catch (error) {
@@ -85,13 +84,13 @@ const SignUp = () => {
         </div>
 
         <div className="w-full lg:w-[40%] md:w-[64%] lg:ml-20">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleFormSubmit}>
             <input
               id="name"
               value={name}
               type="text"
               placeholder="Full name"
-              onChange={onChange}
+              onChange={handleInputChange}
               className="w-full px-4 py-2 mb-6 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
             />
             <input
@@ -99,7 +98,7 @@ const SignUp = () => {
               value={email}
               type="email"
               placeholder="Email Address"
-              onChange={onChange}
+              onChange={handleInputChange}
               className="w-full px-4 py-2 mb-6 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
             />
             <div className="relative mb-6 ">
@@ -108,7 +107,7 @@ const SignUp = () => {
                 value={password}
                 type={showPassword ? "text" : "password"} // if showPassword is true, show text, else show password
                 placeholder="Email Password"
-                onChange={onChange}
+                onChange={handleInputChange}
                 className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
               />
               {showPassword ? ( // if showPassword is true, show AiFillEyeInvisible icon

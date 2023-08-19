@@ -2,18 +2,20 @@ import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export const UseAuthStatus = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [checkingStatus, setCheckingStatus] = useState(true); // loading
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // loading
 
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
+      // Listen for changes in user authentication state, including sign-in and sign-out events.
       if (user) {
-        setLoggedIn(true);
+        // if user is logged in
+        setIsLoggedIn(true);
       }
-      setCheckingStatus(false);
+      setIsLoading(false);
     });
   }, []);
 
-  return { loggedIn, checkingStatus };
+  return { isLoggedIn, isLoading };
 };

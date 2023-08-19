@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
+// this is a custom notification component
 export const notifications = (msg, err = false) => {
   if (!err) {
     return toast(msg, {

@@ -7,11 +7,11 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
 
-  const onChange = (e) => {
+  const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
-  const onSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -38,13 +38,13 @@ const ForgotPassword = () => {
         </div>
 
         <div className="w-full lg:w-[40%] md:w-[64%] lg:ml-20">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleFormSubmit}>
             <input
               id="email"
               value={email}
               type="email"
               placeholder="Email Address"
-              onChange={onChange}
+              onChange={handleEmailChange}
               className="w-full px-4 py-2 mb-6 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
             />
 
