@@ -17,7 +17,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
 import Header from "./components/Header";
 import { PrivateRoute } from "./components/PrivateRoute";
-import CreateList from "./pages/CreateList/CreateList";
+import CreateList from "./pages/CreateList";
 
 const router = createBrowserRouter([
   {
@@ -57,9 +57,17 @@ const router = createBrowserRouter([
         path: "offers",
         element: <Offers />,
       },
+
       {
         path: "create",
-        element: <CreateList />,
+        element: <PrivateRoute />,
+        children: [
+          {
+            index: true,
+            element: <CreateList />,
+            errorElement: <div>404</div>,
+          },
+        ],
       },
       {
         path: "*",
