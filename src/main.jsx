@@ -17,6 +17,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
 import Header from "./components/Header";
 import { PrivateRoute } from "./components/PrivateRoute";
+import CreateList from "./pages/CreateList/CreateList";
 
 const router = createBrowserRouter([
   {
@@ -56,11 +57,15 @@ const router = createBrowserRouter([
         path: "offers",
         element: <Offers />,
       },
+      {
+        path: "create",
+        element: <CreateList />,
+      },
+      {
+        path: "*",
+        element: <div>Not found</div>,
+      },
     ],
-  },
-  {
-    path: "*",
-    element: <div>Not found</div>,
   },
 ]);
 

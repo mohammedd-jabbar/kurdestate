@@ -2,9 +2,10 @@
 import { useState } from "react";
 import { getAuth, signOut, updateProfile } from "firebase/auth";
 import { notifications } from "../components/Notifications";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { FcHome } from "react-icons/fc";
 
 const Profile = () => {
   const auth = getAuth();
@@ -104,6 +105,15 @@ const Profile = () => {
               </p>
             </div>
           </form>
+          <button
+            type="submit"
+            className="w-full  bg-blue-600 text-white uppercase px-7 py-3 text-sm font-bold rounded-md hover:bg-blue-700 transition duration-200 ease-in-out shadow-md hover:shadow-lg active:bg-blue-800  "
+          >
+            <Link to="/create" className="flex justify-center items-center">
+              <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
+              Sell or rent your home
+            </Link>
+          </button>
         </div>
       </section>
     </>
