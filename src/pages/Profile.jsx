@@ -21,7 +21,8 @@ const Profile = () => {
   const auth = getAuth();
   const navigateTo = useNavigate();
   const [isEditingName, setIsEditingName] = useState(false); // State to handle the name editing, default is false, so the name input is disabled by default and the user can't edit it, when the user click on the edit button, the state will be true and the name input will be enabled
-  const [listings, setListings] = useState(null); // State to store the user listings
+
+  const [listings, setListings] = useState(null); // State to store the user listings and edit them
   const [isLoading, setIsLoading] = useState(true); // State to handle the loading
 
   const [formData, steFormData] = useState({
@@ -85,7 +86,7 @@ const Profile = () => {
       // Get the querySnapshot from the query it mean get the data from the query
       const querySnapshot = await getDocs(q);
 
-      // Create an empty array to store the listings
+      // Create an empty array to store the listings data and update the listings state with it
       let listings = [];
 
       // Loop through the querySnapshot and push the data to the listings array
@@ -104,15 +105,16 @@ const Profile = () => {
       // Delete the listing from the firestore
       await deleteDoc(doc(db, "listings", id));
 
-      // Update the state with the new listings, if we don't do that, the listing will not be removed from the UI until we refresh the page, so we do that to remove the listing from the UI without refreshing the page
+      // Create a new array without the deleted listing, we return all the listings that their id is not equal to the id of the listing that we want to delete
       const updatedListings = listings.filter((listing) => listing.id !== id);
+      // Update the state with the new listings, if we don't do that, the listing will not be removed from the UI until we refresh the page, so we do that to remove the listing from the UI without refreshing the page
       setListings(updatedListings);
 
       notifications("Listing deleted successfully");
     }
   };
   const handleEdit = (id) => {
-    navigateTo(`/edit-listing/${id}`);
+    navigateTo(`/edit/${id}`);
   };
 
   return (

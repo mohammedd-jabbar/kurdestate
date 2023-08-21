@@ -18,6 +18,7 @@ import Offers from "./pages/Offers";
 import Header from "./components/Header";
 import { PrivateRoute } from "./components/PrivateRoute";
 import CreateList from "./pages/CreateList";
+import Editlisting from "./pages/Editlisting";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,17 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <CreateList />,
+            errorElement: <div>404</div>,
+          },
+        ],
+      },
+      {
+        path: "edit/:listId",
+        element: <PrivateRoute />,
+        children: [
+          {
+            index: true,
+            element: <Editlisting />,
             errorElement: <div>404</div>,
           },
         ],
