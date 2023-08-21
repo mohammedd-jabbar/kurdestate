@@ -28,7 +28,7 @@ const OAuth = () => {
           timeStamp: serverTimestamp(),
         });
       }
-      notifications("Successfully authorized with Google!", false);
+      notifications("Successfully authorized with Google!");
       navigateTo("/");
     } catch (error) {
       console.error(error);

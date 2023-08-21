@@ -200,6 +200,7 @@ const CreateList = () => {
       imgUrls, // add the imgUrls that we uploaded to the firebase storage
       geoLocation, // and manually latitude and longitude
       timeStamp: serverTimestamp(), // add the timestamp when the listing was created
+      userRef: auth.currentUser.uid, // add the user id to the listing
     };
 
     // delete the things that we don't need

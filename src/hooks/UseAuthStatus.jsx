@@ -7,8 +7,8 @@ export const UseAuthStatus = () => {
 
   useEffect(() => {
     const auth = getAuth();
+    // Listen for changes in user authentication state, including sign-in and sign-out events.
     onAuthStateChanged(auth, (user) => {
-      // Listen for changes in user authentication state, including sign-in and sign-out events.
       if (user) {
         // if user is logged in
         setIsLoggedIn(true);

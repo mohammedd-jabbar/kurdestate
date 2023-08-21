@@ -1,16 +1,27 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAuth, signOut, updateProfile } from "firebase/auth";
 import { notifications } from "../components/Notifications";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { FcHome } from "react-icons/fc";
+import ListingItem from "../components/ListingItem";
 
 const Profile = () => {
   const auth = getAuth();
   const navigateTo = useNavigate();
   const [isEditingName, setIsEditingName] = useState(false); // State to handle the name editing, default is false, so the name input is disabled by default and the user can't edit it, when the user click on the edit button, the state will be true and the name input will be enabled
+  const [listings, setListings] = useState(null); // State to store the user listings
+  const [isLoading, setIsLoading] = useState(true); // State to handle the loading
 
   const [formData, steFormData] = useState({
     name: auth.currentUser.displayName, // Set the name in the state to the current user name
@@ -57,6 +68,36 @@ const Profile = () => {
       notifications("Could not update the profile name", true);
     }
   };
+
+  useEffect(() => {
+    // Fetch the user listings
+    const fetchUserListings = async () => {
+      // get the listings collection from database
+      const listingRef = collection(db, "listings");
+      // get the listings where the userRef is equal to the current user id and order them by timestamp
+      const q = query(
+        listingRef,
+        where("userRef", "==", auth.currentUser.uid),
+        orderBy("timeStamp", "desc")
+      );
+
+      // Get the querySnapshot from the query it mean get the data from the query
+      const querySnapshot = await getDocs(q);
+
+      // Create an empty array to store the listings
+      let listings = [];
+
+      // Loop through the querySnapshot and push the data to the listings array
+      querySnapshot.forEach((doc) =>
+        listings.push({ id: doc.id, data: doc.data() })
+      );
+
+      setListings(listings); // Update the state with the listings array
+      setIsLoading(false); // Update the state to false to stop the loading
+    };
+    fetchUserListings();
+  }, [auth.currentUser.uid]);
+
   return (
     <>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
@@ -116,6 +157,22 @@ const Profile = () => {
           </button>
         </div>
       </section>
+      <div className="max-w-6xl px-3 mt-7 mx-auto">
+        {!isLoading && listings.length > 0 && (
+          <>
+            <h2 className="text-2xl text-center font-semibold">My Listing</h2>
+            <ul>
+              {listings.map((listing) => (
+                <ListingItem
+                  key={listing.id}
+                  listing={listing.data}
+                  id={listing.id}
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </>
   );
 };
