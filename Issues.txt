@@ -1,0 +1,29 @@
+Issue 1: Form Submission in CreateList.jsx
+
+When you submit the form from "/src/pages/CreateList.jsx," the numbers are being converted to strings. To fix this, you should convert them back to numbers using the following condition: if (+discountedPrice >= +regularPrice).
+
+Issue 2: Importing CSS for Lazy Loading Images
+
+For the lazy loading image component to work, you need to import the "blur.css" file from "react-lazy-load-image-component/src/effects/blur.css."
+
+Issue 3: Compatibility of react-moment with Vite
+
+The "react-moment" package doesn't work with Vite. To make it work, you should follow these steps:
+
+    Install the "npm i @originjs/vite-plugin-commonjs" package.
+    Update your Vite config with the following code:
+
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  optimizeDeps: {
+    esbuildOptions: {
+      plugins: [esbuildCommonjs(["react-moment"])],
+    },
+  },
+});
+
