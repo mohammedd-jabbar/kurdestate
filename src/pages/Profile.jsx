@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   orderBy,
@@ -98,6 +99,22 @@ const Profile = () => {
     fetchUserListings();
   }, [auth.currentUser.uid]);
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this listing?")) {
+      // Delete the listing from the firestore
+      await deleteDoc(doc(db, "listings", id));
+
+      // Update the state with the new listings, if we don't do that, the listing will not be removed from the UI until we refresh the page, so we do that to remove the listing from the UI without refreshing the page
+      const updatedListings = listings.filter((listing) => listing.id !== id);
+      setListings(updatedListings);
+
+      notifications("Listing deleted successfully");
+    }
+  };
+  const handleEdit = (id) => {
+    navigateTo(`/edit-listing/${id}`);
+  };
+
   return (
     <>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
@@ -169,6 +186,8 @@ const Profile = () => {
                   key={listing.id}
                   listing={listing.data}
                   id={listing.id}
+                  onDelete={() => handleDelete(listing.id)}
+                  onEdit={() => handleEdit(listing.id)}
                 />
               ))}
             </ul>
