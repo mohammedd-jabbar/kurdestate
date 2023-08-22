@@ -14,11 +14,13 @@ import {
   Pagination,
   EffectCreative,
 } from "swiper/modules";
+import { FaShare } from "react-icons/fa";
 
 const Listing = () => {
   const { categoryName, listingId } = useParams();
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [shareLink, setShareLink] = useState(false);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -59,7 +61,6 @@ const Listing = () => {
         }}
         modules={[Autoplay, EffectCreative, Pagination, Navigation]}
         scrollbar={{ draggable: true }}
-        className="mt-6"
       >
         {listing.imgUrls.map((url, index) => (
           <SwiperSlide key={index}>
@@ -73,6 +74,23 @@ const Listing = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <div
+        className="fixed top-[13%] right-[3%] z-10 bg-white cursor-pointer border-2 border-gray-400 rounded-full w-10 h-10 flex justify-center items-center"
+        onClick={() => {
+          navigator.clipboard.writeText(window.location.href);
+          setShareLink(true);
+          setTimeout(() => {
+            setShareLink(false);
+          }, 2000);
+        }}
+      >
+        <FaShare className="text-lg text-slate-500" />
+      </div>
+      {shareLink && (
+        <p className="fixed top-[23%] right-[5%] z-10 font-semibold border-2 border-gray-400 rounded-md bg-white p-2">
+          Link Copied
+        </p>
+      )}
     </main>
   );
 };
