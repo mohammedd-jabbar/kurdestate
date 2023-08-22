@@ -19,6 +19,7 @@ import Header from "./components/Header";
 import { PrivateRoute } from "./components/PrivateRoute";
 import CreateList from "./pages/CreateList";
 import Editlisting from "./pages/Editlisting";
+import Listing from "./pages/Listing";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +59,10 @@ const router = createBrowserRouter([
         path: "offers",
         element: <Offers />,
       },
-
+      {
+        path: "category/:categoryName/:listingId",
+        element: <Listing />,
+      },
       {
         path: "create",
         element: <PrivateRoute />,

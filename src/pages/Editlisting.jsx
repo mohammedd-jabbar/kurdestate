@@ -24,6 +24,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const EditListing = () => {
   const navigateTo = useNavigate();
+
   const auth = getAuth();
   const [geoLocationEnabled, setGeoLocationEnabled] = useState(true); // if you don't have a google api for geo location, set this to false, then you can enter the latitude and longitude manually
   const [loading, setLoading] = useState(false); // for the loading state
@@ -90,7 +91,7 @@ const EditListing = () => {
       };
       fetchListing();
     }
-  }, [listId, auth.currentUser.uid, listing, navigateTo]);
+  }, [listId, auth.currentUser.uid]); // err
 
   const onFormChange = (e) => {
     // handle the form change for each input or button
