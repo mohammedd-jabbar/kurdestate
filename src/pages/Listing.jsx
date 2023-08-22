@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase";
+import { getAuth } from "firebase/auth";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -22,12 +24,15 @@ import {
   FaChair,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import Contact from "../components/Contact";
 
 const Listing = () => {
+  const auth = getAuth();
   const { categoryName, listingId } = useParams();
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [shareLink, setShareLink] = useState(false);
+  const [contactLandlord, setContactLandlord] = useState(false);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -99,7 +104,7 @@ const Listing = () => {
         </p>
       )}
       <div className="flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto p-4 rounded-lg shadow-lg bg-white lg:space-x-5">
-        <div className="w-full h-[200px] lg-[400px]">
+        <div className="w-full ">
           <p className="text-2xl font-bold mb-3 text-blue-900">
             {listing.name} - $
             {listing.offer
@@ -132,7 +137,7 @@ const Listing = () => {
             <span className="font-semibold">Description - </span>
             {listing.description}
           </p>
-          <ul className="flex items-center space-x-2 sm:space-x-10 text-sm font-semibold">
+          <ul className="flex items-center space-x-2 sm:space-x-10 text-sm font-semibold mb-6">
             <li className="flex items-center whitespace-nowrap">
               <FaBed className="text-lg mr-1" />
               {+listing.beds > 1 ? `${listing.beds} Beds` : "1 Bed"}
@@ -150,6 +155,19 @@ const Listing = () => {
               {listing.furnished > true ? "Furnished" : "Not Furnished"}
             </li>
           </ul>
+          {listing.userRef !== auth.currentUser?.uid && !contactLandlord && (
+            <div className="mt-6">
+              <button
+                onClick={() => setContactLandlord(true)}
+                className="px-7 py-3 w-full text-center bg-blue-600 text-white rounded font-medium text-sm uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 transition duration-150 ease-in-out"
+              >
+                Contact Landlord
+              </button>
+            </div>
+          )}
+          {contactLandlord && (
+            <Contact userRef={listing.userRef} listing={listing} />
+          )}
         </div>
         <div className="bg-blue-300 w-full h-[200px] z-10 overflow-x-hidden"></div>
       </div>
