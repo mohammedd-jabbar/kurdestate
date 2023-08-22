@@ -25,6 +25,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import Contact from "../components/Contact";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 const Listing = () => {
   const auth = getAuth();
@@ -41,13 +42,12 @@ const Listing = () => {
       if (docSnap.exists()) {
         setListing(docSnap.data());
         setIsLoading(false);
-        console.log(listing);
       }
     };
-
     fetchListings();
   }, [listingId]);
   if (isLoading) return <div>Loading...</div>;
+  if (listing) console.log(listing);
 
   return (
     <main>
@@ -169,7 +169,22 @@ const Listing = () => {
             <Contact userRef={listing.userRef} listing={listing} />
           )}
         </div>
-        <div className="bg-blue-300 w-full h-[200px] z-10 overflow-x-hidden"></div>
+        <div className="w-full h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2">
+          <MapContainer
+            center={[+listing.geoLocation.lng, +listing.geoLocation.lat]}
+            zoom={13}
+            scrollWheelZoom={true}
+            style={{ height: "100%", width: "100%" }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker
+              position={[+listing.geoLocation.lng, +listing.geoLocation.lat]}
+            ></Marker>
+          </MapContainer>
+        </div>
       </div>
     </main>
   );
