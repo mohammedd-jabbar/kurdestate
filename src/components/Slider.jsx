@@ -13,6 +13,8 @@ import {
   Pagination,
   EffectCreative,
 } from "swiper/modules";
+
+import HomeSliderSwiper from "./HomeSliderSwiper";
 import { useNavigate } from "react-router-dom";
 
 const Slider = () => {
@@ -68,25 +70,14 @@ const Slider = () => {
           modules={[Autoplay, EffectCreative, Pagination, Navigation]}
           scrollbar={{ draggable: true }}
         >
-          {listings.map(({ data, id }) => (
+          {listings.map((data) => (
             <SwiperSlide
-              key={id}
-              onClick={() => navigateTo(`category/${data.type}/${id}`)}
+              key={data.id}
+              onClick={() =>
+                navigateTo(`category/${data.data.type}/${data.id}`)
+              }
             >
-              <div
-                className="relative w-full overflow-hidden h-[300px]"
-                style={{
-                  background: `url(${data.imgUrls?.[0]}) center no-repeat`,
-                  backgroundSize: "cover",
-                }}
-              ></div>
-              <p className="text=[#f1faee] absolute left-1 top-3 font-medium max-w-[19%] bg-[#457b9d] shadow-lg opacity-90 p-2 text-white rounded-br-3xl">
-                {data.name}
-              </p>
-              <p className="text=[#f1faee] absolute left-1 bottom-1 font-semibold max-w-[19%] bg-[#e63946] shadow-lg opacity-90 p-2 text-white rounded-tr-3xl">
-                ${data.descountedPrice ?? data.regularPrice}
-                {data.type === "rent" && " /month"}
-              </p>
+              <HomeSliderSwiper key={data.id} data={data} />
             </SwiperSlide>
           ))}
         </Swiper>

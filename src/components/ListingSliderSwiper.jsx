@@ -11,7 +11,7 @@ import {
   EffectCreative,
 } from "swiper/modules";
 
-const SliderSwiper = ({ listing }) => {
+const ListingSliderSwiper = ({ listing }) => {
   return (
     <Swiper
       slidesPerView={1}
@@ -51,4 +51,4 @@ const SliderSwiper = ({ listing }) => {
   );
 };
 
-export default SliderSwiper;
+export default ListingSliderSwiper;

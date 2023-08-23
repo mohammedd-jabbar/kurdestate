@@ -27,7 +27,7 @@ import {
 } from "react-icons/fa";
 import Contact from "../components/Contact";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import SliderSwiper from "../components/ListingSliderSwiper";
+import ListingSliderSwiper from "../components/ListingSliderSwiper";
 
 const Listing = () => {
   const auth = getAuth();
@@ -53,42 +53,8 @@ const Listing = () => {
 
   return (
     <main>
-      <SliderSwiper listing={listing.imgUrls} />
-      {/* <Swiper
-        slidesPerView={1}
-        effect={"creative"}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        creativeEffect={{
-          prev: {
-            shadow: true,
-            translate: [0, 0, -400],
-          },
-          next: {
-            translate: ["100%", 0, 0],
-          },
-        }}
-        navigation={true}
-        pagination={{
-          type: "progressbar",
-        }}
-        modules={[Autoplay, EffectCreative, Pagination, Navigation]}
-        scrollbar={{ draggable: true }}
-      >
-        {listing.imgUrls.map((url, index) => (
-          <SwiperSlide key={index}>
-            <div
-              className="relative w-full overflow-hidden h-[300px]"
-              style={{
-                background: `url(${listing.imgUrls[index]}) center no-repeat`,
-                backgroundSize: "cover",
-              }}
-            ></div>
-          </SwiperSlide>
-        ))}
-      </Swiper> */}
+      <ListingSliderSwiper listing={listing.imgUrls} />
+     
       <div
         className="fixed top-[13%] right-[3%] z-10 bg-white cursor-pointer border-2 border-gray-400 rounded-full w-10 h-10 flex justify-center items-center"
         onClick={() => {
