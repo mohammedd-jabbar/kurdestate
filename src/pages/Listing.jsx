@@ -16,6 +16,7 @@ import {
   Pagination,
   EffectCreative,
 } from "swiper/modules";
+
 import {
   FaShare,
   FaBed,
@@ -26,6 +27,7 @@ import {
 } from "react-icons/fa";
 import Contact from "../components/Contact";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import SliderSwiper from "../components/ListingSliderSwiper";
 
 const Listing = () => {
   const auth = getAuth();
@@ -51,7 +53,8 @@ const Listing = () => {
 
   return (
     <main>
-      <Swiper
+      <SliderSwiper listing={listing.imgUrls} />
+      {/* <Swiper
         slidesPerView={1}
         effect={"creative"}
         autoplay={{
@@ -85,7 +88,7 @@ const Listing = () => {
             ></div>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper> */}
       <div
         className="fixed top-[13%] right-[3%] z-10 bg-white cursor-pointer border-2 border-gray-400 rounded-full w-10 h-10 flex justify-center items-center"
         onClick={() => {
