@@ -120,7 +120,7 @@ const Home = () => {
                 Show more offers
               </p>
             </Link>
-            <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {offerListing.map((offer) => (
                 <ListingItem
                   key={offer.id}
@@ -128,7 +128,7 @@ const Home = () => {
                   id={offer.id}
                 />
               ))}
-            </ul>
+            </div>
           </div>
         )}
         {/* rent */}
