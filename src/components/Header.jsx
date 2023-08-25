@@ -1,69 +1,171 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { notifications } from "./Notifications";
+import NavbarDropDown from "./NavbarDropDown";
 
 const Header = () => {
-  const location = useLocation();
+  let location = useLocation();
+  const navigateTo = useNavigate();
+  const [isDropDown, setIsDropDown] = useState(false);
+  const [isLanguage, setIsLanguage] = useState(false);
 
-  const [pageState, setPageState] = useState("Sign In");
+  const [userAuth, setUserAuth] = useState(false);
+  const [dashboard, setDashboard] = useState(false);
+
+  const [user, setUser] = useState({
+    firstLetter: "",
+    profilePhoto: "",
+    name: "",
+    email: "",
+  });
+
+  const { firstLetter, profilePhoto, name, email } = user;
+
   const auth = getAuth();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setPageState("Profile");
+      if (user && user.photoURL) {
+        setUser((prevUser) => ({
+          ...prevUser,
+          profilePhoto: user.photoURL,
+          name: user.displayName,
+          email: user.email,
+        }));
+
+        if (user.uid === "WoRWTrX3FfZSp2bt7Rhf9hqLDE63") {
+          setDashboard(true);
+        }
+        setUserAuth(true);
       } else {
-        setPageState("Sign In");
+        const fullName = user.displayName;
+        const firstSpaceIndex = fullName.indexOf(" ");
+        const firstLetterUser =
+          firstSpaceIndex !== -1 ? fullName.charAt(0) : fullName;
+
+        setUser((prevUser) => ({
+          ...prevUser,
+          firstLetter: firstLetterUser,
+        }));
+
+        setUserAuth(false);
       }
     });
   }, [auth]);
 
+  const toggleDropdown = () => {
+    setIsDropDown(!isDropDown);
+  };
+  const toggleLanguageDropdown = () => {
+    setIsLanguage(!isLanguage);
+  };
+
+  const handleLogout = () => {
+    try {
+      auth.signOut(auth); // Sign out the current user and update the state
+      navigateTo("/");
+    } catch (error) {
+      notifications("Sorry", "error");
+    }
+  };
+
   // this function is used to check if the current route is the same as the route passed as an argument and return some different styles
-  const getActiveRouteStyles = (route) => {
-    return location.pathname === route ? "!border-b-red-500 !text-black" : "";
+  const getActiveRouteStyles = (
+    route,
+    style = "!border-b-primary-500 !text-black"
+  ) => {
+    return location.pathname === route ? style : "";
   };
 
   return (
     <>
-      <div className="bg-white border-b shadow-sm sticky top-0 z-40">
-        <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
+      <div className="bg-headerBackground border-b shadow-sm sticky top-0 z-40">
+        <header className="flex justify-between items-center py-2 px-3 max-w-6xl mx-auto">
           <div>
             <Link to="/">
               <h1 className="h-5 cursor-pointer text-2xl flex items-center justify-center font-bold">
-                Kurd <span className="text-red-600">Homes</span>
+                Kurd <span className="text-primary-500">Estate</span>
               </h1>
             </Link>
           </div>
           <div>
             <ul className="flex space-x-10">
-              <Link to="/">
+              <Link to="/category/rent">
                 <li
-                  className={`py-3 cursor-pointer text-base font-semibold text-gray-400 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
-                    "/"
+                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
+                    "/category/rent"
                   )}`}
                 >
-                  Home
+                  Rent
+                </li>
+              </Link>
+              <Link to="/category/sale">
+                <li
+                  className={`py-3 cursor-pointer text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
+                    "/category/sale"
+                  )}`}
+                >
+                  Sell
                 </li>
               </Link>
               <Link to="/offers">
                 <li
-                  className={`py-3 cursor-pointer text-base font-semibold text-gray-400 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
+                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
                     "/offers"
                   )}`}
                 >
                   Offers
                 </li>
               </Link>
-              <Link to="/profile">
-                <li
-                  className={`py-3 cursor-pointer text-base font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                    getActiveRouteStyles("/sign-in") ||
-                    getActiveRouteStyles("/profile")
-                  }`}
-                >
-                  {pageState}
-                </li>
-              </Link>
             </ul>
+          </div>
+          <div>
+            {userAuth ? (
+              <NavbarDropDown
+                handleLogout={handleLogout}
+                toggleDropdown={toggleDropdown}
+                toggleLanguageDropdown={toggleLanguageDropdown}
+                isLanguage={isLanguage}
+                isDropDown={isDropDown}
+                firstLetter={firstLetter}
+                profilePhoto={profilePhoto}
+                name={name}
+                email={email}
+                dashboard={dashboard}
+              />
+            ) : (
+              <div className="space-x-5">
+                <Link to="/sign-in">
+                  <button
+                    // Login Button: white background with an outline. Sign Up Button: Blue background without an outline.
+
+                    // When the Login button is clicked, the Sign Up button outline becomes visible to differentiate between the two buttons. This approach ensures clarity when both buttons have a blue background.
+                    className={`shadow-sm ${
+                      // If on the "/sign-in" page, style as active Login button.
+                      location.pathname === "/sign-in"
+                        ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out border-2 px-4 py-[5px] rounded-lg bg-primary-500 border-primary-500 !text-white hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
+                        : // If not on "/sign-in", style as inactive Login button.
+                          `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
+                    }`}
+                  >
+                    Login
+                  </button>
+                </Link>
+                <Link to="/sign-up">
+                  <button
+                    className={`shadow-sm ${
+                      // If on the "/sign-in" page, style as inactive Sign Up button.
+                      location.pathname === "/sign-in"
+                        ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
+                        : // If not on "/sign-in", style as active Sign Up button.
+                          `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-white bg-primary-500 border-2 border-primary-500 px-4 py-[5px] rounded-lg hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
+                    }`}
+                  >
+                    Sign In
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
         </header>
       </div>
