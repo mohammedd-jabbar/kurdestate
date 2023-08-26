@@ -12,6 +12,7 @@ import {
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 import ListingItem from "../components/ListingItem";
+import ListingHome from "../components/ListingHome";
 
 const Home = () => {
   // offer
@@ -122,7 +123,7 @@ const Home = () => {
             </Link>
             <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {offerListing.map((offer) => (
-                <ListingItem
+                <ListingHome
                   key={offer.id}
                   listing={offer.data}
                   id={offer.id}
@@ -160,11 +161,11 @@ const Home = () => {
                 Show more places for sale
               </p>
             </Link>
-            <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="sm:grid mb-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md gap-x-6">
               {saleListing.map((sale) => (
-                <ListingItem key={sale.id} listing={sale.data} id={sale.id} />
+                <ListingHome key={sale.id} listing={sale.data} id={sale.id} />
               ))}
-            </ul>
+            </div>
           </div>
         )}
       </div>
