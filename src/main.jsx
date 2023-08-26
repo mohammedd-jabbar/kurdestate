@@ -21,6 +21,7 @@ import CreateList from "./pages/CreateList";
 import Editlisting from "./pages/Editlisting";
 import Listing from "./pages/Listing";
 import Category from "./pages/Category";
+import Setting from "./pages/Setting";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "offers",
         element: <Offers />,
+      },
+      {
+        path: "setting",
+        element: <Setting />,
       },
       {
         path: "category/:categoryName",
