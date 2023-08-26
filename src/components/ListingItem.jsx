@@ -6,7 +6,7 @@ import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { FaBath, FaParking, FaMapMarkerAlt } from "react-icons/fa";
 import { LuBedDouble } from "react-icons/lu";
-import Heart from "../assets/svg/heart.jsx";
+import Heart from "../assets/svg/Heart.jsx";
 
 const ListingItem = ({ listing, id, onDelete, onEdit }) => {
   return (

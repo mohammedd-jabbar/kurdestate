@@ -6,7 +6,7 @@ const Heart = () => {
       viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="#7065f0"
-      className="h-[22px]group-hover:stroke-white group-active:stroke-white group-focus:stroke-white w-[22px]"
+      className="h-[22px] group-hover:stroke-white group-active:stroke-white group-focus:stroke-white w-[22px]"
     >
       <path
         strokeLinecap="round"
