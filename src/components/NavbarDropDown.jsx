@@ -21,12 +21,12 @@ const NavbarDropDown = ({
       >
         {profilePhoto ? (
           <img
-            className="w-10 border border-black border-opacity-50 h-10 rounded-full"
+            className="w-10 border border-primary-500 border-opacity-50 h-10 rounded-full"
             src={profilePhoto}
             alt=""
           />
         ) : (
-          <span className="w-8 h-8 border border-black rounded-[50%] font-bold text-center border-opacity-50 text-xl">
+          <span className="w-8 h-8 border border-primary-500 rounded-[50%] font-bold text-center border-opacity-50 text-xl">
             {firstLetter}
           </span>
         )}

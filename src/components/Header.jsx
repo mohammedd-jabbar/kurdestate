@@ -53,6 +53,21 @@ const Header = () => {
     });
   }, [auth]);
 
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 60) {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
+    });
+    return () => {
+      window.removeEventListener("scroll", () => {});
+    };
+  }, []);
+
   const toggleDropdown = () => {
     setIsDropDown(!isDropDown);
   };
@@ -79,8 +94,12 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-headerBackground border-b shadow-sm sticky top-0 z-40">
-        <header className="flex justify-between items-center py-2 px-3 max-w-6xl mx-auto">
+      <div
+        className={`${
+          isActive ? "border-b py-1 shadow-md" : " py-0 "
+        } sticky w-full bg-headerBackground top-0 z-40 transition-all duration-300 ease-in-out`}
+      >
+        <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
           <div>
             <Link to="/">
               <h1 className="h-5 cursor-pointer text-2xl flex items-center justify-center font-bold">
@@ -89,7 +108,7 @@ const Header = () => {
             </Link>
           </div>
           <div>
-            <ul className="flex space-x-10">
+            <ul className="flex space-x-10 mr-[65px]">
               <Link to="/category/rent">
                 <li
                   className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
@@ -169,6 +188,7 @@ const Header = () => {
           </div>
         </header>
       </div>
+
       <Outlet />
     </>
   );

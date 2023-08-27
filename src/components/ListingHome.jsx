@@ -6,10 +6,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 const ListingHome = ({ listing, id }) => {
   return (
     <div className="bg-white group rounded-none flex flex-col justify-between items-center shadow-md hover:shadow-xl transition-shadow w-full duration-300 overflow-hidden">
-      <Link
-        to={`/category/${listing.id}/${id}`}
-        className="p-0 m-0 inline-block w-full relative"
-      >
+      <div className="p-0 m-0 inline-block w-full relative">
         <div className="relative shadow-md hover:shadow-lg group h-[26rem] w-full">
           <LazyLoadImage
             style={{
@@ -58,7 +55,7 @@ const ListingHome = ({ listing, id }) => {
             </Link>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
