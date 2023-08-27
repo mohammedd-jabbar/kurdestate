@@ -5,7 +5,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 const ListingHome = ({ listing, id }) => {
   return (
-    <div className="bg-white group rounded-md flex flex-col justify-between items-center shadow-md hover:shadow-xl transition-shadow w-full duration-300 overflow-hidden">
+    <div className="bg-white group rounded-none flex flex-col justify-between items-center shadow-md hover:shadow-xl transition-shadow w-full duration-300 overflow-hidden">
       <Link
         to={`/category/${listing.id}/${id}`}
         className="p-0 m-0 inline-block w-full relative"
@@ -37,14 +37,14 @@ const ListingHome = ({ listing, id }) => {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </h3>
-            <div className="flex justify-center space-x-3 text-white items-center">
+            <div className="flex justify-start space-x-3 text-white items-center">
               <p className="font-medium">
                 {listing.beds > 1 ? `${listing.beds} Beds | ` : "1 Bed | "}
               </p>
               <p className="font-medium">
                 {listing.bath > 1 ? `${listing.bath} Baths | ` : "1 Bath | "}
               </p>
-              <p className="font-medium">
+              <p className="max-xs:hidden font-medium">
                 {listing.parking > true ? "Parking Spot" : "No Parking"}
               </p>
             </div>

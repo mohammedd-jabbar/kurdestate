@@ -10,9 +10,9 @@ import Heart from "../assets/svg/Heart.jsx";
 
 const ListingItem = ({ listing, id, onDelete, onEdit }) => {
   return (
-    <div className="bg-white flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden m-[10px]">
+    <div className="bg-white flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]">
       <Link
-        to={`/category/${listing.id}/${id}`}
+        to={`/category/${listing.type}/${id}`}
         className="p-0 m-0 inline-block w-full"
       >
         <div className="relative group h-56 w-full">
@@ -74,12 +74,14 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
             </div>
 
             <div className="mt-4 flex items-center justify-center sm:justify-normal gap-10 text-xs">
-              <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
+              <div className="sm:hidden md:inline-flex xl:hidden sm:shrink-0 sm:items-center sm:gap-2">
                 <FaParking className="text-primary-500 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="text-gray-500 font-primary">Parking</p>
-                  <p className="font-medium font-primary">
+                  <p className="text-gray-500 xl:font-base xl:text-xs">
+                    Parking
+                  </p>
+                  <p className="font-medium xl:font-base xl:text-xs">
                     {listing.parking > true ? "Parking Spot" : "No Parking"}
                   </p>
                 </div>
@@ -89,9 +91,11 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
                 <FaBath className="text-primary-500 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="text-gray-500">Bathroom</p>
+                  <p className="text-gray-500 xl:font-base xl:text-xs">
+                    Bathroom
+                  </p>
 
-                  <p className="font-medium">
+                  <p className="font-medium xl:font-base xl:text-xs">
                     {listing.bath > 1 ? `${listing.bath} Rooms` : "1 Room"}
                   </p>
                 </div>
@@ -101,9 +105,11 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
                 <LuBedDouble className="text-primary-500 h-5 w-5" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="text-gray-500">Bedroom</p>
+                  <p className="text-gray-500 xl:font-base xl:text-xs">
+                    Bedroom
+                  </p>
 
-                  <p className="font-medium">
+                  <p className="font-medium xl:font-base xl:text-xs">
                     {listing.beds > 1 ? `${listing.beds} Rooms` : "1 Rooms"}
                   </p>
                 </div>

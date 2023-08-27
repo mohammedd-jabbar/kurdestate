@@ -14,7 +14,14 @@ import { Link } from "react-router-dom";
 import ListingItem from "../components/ListingItem";
 import ListingHome from "../components/ListingHome";
 
+// Import Swiper styles
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import { FreeMode } from "swiper/modules";
+
 const Home = () => {
+  const [shouldLoop, setShouldLoop] = useState(true);
   // offer
   const [offerListing, setOfferListing] = useState(null);
 
@@ -44,6 +51,22 @@ const Home = () => {
       }
     };
     fetchListings();
+
+    // make the loop false
+    const handleResize = () => {
+      if (window.innerWidth >= 1110) {
+        setShouldLoop(false);
+      } else {
+        setShouldLoop(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Call initially
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   // rent
@@ -89,7 +112,7 @@ const Home = () => {
           listingRef,
           where("type", "==", "sale"),
           orderBy("timeStamp", "desc"),
-          limit(4)
+          limit(6)
         );
 
         const snapShotQuery = await getDocs(q);
@@ -111,6 +134,7 @@ const Home = () => {
   return (
     <div>
       <Slider />
+
       <div className="max-w-6xl mx-auto pt-4 space-y-6">
         {/* offer */}
         {offerListing && offerListing.length > 0 && (
@@ -161,10 +185,41 @@ const Home = () => {
                 Show more places for sale
               </p>
             </Link>
-            <div className="sm:grid mb-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md gap-x-6">
-              {saleListing.map((sale) => (
-                <ListingHome key={sale.id} listing={sale.data} id={sale.id} />
-              ))}
+            <div className="mb-6">
+              <Swiper
+                breakpoints={{
+                  100: {
+                    slidesPerView: 1.4,
+                    spaceBetween: 20,
+                  },
+                  640: {
+                    slidesPerView: 2.4,
+                    spaceBetween: 20,
+                  },
+                  796: {
+                    slidesPerView: 2.6,
+                    spaceBetween: 25,
+                  },
+                  930: {
+                    slidesPerView: 2.8,
+                    spaceBetween: 25,
+                  },
+                  1110: {
+                    slidesPerView: 3.7,
+                    spaceBetween: 30,
+                  },
+                }}
+                loop={shouldLoop}
+                freeMode={true}
+                grabCursor={true}
+                modules={[FreeMode]}
+              >
+                {saleListing.map((sale) => (
+                  <SwiperSlide key={sale.id}>
+                    <ListingHome listing={sale.data} id={sale.id} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
         )}

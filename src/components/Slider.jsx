@@ -1,25 +1,21 @@
+// firebase
 import { useEffect, useState } from "react";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { db } from "../../firebase";
+
+// swiper
 import Spinner from "../components/Spinner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
-import {
-  Autoplay,
-  Navigation,
-  Pagination,
-  EffectCreative,
-} from "swiper/modules";
-
-import HomeSliderSwiper from "./HomeSliderSwiper";
-import { useNavigate } from "react-router-dom";
+import "swiper/css/free-mode";
+import { EffectFade, Autoplay } from "swiper/modules";
 
 const Slider = () => {
   const [listings, setListings] = useState();
-  const navigateTo = useNavigate();
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,42 +42,31 @@ const Slider = () => {
   }
   return (
     listings && (
-      <>
-        <Swiper
-          slidesPerView={1}
-          effect={"creative"}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-          creativeEffect={{
-            prev: {
-              shadow: true,
-              translate: [0, 0, -400],
-            },
-            next: {
-              translate: ["100%", 0, 0],
-            },
-          }}
-          navigation={true}
-          pagination={{
-            type: "progressbar",
-          }}
-          modules={[Autoplay, EffectCreative, Pagination, Navigation]}
-          scrollbar={{ draggable: true }}
-        >
-          {listings.map((data) => (
-            <SwiperSlide
-              key={data.id}
-              onClick={() =>
-                navigateTo(`category/${data.data.type}/${data.id}`)
-              }
-            >
-              <HomeSliderSwiper key={data.id} data={data} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </>
+      <Swiper
+        slidesPerView={1}
+        loop={true}
+        effect={"fade"}
+        autoplay={{
+          delay: 1000,
+          disableOnInteraction: false,
+        }}
+        allowTouchMove={false}
+        noSwiping={true}
+        modules={[Autoplay, EffectFade]}
+      >
+        {listings.map((data) => (
+          <SwiperSlide key={data.id}>
+            <div
+              className="relative w-full overflow-hidden h-[90vh]"
+              style={{
+                background: `url(${data?.data?.imgUrls?.[0]}) center no-repeat`,
+                backgroundSize: "cover",
+              }}
+            ></div>
+            {/* <HomeSliderSwiper key={data.id} data={data} /> */}
+          </SwiperSlide>
+        ))}
+      </Swiper>
     )
   );
 };
