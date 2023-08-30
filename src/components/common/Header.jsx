@@ -97,7 +97,7 @@ const Header = () => {
       <div
         className={`${
           isActive ? "border-b py-1 shadow-md" : " py-0 "
-        } sticky w-full bg-headerBackground top-0 z-40 transition-all duration-300 ease-in-out`}
+        } sticky w-full bg-headerBackground border-b shadow top-0 z-40 transition-all duration-300 ease-in-out`}
       >
         <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
           <div>

@@ -1,4 +1,4 @@
-import Sidebar, { SidebarItem } from "../components/Sidebar";
+import Sidebar, { SidebarItem } from "../components/pages/settings/Sidebar";
 
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaListAlt, FaUserCog, FaCog } from "react-icons/fa";

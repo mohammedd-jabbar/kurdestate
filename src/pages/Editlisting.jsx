@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { useEffect, useState } from "react";
-import Spinner from "../components/Spinner"; // for the loading state
-import { notifications } from "../components/Notifications"; // for the notifications
+import Spinner from "../components/common/Spinner"; // for the loading state
+import { notifications } from "../components/common/Notifications"; // for the notifications
 import {
   getStorage,
   ref,

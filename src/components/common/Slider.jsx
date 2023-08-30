@@ -1,7 +1,7 @@
 // firebase
 import { useEffect, useState } from "react";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 
 // swiper
 import Spinner from "../components/Spinner";

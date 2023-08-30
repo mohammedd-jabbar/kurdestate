@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import OAuth from "../components/OAuth";
+import OAuth from "../components/common/OAuth";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
-import { notifications } from "../components/Notifications";
+import { notifications } from "../components/common/Notifications";
 
 const SignIn = () => {
   const navigateTo = useNavigate();

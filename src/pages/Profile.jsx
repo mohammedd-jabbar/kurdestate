@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { getAuth, signOut, updateProfile } from "firebase/auth";
-import { notifications } from "../components/Notifications";
+import { notifications } from "../components/common/Notifications";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import {
@@ -15,7 +15,7 @@ import {
   where,
 } from "firebase/firestore";
 import { FcHome } from "react-icons/fc";
-import ListingItem from "../components/ListingItem";
+import ListingItem from "../components/common/ListingItem";
 
 const Profile = () => {
   const auth = getAuth();

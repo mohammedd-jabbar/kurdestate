@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { notifications } from "./Notifications";
 
 const Contact = ({ userRef, listing }) => {

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import Spinner from "../components/Spinner";
-import { notifications } from "../components/Notifications";
+import Spinner from "../components/common/Spinner";
+import { notifications } from "../components/common/Notifications";
 import {
   collection,
   getDocs,
@@ -12,7 +12,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import ListingItem from "../components/ListingItem";
+import ListingItem from "../components/common/ListingItem";
 import { useParams } from "react-router-dom";
 
 const Category = () => {

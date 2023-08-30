@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import OAuth from "../components/OAuth";
+import OAuth from "../components/common/OAuth";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { db } from "../../firebase";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { notifications } from "../components/Notifications";
+import { notifications } from "../components/common/Notifications";
 
 const SignUp = () => {
   const navigateTo = useNavigate();

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import OAuth from "../components/OAuth";
-import { notifications } from "../components/Notifications";
+import OAuth from "../components/common/OAuth";
+import { notifications } from "../components/common/Notifications";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const ForgotPassword = () => {

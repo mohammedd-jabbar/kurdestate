@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
-import ListingHome from "../components/ListingHome";
+import ListingHome from "../components/pages/home/ListingHome";
 
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";

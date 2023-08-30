@@ -1,41 +1,32 @@
 /* eslint-disable no-unused-vars */
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { db } from "../../firebase";
 import { getAuth } from "firebase/auth";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
-import {
-  Autoplay,
-  Navigation,
-  Pagination,
-  EffectCreative,
-} from "swiper/modules";
-
-import {
-  FaShare,
-  FaBed,
-  FaBath,
-  FaParking,
-  FaChair,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
-import Contact from "../components/Contact";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import ListingSliderSwiper from "../components/ListingSliderSwiper";
+import { FaMapLocationDot } from "react-icons/fa6";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { IoMdPhotos } from "react-icons/io";
+import { BsFillInfoCircleFill } from "react-icons/bs";
+import ItemSlider from "../components/pages/listingDetails/ItemSlider";
+import GoogleMaps from "../components/pages/listingDetails/GoogleMaps";
+import Overview from "../components/pages/listingDetails/Overview";
+import { notifications } from "../components/common/Notifications";
+import UserInfo from "../components/pages/listingDetails/UserInfo";
+import Spinner from "../components/common/Spinner";
 
 const Listing = () => {
+  const location = useLocation();
+  const [shareLink, setShareLink] = useState(false);
   const auth = getAuth();
   const { categoryName, listingId } = useParams();
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [shareLink, setShareLink] = useState(false);
-  const [contactLandlord, setContactLandlord] = useState(false);
+
+  const [landLord, setLandLord] = useState(null);
+  const [message, setMessage] = useState("");
+
+  const [activeTab, setActiveTab] = useState("photos");
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -46,116 +37,139 @@ const Listing = () => {
         setIsLoading(false);
       }
     };
+
     fetchListings();
   }, [listingId]);
-  if (isLoading) return <div>Loading...</div>;
-  if (listing) console.log(listing);
+
+  useEffect(() => {
+    // get the user info
+    if (listing !== null) {
+      const getLandLord = async () => {
+        const docRef = doc(db, "users", listing.userRef);
+        const docSnapId = await getDoc(docRef);
+
+        if (docSnapId.exists()) {
+          setLandLord(docSnapId.data());
+        } else {
+          notifications("Landlord not found", true);
+        }
+      };
+      getLandLord();
+    }
+  }, [listing]);
+
+  if (isLoading) return <Spinner />;
+
+  const tabs = [
+    {
+      id: "photos",
+      label: <IoMdPhotos className="h-7 w-7" />,
+      content: <ItemSlider />,
+    },
+    {
+      id: "map",
+      label: <FaMapLocationDot className="h-7 w-7" />,
+      content: <GoogleMaps />,
+    },
+    {
+      id: "overview",
+      label: <BsFillInfoCircleFill className="h-7 w-7" />,
+      content: <Overview listing={listing} />,
+    },
+  ];
+
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+  };
 
   return (
-    <main>
-      <ListingSliderSwiper listing={listing.imgUrls} />
-     
-      <div
-        className="fixed top-[13%] right-[3%] z-10 bg-white cursor-pointer border-2 border-gray-400 rounded-full w-10 h-10 flex justify-center items-center"
-        onClick={() => {
-          navigator.clipboard.writeText(window.location.href);
-          setShareLink(true);
-          setTimeout(() => {
-            setShareLink(false);
-          }, 2000);
-        }}
-      >
-        <FaShare className="text-lg text-slate-500" />
-      </div>
-      {shareLink && (
-        <p className="fixed top-[23%] right-[5%] z-10 font-semibold border-2 border-gray-400 rounded-md bg-white p-2">
-          Link Copied
-        </p>
-      )}
-      <div className="flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto p-4 rounded-lg shadow-lg bg-white lg:space-x-5">
-        <div className="w-full ">
-          <p className="text-2xl font-bold mb-3 text-blue-900">
-            {listing.name} - $
-            {listing.offer
-              ? listing.discountedPrice
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-              : listing.regularPrice
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            {listing.type === "rent" ? "/month" : ""}
-          </p>
-          <p className="flex items-center mt-6 justify-start mb-3 font-semibold">
-            <FaMapMarkerAlt className="text-green-700 mr-1" />
-            {listing.address}
-          </p>
-          <div className="flex justify-start items-center space-x-4 w-[75%]">
-            <p className="bg-red-800 w-full max-w-[200px] rounded-md p-1 text-white text-center font-semibold shadow-md">
-              {listing.type === "rent" ? "Rent" : "Sale"}
+    <div className="flex flex-col max-w-[95%] mt-6 mx-auto">
+      {/* Basic Info Section */}
+      <div className="order-1 max-sm:order-2 max-sm:mt-16 flex w-full max-sm:flex-col max-sm:items-start max-sm:justify-start max-sm:mb-6 justify-between items-center">
+        {/* Left Info */}
+        <div className="">
+          <div className="flex mt-6 mb-3 items-center">
+            {/* Listing Name */}
+            <h1
+              className="text-3xl font-normal"
+              style={{ WebkitTextStrokeWidth: ".5px" }}
+            >
+              {listing.name}
+            </h1>
+            {/* Listing Type */}
+            <p className="ml-4 bg-primary-500 py-1 px-2 mt-1 text-white rounded-full text-sm font-semibold h-full">
+              {listing.type === "rent" ? "For Rent" : "For Sale"}
             </p>
-
-            {listing.offer && (
-              <p className="bg-green-800 w-full max-w-[200px] rounded-md p-1 text-white text-center font-semibold shadow-md">
-                <p>
-                  ${listing.regularPrice - listing.discountedPrice} Discount
-                </p>
-              </p>
-            )}
           </div>
-          <p className="my-3 ">
-            <span className="font-semibold">Description - </span>
-            {listing.description}
-          </p>
-          <ul className="flex items-center space-x-2 sm:space-x-10 text-sm font-semibold mb-6">
-            <li className="flex items-center whitespace-nowrap">
-              <FaBed className="text-lg mr-1" />
-              {+listing.beds > 1 ? `${listing.beds} Beds` : "1 Bed"}
-            </li>
-            <li className="flex items-center whitespace-nowrap">
-              <FaBath className="text-lg mr-1" />
-              {+listing.baths > 1 ? `${listing.baths} Baths` : "1 Bath"}
-            </li>
-            <li className="flex items-center whitespace-nowrap">
-              <FaParking className="text-lg mr-1" />
-              {listing.parking > true ? "Parking Spot" : "No Parking"}
-            </li>
-            <li className="flex items-center whitespace-nowrap">
-              <FaChair className="text-lg mr-1" />
-              {listing.furnished > true ? "Furnished" : "Not Furnished"}
-            </li>
-          </ul>
-          {listing.userRef !== auth.currentUser?.uid && !contactLandlord && (
-            <div className="mt-6">
-              <button
-                onClick={() => setContactLandlord(true)}
-                className="px-7 py-3 w-full text-center bg-blue-600 text-white rounded font-medium text-sm uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 transition duration-150 ease-in-out"
-              >
-                Contact Landlord
-              </button>
-            </div>
-          )}
-          {contactLandlord && (
-            <Contact userRef={listing.userRef} listing={listing} />
-          )}
+          {/* Listing Address */}
+          <div className="flex mb-6 items-center flex-start">
+            <FaMapMarkerAlt className="text-primary-500 mr-1 h-3 w-3" />
+            <p className="truncate font-semibold text-sm text-gray-500">
+              {listing.address}
+            </p>
+          </div>
+          {/* Tabs */}
         </div>
-        <div className="w-full h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2">
-          <MapContainer
-            center={[+listing.geoLocation.lng, +listing.geoLocation.lat]}
-            zoom={13}
-            scrollWheelZoom={true}
-            style={{ height: "100%", width: "100%" }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker
-              position={[+listing.geoLocation.lng, +listing.geoLocation.lat]}
-            ></Marker>
-          </MapContainer>
+
+        <div>
+          <div className="flex flex-col items-center justify-center">
+            {/* Share button */}
+            <div className=""></div>
+            {/* Listing Price */}
+            <h1 className="font-extrabold mb-3 text-xl text-primary-600">
+              $
+              {listing.regularPrice
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </h1>
+
+            {/* Parking Info
+            <p className="truncate font-semibold text-sm text-gray-500">
+              {listing.parking === true ? "Parking Spot" : "No Parking Spot"}
+            </p> */}
+          </div>
         </div>
       </div>
-    </main>
+      {/* left info */}
+      <div className="order-2 max-sm:order-1 flex flex-col md:flex-row">
+        <div className="md:w-2/3 md:pr-6">
+          <div className="flex flex-col">
+            {/* buttons */}
+            <div className="flex order-3 max-sm:order-4 max-sm:justify-center justify-end items-center -mb-14">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  className={`rounded-md p-2 text-white z-10 mr-5 ${
+                    activeTab === tab.id
+                      ? "text-opacity-100 bg-primary-500 "
+                      : "text-opacity-60 bg-opacity-40 bg-slate-950"
+                  }`}
+                  onClick={() => handleTabClick(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+            {/* contents */}
+            <div className="font-light mb-6 order-4 max-sm:order-3 rounded transition duration-200 ease-out text-gray-500 shadow-[0_0_10px_1px_rgba(71,85,95,0.08)] hover:shadow-[0_0_12px_2px_rgba(71,85,95,0.20)] bg-white  ">
+              {tabs.map((tab) => (
+                <div
+                  key={tab.id}
+                  className={`transition-opacity ${
+                    activeTab === tab.id ? "block" : "hidden"
+                  }`}
+                >
+                  {tab.content}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* Right Info */}
+        <UserInfo landLord={landLord} listing={listing} screen={"md"} />
+      </div>
+      <UserInfo landLord={landLord} listing={listing} screen={"sm"} />
+    </div>
   );
 };
 

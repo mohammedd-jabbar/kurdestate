@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import { LuChevronLast, LuChevronFirst } from "react-icons/lu";
+import { FiMoreVertical } from "react-icons/fi";
 import { useContext, createContext, useState } from "react";
 
 const SidebarContext = createContext();
@@ -22,7 +23,7 @@ export default function Sidebar({ children }) {
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
           >
-            {expanded ? <ChevronFirst /> : <ChevronLast />}
+            {expanded ? <LuChevronFirst /> : <LuChevronLast />}
           </button>
         </div>
 
@@ -46,7 +47,7 @@ export default function Sidebar({ children }) {
               <h4 className="font-semibold">John Doe</h4>
               <span className="text-xs text-gray-600">johndoe@gmail.com</span>
             </div>
-            <MoreVertical size={20} />
+            <FiMoreVertical size={20} />
           </div>
         </div>
       </nav>

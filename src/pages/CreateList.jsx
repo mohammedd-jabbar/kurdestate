@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { useState } from "react";
-import Spinner from "../components/Spinner"; // for the loading state
-import { notifications } from "../components/Notifications"; // for the notifications
+import Spinner from "../components/common/Spinner"; // for the loading state
+import { notifications } from "../components/common/Notifications"; // for the notifications
 import {
   getStorage,
   ref,
@@ -26,8 +26,7 @@ const CreateList = () => {
     name: "",
     beds: 1,
     baths: 1,
-    parking: false,
-    furnished: false,
+    parking: 0,
     address: "",
     description: "",
     offer: true,
@@ -36,6 +35,8 @@ const CreateList = () => {
     latitude: 0,
     longitude: 0,
     images: {},
+    area: 0, // Initial value for Sq Ft
+    yearBuilt: 1800, // Initial value for Year Built
   });
 
   const [loading, setLoading] = useState(false); // for the loading state
@@ -46,7 +47,6 @@ const CreateList = () => {
     beds,
     baths,
     parking,
-    furnished,
     address,
     description,
     offer,
@@ -55,6 +55,8 @@ const CreateList = () => {
     latitude,
     longitude,
     images,
+    area,
+    yearBuilt,
   } = formData; // destructure the form data
 
   const onFormChange = (e) => {
@@ -194,10 +196,14 @@ const CreateList = () => {
       return notifications("Error", true);
     });
 
+    // Store the listing status as pending
+    const listingStatus = "pending";
+
     // copy the formData object to formDataCopy
     const formDataCopy = {
       ...formData, // copy the formData object to formDataCopy
       imgUrls, // add the imgUrls that we uploaded to the firebase storage
+      status: listingStatus,
       geoLocation, // and manually latitude and longitude
       timeStamp: serverTimestamp(), // add the timestamp when the listing was created
       userRef: auth.currentUser.uid, // add the user id to the listing
@@ -222,61 +228,92 @@ const CreateList = () => {
   }
 
   return (
-    <main className="max-w-md px-2 mx-auto">
-      <h1 className="text-3xl font-bold text-center mt-6 ">Create Listing</h1>
-      <form onSubmit={onFormSubmit}>
-        {/* Sell and Rent */}
-        <p className="text-lg mt-6 font-semibold">Sell / Rent</p>
-        <div className="flex">
-          <button
-            type="button"
-            id="type"
-            value="sale"
-            onClick={onFormChange}
-            className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              type === "rent"
-                ? "bg-white text-black"
-                : "bg-slate-600 text-white"
-            }`}
-          >
-            Sell
-          </button>
-          <button
-            type="button"
-            id="type"
-            value="rent"
-            onClick={onFormChange}
-            className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              type === "sale"
-                ? "bg-white text-black"
-                : "bg-slate-600 text-white"
-            }`}
-          >
-            Rent
-          </button>
-        </div>
-        {/* Name */}
-        <p className="text-lg mt-6 font-semibold">Name</p>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={onFormChange}
-          placeholder="Your Property Name"
-          maxLength="32"
-          minLength="6"
-          required
-          className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-        />
-        {/* Beds and Baths */}
-        <div className="flex space-x-6">
-          <div className="">
-            <p className="text-lg font-semibold">Beds</p>
+    <>
+      <main className="max-w-6xl px-2 mx-auto">
+        <h1 className="text-3xl font-bold text-center mt-6 ">Create Listing</h1>
+        <form onSubmit={onFormSubmit}>
+          {/* Sell and Rent */}
+          <p className="text-lg mt-6 font-semibold">Sell / Rent</p>
+          <div className="flex">
+            <button
+              type="button"
+              id="type"
+              value="sale"
+              onClick={onFormChange}
+              className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                type === "rent"
+                  ? "bg-white text-black"
+                  : "bg-slate-600 text-white"
+              }`}
+            >
+              Sell
+            </button>
+            <button
+              type="button"
+              id="type"
+              value="rent"
+              onClick={onFormChange}
+              className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                type === "sale"
+                  ? "bg-white text-black"
+                  : "bg-slate-600 text-white"
+              }`}
+            >
+              Rent
+            </button>
+          </div>
+          {/* Name */}
+          <p className="text-lg mt-6 font-semibold">Name</p>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={onFormChange}
+            placeholder="Your Property Name"
+            maxLength="32"
+            minLength="6"
+            required
+            className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+          />
+          {/* Beds and Baths */}
+          <div className="flex space-x-6">
+            <div className="">
+              <p className="text-lg font-semibold">Beds</p>
+              <input
+                type="number"
+                name="beds"
+                id="beds"
+                value={beds}
+                onChange={onFormChange}
+                min="1"
+                max="50"
+                required
+                className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+              />
+            </div>
+            <div className="">
+              <p className="text-lg font-semibold">Baths</p>
+              <input
+                type="number"
+                name="baths"
+                id="baths"
+                value={baths}
+                onChange={onFormChange}
+                min="1"
+                max="50"
+                required
+                className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+              />
+            </div>
+          </div>
+          {/* Parking */}
+          <p className="text-lg mt-6 font-semibold">Parking Spot</p>
+          <div className="flex">
             <input
               type="number"
-              name="beds"
-              id="beds"
-              value={beds}
+              name="parking"
+              id="parking"
+              value={parking}
               onChange={onFormChange}
               min="1"
               max="50"
@@ -284,188 +321,129 @@ const CreateList = () => {
               className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
             />
           </div>
-          <div className="">
-            <p className="text-lg font-semibold">Baths</p>
-            <input
-              type="number"
-              name="baths"
-              id="baths"
-              value={baths}
-              onChange={onFormChange}
-              min="1"
-              max="50"
-              required
-              className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-            />
-          </div>
-        </div>
-        {/* Parking */}
-        <p className="text-lg mt-6 font-semibold">Parking Spot</p>
-        <div className="flex">
-          <button
-            type="button"
-            id="parking"
-            value={true}
-            onClick={onFormChange}
-            className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              !parking ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            Yes
-          </button>
-          <button
-            type="button"
-            id="parking"
-            value={false}
-            onClick={onFormChange}
-            className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              parking ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            No
-          </button>
-        </div>
-        {/* Furnished */}
-        <p className="text-lg mt-6 font-semibold">Furnished</p>
-        <div className="flex">
-          <button
-            type="button"
-            id="furnished"
-            value={true}
-            onClick={onFormChange}
-            className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              !furnished ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            Yes
-          </button>
-          <button
-            type="button"
-            id="furnished"
-            value={false}
-            onClick={onFormChange}
-            className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              furnished ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            No
-          </button>
-        </div>
-        {/* Address */}
-        <p className="text-lg mt-6 font-semibold">Address</p>
-        <textarea
-          type="text"
-          id="address"
-          value={address}
-          onChange={onFormChange}
-          placeholder="Your Property Address"
-          required
-          className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-        />
-        {!geoLocationEnabled && (
-          <div className="flex justify-start items-center space-x-6 mb-6">
-            <div>
-              <p className="text-lg font-semibold">Latitude</p>
+          {/* Sq Ft */}
+          <div className="flex items-center my-6">
+            <div className="">
+              <p className="text-lg font-semibold">Area (Square Meters)</p>
               <input
-                type="number"
-                id="latitude"
-                value={latitude}
+                type="text"
+                id="area"
+                value={area}
                 onChange={onFormChange}
-                min="-90"
-                max="90"
-                required
-                className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-              />
-            </div>
-            <div>
-              <p className="text-lg font-semibold">Longitude</p>
-              <input
-                type="number"
-                id="longitude"
-                value={longitude}
-                onChange={onFormChange}
-                min="-180"
-                max="180"
+                min="0"
                 required
                 className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
               />
             </div>
           </div>
-        )}
-        {/* Description */}
-        <p className="text-lg font-semibold">Description</p>
-        <textarea
-          type="text"
-          id="description"
-          value={description}
-          onChange={onFormChange}
-          placeholder="Description"
-          required
-          className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none "
-        />
-        {/* Offer */}
-        <p className="text-lg mt-6 font-semibold">Offer</p>
-        <div className="flex mb-6">
-          <button
-            type="button"
-            id="offer"
-            value={true}
-            onClick={onFormChange}
-            className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              !offer ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            Yes
-          </button>
-          <button
-            type="button"
-            id="offer"
-            value={false}
-            onClick={onFormChange}
-            className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              offer ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            No
-          </button>
-        </div>
-        {/* Regular Price */}
-        <div className="flex items-center mb-6">
-          <div className="">
-            <p className="text-lg font-semibold">Regular Price</p>
-            <div className="flex w-full justify-center items-center space-x-6">
-              <input
-                type="number"
-                id="regularPrice"
-                value={regularPrice}
-                onChange={onFormChange}
-                min="50"
-                max="400000000"
-                required
-                className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-              />
-              {type === "rent" && (
-                <div className="">
-                  <p className="text-md w-full whitespace-nowrap">$ / Months</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        {/* discounted Price */}
-        {offer && (
+          {/* Year Built */}
           <div className="flex items-center mb-6">
             <div className="">
-              <p className="text-lg font-semibold">Discounted Price</p>
+              <p className="text-lg font-semibold">Year Built</p>
+              <input
+                type="number"
+                id="yearBuilt"
+                value={yearBuilt}
+                onChange={onFormChange}
+                min="1800"
+                max="2050"
+                required
+                className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Address */}
+          <p className="text-lg mt-6 font-semibold">Address</p>
+          <textarea
+            type="text"
+            id="address"
+            value={address}
+            onChange={onFormChange}
+            placeholder="Your Property Address"
+            required
+            className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+          />
+          {!geoLocationEnabled && (
+            <div className="flex justify-start items-center space-x-6 mb-6">
+              <div>
+                <p className="text-lg font-semibold">Latitude</p>
+                <input
+                  type="number"
+                  id="latitude"
+                  value={latitude}
+                  onChange={onFormChange}
+                  min="-90"
+                  max="90"
+                  required
+                  className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                />
+              </div>
+              <div>
+                <p className="text-lg font-semibold">Longitude</p>
+                <input
+                  type="number"
+                  id="longitude"
+                  value={longitude}
+                  onChange={onFormChange}
+                  min="-180"
+                  max="180"
+                  required
+                  className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                />
+              </div>
+            </div>
+          )}
+          {/* Description */}
+          <p className="text-lg font-semibold">Description</p>
+          <textarea
+            type="text"
+            id="description"
+            value={description}
+            onChange={onFormChange}
+            placeholder="Description"
+            required
+            className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none "
+          />
+          {/* Offer */}
+          <p className="text-lg mt-6 font-semibold">Offer</p>
+          <div className="flex mb-6">
+            <button
+              type="button"
+              id="offer"
+              value={true}
+              onClick={onFormChange}
+              className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                !offer ? "bg-white text-black" : "bg-slate-600 text-white"
+              }`}
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              id="offer"
+              value={false}
+              onClick={onFormChange}
+              className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                offer ? "bg-white text-black" : "bg-slate-600 text-white"
+              }`}
+            >
+              No
+            </button>
+          </div>
+          {/* Regular Price */}
+          <div className="flex items-center mb-6">
+            <div className="">
+              <p className="text-lg font-semibold">Regular Price</p>
               <div className="flex w-full justify-center items-center space-x-6">
                 <input
                   type="number"
-                  id="discountedPrice"
-                  value={discountedPrice}
+                  id="regularPrice"
+                  value={regularPrice}
                   onChange={onFormChange}
-                  min="1"
+                  min="50"
                   max="400000000"
-                  required={offer}
+                  required
                   className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
                 />
                 {type === "rent" && (
@@ -478,31 +456,58 @@ const CreateList = () => {
               </div>
             </div>
           </div>
-        )}
-        {/* Images */}
-        <div className="mb-6">
-          <p className="text-lg mt-6 font-semibold">Images</p>
-          <p className="text-gray-600">
-            The first image will be the cover (max 6)
-          </p>
-          <input
-            type="file"
-            id="images"
-            onChange={onFormChange}
-            accept=".jpg,.png,.jpeg"
-            multiple
-            required
-            className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-          />
-        </div>
-        <button
-          type="submit"
-          className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
-        >
-          Create Listing
-        </button>
-      </form>
-    </main>
+          {/* discounted Price */}
+          {offer && (
+            <div className="flex items-center mb-6">
+              <div className="">
+                <p className="text-lg font-semibold">Discounted Price</p>
+                <div className="flex w-full justify-center items-center space-x-6">
+                  <input
+                    type="number"
+                    id="discountedPrice"
+                    value={discountedPrice}
+                    onChange={onFormChange}
+                    min="1"
+                    max="400000000"
+                    required={offer}
+                    className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                  />
+                  {type === "rent" && (
+                    <div className="">
+                      <p className="text-md w-full whitespace-nowrap">
+                        $ / Months
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          {/* Images */}
+          <div className="mb-6">
+            <p className="text-lg mt-6 font-semibold">Images</p>
+            <p className="text-gray-600">
+              The first image will be the cover (max 6)
+            </p>
+            <input
+              type="file"
+              id="images"
+              onChange={onFormChange}
+              accept=".jpg,.png,.jpeg"
+              multiple
+              required
+              className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+            />
+          </div>
+          <button
+            type="submit"
+            className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
+          >
+            Create Listing
+          </button>
+        </form>
+      </main>
+    </>
   );
 };
 

@@ -12,11 +12,13 @@ const ListingHome = ({ listing, id }) => {
             style={{
               // transform the image
               transition: "transform 1s ease-in-out",
-              width: "100%",
             }}
+            width={"100%"}
+            height={"100%"}
             // scale to size how much transform
             className="h-full group-hover:scale-110 absolute object-cover"
             src={listing.imgUrls[0]}
+            effect="blur"
           />
 
           {/* transition the transform and when group mean parent hover then translate the text with duration 300ms */}
@@ -48,7 +50,7 @@ const ListingHome = ({ listing, id }) => {
           </div>
           {/* "View Details" text from bottom */}
           <div className="absolute bottom-0 w-full left-1 transform translate-y-full group-hover:translate-y-0 duration-[.5s] ease-in-out">
-            <Link to={`/category/${listing.id}/${id}`}>
+            <Link to={`/category/${listing.type}/${id}`}>
               <p className="text-start text-white text-sm px-4 pb-2 font-medium">
                 View Details
               </p>
