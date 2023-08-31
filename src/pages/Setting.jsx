@@ -1,29 +1,101 @@
+import { useState } from "react";
 import Sidebar, { SidebarItem } from "../components/pages/settings/Sidebar";
+// import DashboardContent from "../components/pages/settings/DashboardContent"; // Import your content components
+// import ProfileContent from "../components/pages/settings/ProfileContent";
+// import PostsContent from "../components/pages/settings/PostsContent";
+// import SettingsContent from "../components/pages/settings/SettingsContent";
+// import HelpContent from "../components/pages/settings/HelpContent";
 
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaListAlt, FaUserCog, FaCog } from "react-icons/fa";
 import { BiHelpCircle } from "react-icons/bi";
 
 const Setting = () => {
+  const [activeItem, setActiveItem] = useState("dashboard"); // Default active item
+
+  // Function to set the active item when clicking on a sidebar item
+  const handleSidebarItemClick = (item) => {
+    setActiveItem(item);
+  };
+
+  // Helper function to render the appropriate content based on activeItem
+  const renderContent = () => {
+    switch (activeItem) {
+      case "dashboard":
+        return "<DashboardContent />";
+      case "profile":
+        return "<ProfileContent />";
+      case "posts":
+        return "<PostsContent />";
+      case "settings":
+        return "<SettingsContent />";
+      case "help":
+        return "<HelpContent />";
+      default:
+        return null;
+    }
+  };
+
   return (
-    <main className="flex min-h-screen">
+    <main className="fixed flex min-h-screen">
       <Sidebar>
-        <SidebarItem
-          icon={<LuLayoutDashboard size={20} />}
-          text="Dashboard"
-          alert
-        />
-        <SidebarItem
-          icon={<FaUserCog size={20} />}
-          text="Profile Settings"
-          active
-        />
-        <SidebarItem icon={<FaListAlt size={20} />} text="Posts" />
+        <div
+          onClick={() => handleSidebarItemClick("dashboard")}
+          style={{ background: "none", color: "inherit" }}
+        >
+          <SidebarItem
+            active={activeItem === "dashboard"}
+            icon={<LuLayoutDashboard size={20} />}
+            text="Dashboard"
+          />
+        </div>
+        <div
+          onClick={() => handleSidebarItemClick("profile")}
+          style={{ background: "none", color: "inherit" }}
+        >
+          <SidebarItem
+            active={activeItem === "profile"}
+            icon={<FaUserCog size={20} />}
+            text="Profile"
+          />
+        </div>
+
+        <div
+          onClick={() => handleSidebarItemClick("posts")}
+          style={{ background: "none", color: "inherit" }}
+        >
+          <SidebarItem
+            active={activeItem === "posts"}
+            icon={<FaListAlt size={20} />}
+            text="Posts"
+          />
+        </div>
 
         <hr className="my-3" />
-        <SidebarItem icon={<FaCog size={20} />} text="Settings" alert />
-        <SidebarItem icon={<BiHelpCircle size={20} />} text="Help" />
+        <div
+          onClick={() => handleSidebarItemClick("settings")}
+          style={{ background: "none", color: "inherit" }}
+        >
+          <SidebarItem
+            active={activeItem === "settings"}
+            icon={<FaCog size={20} />}
+            text="Settings"
+          />
+        </div>
+        <div
+          onClick={() => handleSidebarItemClick("help")}
+          style={{ background: "none", color: "inherit" }}
+        >
+          <SidebarItem
+            active={activeItem === "help"}
+            icon={<BiHelpCircle size={20} />}
+            text="Help"
+          />
+        </div>
       </Sidebar>
+
+      {/* Render the appropriate content */}
+      <div className="flex-1 p-4">{renderContent()}</div>
     </main>
   );
 };

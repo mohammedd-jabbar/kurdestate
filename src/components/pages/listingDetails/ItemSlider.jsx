@@ -1,51 +1,40 @@
+/* eslint-disable react/prop-types */
 // firebase
 import { useEffect, useState } from "react";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { db } from "../../../../firebase";
 
 // swiper
 import Spinner from "../../common/Spinner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/effect-fade";
-import "swiper/css/free-mode";
-import { Pagination, Autoplay } from "swiper/modules";
 
-const ItemSlider = () => {
-  const [listings, setListings] = useState();
+import { Pagination, Autoplay } from "swiper/modules";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
+const ItemSlider = ({ listingData }) => {
+  const [listing, setListing] = useState([]);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchListings = async () => {
-      const listingRef = collection(db, "listings");
-      const q = query(listingRef, orderBy("timeStamp", "desc"), limit(5));
-      const querySnap = await getDocs(q);
-      let listing = [];
-      querySnap.forEach((doc) => {
-        return listing.push({
-          id: doc.id,
-          data: doc.data(),
-        });
-      });
-
-      setListings(listing);
-      setLoading(false);
+    const fetchListing = async () => {
+      if (listingData) {
+        setListing(listingData.imgUrls);
+        setLoading(false);
+      }
     };
-    fetchListings();
-  }, []);
+    fetchListing();
+  }, [listingData]);
 
-  if (loading && listings === null && listings === undefined) {
+  if (loading && listing === null && listing === undefined) {
     return <Spinner />;
   }
+
   return (
-    listings && (
+    listing && (
       <>
         <Swiper
           slidesPerView={1}
-          spaceBetween={0}
           grabCursor={true}
           autoplay={{
             delay: 1700,
@@ -53,20 +42,26 @@ const ItemSlider = () => {
           }}
           pagination={{
             dynamicBullets: true,
+            clickable: true,
           }}
           loop={true}
           modules={[Pagination, Autoplay]}
           className="!z-0"
         >
-          {listings.map((data) => (
-            <SwiperSlide key={data.id}>
-              <div
-                className="relative w-full overflow-hidden h-[89vh] max-sm:h-[60vh]"
+          {listing.map((url, index) => (
+            <SwiperSlide key={index}>
+              <LazyLoadImage
+                className="w-full overflow-hidden object-cover h-[89vh] max-sm:h-[60vh]"
+                src={url}
+                effect="blur"
                 style={{
-                  background: `url(${data?.data?.imgUrls?.[0]}) center no-repeat`,
+                  background: `center no-repeat`,
                   backgroundSize: "cover",
+                  display: "inline-block",
                 }}
-              ></div>
+                width={"100%"}
+                height={"100%"}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -16,6 +16,7 @@ import { db } from "../../firebase";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const CreateList = () => {
+  const currentYear = new Date().getFullYear();
   const navigateTo = useNavigate();
   const auth = getAuth();
   const [geoLocationEnabled, setGeoLocationEnabled] = useState(true); // if you don't have a google api for geo location, set this to false, then you can enter the latitude and longitude manually
@@ -32,8 +33,6 @@ const CreateList = () => {
     offer: true,
     regularPrice: 0,
     discountedPrice: 0,
-    latitude: 0,
-    longitude: 0,
     images: {},
     area: 0, // Initial value for Sq Ft
     yearBuilt: 1800, // Initial value for Year Built
@@ -52,8 +51,6 @@ const CreateList = () => {
     offer,
     regularPrice,
     discountedPrice,
-    latitude,
-    longitude,
     images,
     area,
     yearBuilt,
@@ -98,20 +95,29 @@ const CreateList = () => {
     // if the discounted price is greater than or equal to the regular price, return an error
     if (+discountedPrice >= +regularPrice) {
       // this is came with string, so we need to convert it to number
-      console.log("discounted: ", discountedPrice);
-      console.log("Price: ", regularPrice);
 
       setLoading(false);
-      return notifications(
+      notifications(
         "Discounted price must be less than the regular price",
         true
       );
+      return;
     }
 
     if (images.length > 6) {
       // if the images length is greater than 6, return an error
       setLoading(false);
-      return notifications("You can only upload load 6 images", true);
+      notifications("You can only upload load 6 images", true);
+      return;
+    }
+
+    // Loop through each image and check its size
+    for (const image of images) {
+      if (image.size > 2.1 * 1024 * 1024) {
+        setLoading(false);
+        notifications("Images must be less than 2.1 MB in size", true);
+        return;
+      }
     }
 
     let geoLocation = {}; // for the geo location of the address, this is for the manual latitude and longitude, if you don't have a google api for geo location, set the geoLocationEnabled to false, then you can enter the latitude and longitude manually, if you have a google api for geo location, then you can enter the address and the latitude and longitude will be generated automatically
@@ -120,7 +126,7 @@ const CreateList = () => {
     if (geoLocationEnabled) {
       // this check is for having a google api for geo location
       const res = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=YOUR_API_KEY`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps`
       );
 
       const data = await res.json();
@@ -132,15 +138,9 @@ const CreateList = () => {
       if (location === undefined) {
         // if the google api return an error, return an error
         setLoading(false);
-        return notifications(
-          "Invalid address, Please Enter a correct address",
-          true
-        );
+        notifications("Invalid address, Please Enter a correct address", true);
+        return;
       }
-    } else {
-      // this check is for not having a google api for geo location, and then you can enter the latitude and longitude manually, and store it in the geoLocation object that we created above
-      geoLocation.lat = latitude;
-      geoLocation.lng = longitude;
     }
 
     // this function is for storing the images in the firebase storage
@@ -163,13 +163,11 @@ const CreateList = () => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
+
             switch (snapshot.state) {
               case "paused":
-                console.log("Upload is paused");
                 break;
               case "running":
-                console.log("Upload is running");
                 break;
             }
           },
@@ -193,7 +191,8 @@ const CreateList = () => {
       [...images].map((image) => storeImage(image))
     ).catch((error) => {
       setLoading(false);
-      return notifications("Error", true);
+      notifications("Images must be less than 2 MB in size", true);
+      return;
     });
 
     // Store the listing status as pending
@@ -229,7 +228,7 @@ const CreateList = () => {
 
   return (
     <>
-      <main className="max-w-6xl px-2 mx-auto">
+      <main className="max-w-md px-2 mx-auto">
         <h1 className="text-3xl font-bold text-center mt-6 ">Create Listing</h1>
         <form onSubmit={onFormSubmit}>
           {/* Sell and Rent */}
@@ -315,7 +314,7 @@ const CreateList = () => {
               id="parking"
               value={parking}
               onChange={onFormChange}
-              min="1"
+              min="0"
               max="50"
               required
               className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
@@ -346,7 +345,7 @@ const CreateList = () => {
                 value={yearBuilt}
                 onChange={onFormChange}
                 min="1800"
-                max="2050"
+                max={currentYear}
                 required
                 className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
               />
@@ -364,36 +363,7 @@ const CreateList = () => {
             required
             className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
           />
-          {!geoLocationEnabled && (
-            <div className="flex justify-start items-center space-x-6 mb-6">
-              <div>
-                <p className="text-lg font-semibold">Latitude</p>
-                <input
-                  type="number"
-                  id="latitude"
-                  value={latitude}
-                  onChange={onFormChange}
-                  min="-90"
-                  max="90"
-                  required
-                  className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-                />
-              </div>
-              <div>
-                <p className="text-lg font-semibold">Longitude</p>
-                <input
-                  type="number"
-                  id="longitude"
-                  value={longitude}
-                  onChange={onFormChange}
-                  min="-180"
-                  max="180"
-                  required
-                  className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-                />
-              </div>
-            </div>
-          )}
+
           {/* Description */}
           <p className="text-lg font-semibold">Description</p>
           <textarea

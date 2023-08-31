@@ -101,7 +101,7 @@ const Category = () => {
       ) : listings && listings.length > 0 ? (
         <>
           <main>
-            <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+            <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3">
               {listings.map((offer) => (
                 <ListingItem
                   listing={offer.data}
@@ -125,7 +125,7 @@ const Category = () => {
       ) : (
         <p>
           There are no current
-          {categoryName === "rent" ? " Places for Rent" : "sale"}
+          {categoryName === "rent" ? " Places for Rent" : "Places for Sale"}
         </p>
       )}
     </div>

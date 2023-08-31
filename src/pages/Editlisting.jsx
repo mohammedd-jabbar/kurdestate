@@ -23,6 +23,7 @@ import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditListing = () => {
+  const currentYear = new Date().getFullYear();
   const navigateTo = useNavigate();
 
   const auth = getAuth();
@@ -36,16 +37,15 @@ const EditListing = () => {
     name: "",
     beds: 1,
     baths: 1,
-    parking: false,
-    furnished: false,
+    parking: 0,
     address: "",
     description: "",
     offer: true,
     regularPrice: 0,
     discountedPrice: 0,
-    latitude: 0,
-    longitude: 0,
     images: {},
+    area: 0, // Initial value for Sq Ft
+    yearBuilt: 1800, // Initial value for Year Built
   });
 
   const {
@@ -54,21 +54,25 @@ const EditListing = () => {
     beds,
     baths,
     parking,
-    furnished,
     address,
     description,
     offer,
     regularPrice,
     discountedPrice,
-    latitude,
-    longitude,
     images,
+    area,
+    yearBuilt,
   } = formData; // destructure the form data
 
   const { listId } = useParams(); // get the listing id from the url
 
   useEffect(() => {
-    if (listing && listing.userRef !== auth.currentUser.uid) {
+    setUserAuth(true);
+    if (
+      listing &&
+      listing.userRef !== auth.currentUser.uid &&
+      !user.uid === "WoRWTrX3FfZSp2bt7Rhf9hqLDE63"
+    ) {
       navigateTo("/");
       notifications("You don't have permission to edit this listing", true);
     } else {
@@ -136,16 +140,26 @@ const EditListing = () => {
       console.log("Price: ", regularPrice);
 
       setLoading(false);
-      return notifications(
+      notifications(
         "Discounted price must be less than the regular price",
         true
       );
+      return;
     }
 
     if (images.length > 6) {
       // if the images length is greater than 6, return an error
       setLoading(false);
-      return notifications("You can only upload load 6 images", true);
+      notifications("You can only upload load 6 images", true);
+      return;
+    }
+    // Loop through each image and check its size
+    for (const image of images) {
+      if (image.size > 2.1 * 1024 * 1024) {
+        setLoading(false);
+        notifications("Images must be less than 2.1 MB in size", true);
+        return;
+      }
     }
 
     let geoLocation = {}; // for the geo location of the address, this is for the manual latitude and longitude, if you don't have a google api for geo location, set the geoLocationEnabled to false, then you can enter the latitude and longitude manually, if you have a google api for geo location, then you can enter the address and the latitude and longitude will be generated automatically
@@ -154,7 +168,7 @@ const EditListing = () => {
     if (geoLocationEnabled) {
       // this check is for having a google api for geo location
       const res = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=YOUR_API_KEY`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps`
       );
 
       const data = await res.json();
@@ -166,15 +180,9 @@ const EditListing = () => {
       if (location === undefined) {
         // if the google api return an error, return an error
         setLoading(false);
-        return notifications(
-          "Invalid address, Please Enter a correct address",
-          true
-        );
+        notifications("Invalid address, Please Enter a correct address", true);
+        return;
       }
-    } else {
-      // this check is for not having a google api for geo location, and then you can enter the latitude and longitude manually, and store it in the geoLocation object that we created above
-      geoLocation.lat = latitude;
-      geoLocation.lng = longitude;
     }
 
     // this function is for storing the images in the firebase storage
@@ -197,13 +205,11 @@ const EditListing = () => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
+
             switch (snapshot.state) {
               case "paused":
-                console.log("Upload is paused");
                 break;
               case "running":
-                console.log("Upload is running");
                 break;
             }
           },
@@ -227,13 +233,18 @@ const EditListing = () => {
       [...images].map((image) => storeImage(image))
     ).catch((error) => {
       setLoading(false);
-      return notifications("Error", true);
+      notifications("Images must be less than 2 MB in size", true);
+      return;
     });
+
+    // Store the listing status as pending
+    const listingStatus = "pending";
 
     // copy the formData object to formDataCopy
     const formDataCopy = {
       ...formData, // copy the formData object to formDataCopy
       imgUrls, // add the imgUrls that we uploaded to the firebase storage
+      status: listingStatus,
       geoLocation, // and manually latitude and longitude
       timeStamp: serverTimestamp(), // add the timestamp when the listing was created
       userRef: auth.currentUser.uid, // add the user id to the listing
@@ -340,54 +351,49 @@ const EditListing = () => {
         {/* Parking */}
         <p className="text-lg mt-6 font-semibold">Parking Spot</p>
         <div className="flex">
-          <button
-            type="button"
+          <input
+            type="number"
+            name="parking"
             id="parking"
-            value={true}
-            onClick={onFormChange}
-            className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              !parking ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            Yes
-          </button>
-          <button
-            type="button"
-            id="parking"
-            value={false}
-            onClick={onFormChange}
-            className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              parking ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            No
-          </button>
+            value={parking}
+            onChange={onFormChange}
+            min="0"
+            max="50"
+            required
+            className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+          />
         </div>
-        {/* Furnished */}
-        <p className="text-lg mt-6 font-semibold">Furnished</p>
-        <div className="flex">
-          <button
-            type="button"
-            id="furnished"
-            value={true}
-            onClick={onFormChange}
-            className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              !furnished ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            Yes
-          </button>
-          <button
-            type="button"
-            id="furnished"
-            value={false}
-            onClick={onFormChange}
-            className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-              furnished ? "bg-white text-black" : "bg-slate-600 text-white"
-            }`}
-          >
-            No
-          </button>
+
+        {/* Sq Ft */}
+        <div className="flex items-center my-6">
+          <div className="">
+            <p className="text-lg font-semibold">Area (Square Meters)</p>
+            <input
+              type="text"
+              id="area"
+              value={area}
+              onChange={onFormChange}
+              min="0"
+              required
+              className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+            />
+          </div>
+        </div>
+        {/* Year Built */}
+        <div className="flex items-center mb-6">
+          <div className="">
+            <p className="text-lg font-semibold">Year Built</p>
+            <input
+              type="number"
+              id="yearBuilt"
+              value={yearBuilt}
+              onChange={onFormChange}
+              min="1800"
+              max={currentYear}
+              required
+              className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+            />
+          </div>
         </div>
         {/* Address */}
         <p className="text-lg mt-6 font-semibold">Address</p>
@@ -400,36 +406,6 @@ const EditListing = () => {
           required
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
         />
-        {!geoLocationEnabled && (
-          <div className="flex justify-start items-center space-x-6 mb-6">
-            <div>
-              <p className="text-lg font-semibold">Latitude</p>
-              <input
-                type="number"
-                id="latitude"
-                value={latitude}
-                onChange={onFormChange}
-                min="-90"
-                max="90"
-                required
-                className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-              />
-            </div>
-            <div>
-              <p className="text-lg font-semibold">Longitude</p>
-              <input
-                type="number"
-                id="longitude"
-                value={longitude}
-                onChange={onFormChange}
-                min="-180"
-                max="180"
-                required
-                className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-              />
-            </div>
-          </div>
-        )}
         {/* Description */}
         <p className="text-lg font-semibold">Description</p>
         <textarea

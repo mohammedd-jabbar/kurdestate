@@ -74,7 +74,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
             </div>
 
             <div className="mt-4 flex items-center justify-center sm:justify-normal gap-10 text-xs">
-              <div className="sm:hidden md:inline-flex xl:hidden sm:shrink-0 sm:items-center sm:gap-2">
+              <div className="sm:hidden md:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
                 <FaParking className="text-primary-500 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">

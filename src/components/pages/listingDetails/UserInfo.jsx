@@ -18,7 +18,7 @@ const UserInfo = ({ landLord, screen, listing }) => {
         <div className="flex items-center mt-4 pb-6 border-b border-border">
           <img
             className="w-16 h-16 rounded-full "
-            src="https://lh3.googleusercontent.com/a/AAcHTtdgeqYPsjwMc4LUf-BUhRmEYcr-_udaYMUSQxTU35EzVrw=s96-c"
+            src={landLord?.photoURL}
             alt="User"
           />
           <div className="ml-4">

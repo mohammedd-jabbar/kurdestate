@@ -9,7 +9,6 @@ const NavbarDropDown = ({
   email,
   isLanguage,
   isDropDown,
-  dashboard,
 }) => {
   return (
     <div className="flex relative justify-center justify-items-center items-center">
@@ -70,7 +69,6 @@ const NavbarDropDown = ({
               </svg>
             </button>
             <div
-              id="doubleDropdown"
               className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44  ${
                 isLanguage ? "" : "hidden"
               }`}
@@ -89,15 +87,9 @@ const NavbarDropDown = ({
               </ul>
             </div>
           </li>
-          {dashboard && (
-            <li>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100 ">
-                Dashboard
-              </a>
-            </li>
-          )}
+
           <li>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100 ">
+            <a href="/setting" className="block px-4 py-2 hover:bg-gray-100 ">
               Settings
             </a>
           </li>

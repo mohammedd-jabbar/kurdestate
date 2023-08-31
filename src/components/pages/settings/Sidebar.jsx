@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { LuChevronLast, LuChevronFirst } from "react-icons/lu";
-import { FiMoreVertical } from "react-icons/fi";
 import { useContext, createContext, useState } from "react";
 
 const SidebarContext = createContext();
@@ -9,16 +8,14 @@ export default function Sidebar({ children }) {
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <aside className="h-screen">
+    <aside className="h-[94vh]">
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
-          <img
-            src="https://img.logoipsum.com/243.svg"
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
+          <div
+            className={`h-5 text-xl flex items-center justify-center font-bold overflow-hidden transition-all ${
+              expanded ? "w-32 max-sm:w-24" : "w-0"
             }`}
-            alt=""
-          />
+          ></div>
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
@@ -31,23 +28,28 @@ export default function Sidebar({ children }) {
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
-        <div className="border-t flex p-3">
+        <div
+          className={`border-t mb-4 flex p-3 ${
+            !expanded && "max-sm:border-none"
+          }`}
+        >
           <img
             src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
             alt=""
-            className="w-10 h-10 rounded-md"
+            className="w-10 h-10 rounded-md max-sm:hidden"
           />
           <div
             className={`
               flex justify-between items-center
-              overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
+              overflow-hidden transition-all ${
+                expanded ? "w-52 ml-3 max-sm:w-36 max-sm:ml-1" : "w-0"
+              }
           `}
           >
             <div className="leading-4">
               <h4 className="font-semibold">John Doe</h4>
               <span className="text-xs text-gray-600">johndoe@gmail.com</span>
             </div>
-            <FiMoreVertical size={20} />
           </div>
         </div>
       </nav>
@@ -71,10 +73,12 @@ export function SidebarItem({ icon, text, active, alert }) {
         }
     `}
     >
-      {icon}
+      <button type="button" className={`${expanded ? "max-sm:hidden" : ""}`}>
+        {icon}
+      </button>
       <span
         className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-3" : "w-0"
+          expanded ? "w-52 ml-3 max-sm:w-36 max-sm:ml-1" : "w-0"
         }`}
       >
         {text}

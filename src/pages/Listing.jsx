@@ -64,12 +64,12 @@ const Listing = () => {
     {
       id: "photos",
       label: <IoMdPhotos className="h-7 w-7" />,
-      content: <ItemSlider />,
+      content: <ItemSlider listingData={listing} />,
     },
     {
       id: "map",
       label: <FaMapLocationDot className="h-7 w-7" />,
-      content: <GoogleMaps />,
+      content: <GoogleMaps geo={listing?.geoLocation} />,
     },
     {
       id: "overview",
@@ -83,7 +83,7 @@ const Listing = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-[95%] mt-6 mx-auto">
+    <div className="flex flex-col max-w-6xl max-lg:max-w-[94%] mt-6 mx-auto">
       {/* Basic Info Section */}
       <div className="order-1 max-sm:order-2 max-sm:mt-16 flex w-full max-sm:flex-col max-sm:items-start max-sm:justify-start max-sm:mb-6 justify-between items-center">
         {/* Left Info */}

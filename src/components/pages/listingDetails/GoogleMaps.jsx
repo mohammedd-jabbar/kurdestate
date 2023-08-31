@@ -1,29 +1,34 @@
+/* eslint-disable react/prop-types */
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 
-const GoogleMaps = () => {
+const GoogleMaps = ({ geo }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps",
   });
 
   if (!isLoaded) return <div>Loading...</div>;
-  return <Map />;
+  return <Map geo={geo} />;
 };
-const Map = () => {
+const Map = ({ geo }) => {
   const options = {
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: false,
   };
 
+  const { lat, lng } = geo;
+
   return (
-    <GoogleMap
-      options={options}
-      zoom={10}
-      center={{ lat: -34.397, lng: 150.644 }}
-      mapContainerClassName="max-sm:h-[60vh] h-[89vh] w-full "
-    >
-      <MarkerF position={{ lat: -34.397, lng: 150.644 }} />
-    </GoogleMap>
+    <div className="w-full h-[89vh] max-sm:h-[60vh] bg-white">
+      <GoogleMap
+        options={options}
+        zoom={10}
+        center={{ lat, lng }}
+        mapContainerClassName="w-full h-full"
+      >
+        <MarkerF position={{ lat, lng }} />
+      </GoogleMap>
+    </div>
   );
 };
 

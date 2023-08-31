@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { LiaBedSolid, LiaBathSolid } from "react-icons/lia";
-import { AiOutlineCar, AiFillEye } from "react-icons/ai";
+import { AiOutlineCar } from "react-icons/ai";
 import { MdOutlineCalendarMonth } from "react-icons/md";
-import { FaSearchLocation } from "react-icons/fa";
+import { FaPencilRuler } from "react-icons/fa";
+
 // import {} from "react-icons/fa6";
 
 const Overview = ({ listing }) => {
@@ -13,10 +14,10 @@ const Overview = ({ listing }) => {
           <h1 className="font-semibold text-2xl py-8 border-b-2 border-border border-opacity-80">
             Overview
           </h1>
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-3 max-sm:grid-cols-2">
             <div className="flex flex-col px-6">
               <div className="flex pt-6 pb-1 items-center">
-                {/* <FaHouse className="mr-3 h-6 w-6" /> */}
+                {/* <AiFillEye className="mr-3 h-6 w-6" /> */}
                 <p className="text-2xl font-bold">Status</p>
               </div>
               <p className="text-base font-light">
@@ -32,7 +33,7 @@ const Overview = ({ listing }) => {
             </div>
             <div className="flex flex-col px-6">
               <div className="flex pt-6 pb-1 items-center">
-                <LiaBedSolid className="mr-3 h-6 w-6" />
+                <LiaBathSolid className="mr-3 h-6 w-6" />
                 <p className="text-2xl font-bold">{listing.baths}</p>
               </div>
               <p className="text-base font-light">Bathrooms</p>
@@ -46,17 +47,17 @@ const Overview = ({ listing }) => {
             </div>
             <div className="flex flex-col px-6">
               <div className="flex pt-6 pb-1 items-center">
-                <LiaBedSolid className="mr-3 h-6 w-6" />
-                <p className="text-2xl font-bold">{listing.beds}</p>
+                <FaPencilRuler className="mr-3 h-5 w-5" />
+                <p className="text-2xl font-bold">{listing.area}</p>
               </div>
-              <p className="text-base font-light">Bedrooms</p>
+              <p className="text-base font-light">Meters</p>
             </div>
             <div className="flex flex-col px-6">
               <div className="flex pt-6 pb-1 items-center">
-                <LiaBedSolid className="mr-3 h-6 w-6" />
-                <p className="text-2xl font-bold">{listing.beds}</p>
+                <MdOutlineCalendarMonth className="mr-3 h-6 w-6" />
+                <p className="text-2xl font-bold">{listing.yearBuilt}</p>
               </div>
-              <p className="text-base font-light">Bedrooms</p>
+              <p className="text-base font-light">Year Built</p>
             </div>
           </div>
         </div>
@@ -64,16 +65,7 @@ const Overview = ({ listing }) => {
           <h1 className="font-semibold text-2xl py-8 border-b-2 border-border border-opacity-80">
             Description
           </h1>
-          <p className="px-6 py-4">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-            volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-            ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate
-            velit esse molestie consequat, vel illum dolore eu feugiat nulla
-            facilisis at vero eros et accumsan et iusto odio dignissim qui
-            blandit praesent
-          </p>
+          <p className="px-6 py-4">{listing.description}</p>
         </div>
       </div>
     )

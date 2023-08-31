@@ -11,7 +11,6 @@ const Header = () => {
   const [isLanguage, setIsLanguage] = useState(false);
 
   const [userAuth, setUserAuth] = useState(false);
-  const [dashboard, setDashboard] = useState(false);
 
   const [user, setUser] = useState({
     firstLetter: "",
@@ -33,9 +32,6 @@ const Header = () => {
           email: user.email,
         }));
 
-        if (user.uid === "WoRWTrX3FfZSp2bt7Rhf9hqLDE63") {
-          setDashboard(true);
-        }
         setUserAuth(true);
       } else {
         const fullName = user.displayName;
@@ -150,7 +146,6 @@ const Header = () => {
                 profilePhoto={profilePhoto}
                 name={name}
                 email={email}
-                dashboard={dashboard}
               />
             ) : (
               <div className="space-x-5">
