@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import Slider from "../components/Slider";
 
 import {
   collection,
@@ -31,6 +30,7 @@ const Home = () => {
         const q = query(
           listingRef,
           where("offer", "==", true),
+          where("status", "==", "accepted"),
           orderBy("timeStamp", "desc"),
           limit(4)
         );
@@ -62,6 +62,7 @@ const Home = () => {
         const q = query(
           listingRef,
           where("type", "==", "rent"),
+          where("status", "==", "accepted"),
           orderBy("timeStamp", "desc"),
           limit(4)
         );
@@ -93,6 +94,7 @@ const Home = () => {
         const q = query(
           listingRef,
           where("type", "==", "sale"),
+          where("status", "==", "accepted"),
           orderBy("timeStamp", "desc"),
           limit(6)
         );
@@ -123,7 +125,7 @@ const Home = () => {
         }}
       ></div>
       <div>
-        <div className="max-w-6xl mx-auto pt-4 space-y-6">
+        <div className="max-w-6xl max-lg:w-[95%] mx-auto pt-4 space-y-6">
           {/* offer */}
           {offerListing && offerListing.length > 0 && (
             <div className="mb-6">

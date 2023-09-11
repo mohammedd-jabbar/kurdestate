@@ -53,8 +53,7 @@ const SignUp = () => {
       const user = userCredential.user;
 
       const formDataCopy = { ...formData };
-      // this will delete the password field from the formDataCopy
-      delete formDataCopy.password;
+
       // this will add the timestamp to the formDataCopy
       formDataCopy.timestamp = serverTimestamp();
 
@@ -63,7 +62,7 @@ const SignUp = () => {
 
       // this will redirect the user to the home page
       navigateTo("/");
-
+      window.location.reload();
       notifications("Sign Up was successful!");
     } catch (error) {
       notifications("Something went wrong, try again!", true);

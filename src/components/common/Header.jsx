@@ -3,6 +3,8 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { notifications } from "./Notifications";
 import NavbarDropDown from "./NavbarDropDown";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 const Header = () => {
   let location = useLocation();
@@ -22,28 +24,59 @@ const Header = () => {
   const { firstLetter, profilePhoto, name, email } = user;
 
   const auth = getAuth();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user && user.photoURL) {
-        setUser((prevUser) => ({
-          ...prevUser,
-          profilePhoto: user.photoURL,
-          name: user.displayName,
-          email: user.email,
-        }));
+      if (user.emailVerified) {
+        if (user.photoURL) {
+          setUser((prevUser) => ({
+            ...prevUser,
+            profilePhoto: user.photoURL,
+            name: user.displayName,
+            email: user.email,
+          }));
+        } else {
+          const fullName = user.displayName;
+          const firstLetterName = fullName.charAt(0);
 
+          setUser((prevUser) => ({
+            ...prevUser,
+            name: user.displayName,
+            email: user.email,
+            firstLetter: firstLetterName,
+          }));
+
+          setUserAuth(false);
+        }
         setUserAuth(true);
+      } else if (!user.emailVerified) {
+        const fetchUser = async () => {
+          const userRef = doc(db, "users", auth.currentUser.uid);
+
+          try {
+            const userSnapshot = await getDoc(userRef);
+            if (userSnapshot.exists()) {
+              const userData = userSnapshot.data();
+
+              const fullName = userData.name;
+              const firstLetterName = fullName.charAt(0);
+
+              setUser((prevUser) => ({
+                ...prevUser,
+                name: user.displayName,
+                email: user.email,
+                firstLetter: firstLetterName,
+              }));
+            } else {
+              return null;
+            }
+            setUserAuth(true);
+          } catch (error) {
+            return null;
+          }
+        };
+        fetchUser();
       } else {
-        const fullName = user.displayName;
-        const firstSpaceIndex = fullName.indexOf(" ");
-        const firstLetterUser =
-          firstSpaceIndex !== -1 ? fullName.charAt(0) : fullName;
-
-        setUser((prevUser) => ({
-          ...prevUser,
-          firstLetter: firstLetterUser,
-        }));
-
         setUserAuth(false);
       }
     });
@@ -75,6 +108,7 @@ const Header = () => {
     try {
       auth.signOut(auth); // Sign out the current user and update the state
       navigateTo("/");
+      window.location.reload();
     } catch (error) {
       notifications("Sorry", "error");
     }

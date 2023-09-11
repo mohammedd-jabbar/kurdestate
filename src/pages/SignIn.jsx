@@ -39,7 +39,8 @@ const SignIn = () => {
       );
       if (userCredential.user) {
         navigateTo("/");
-        notifications("Successfully signed in!", false);
+        window.location.reload();
+        notifications("Successfully signed in!");
       }
     } catch (error) {
       notifications("Could not sign in!", true);

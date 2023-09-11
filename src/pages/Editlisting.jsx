@@ -67,7 +67,6 @@ const EditListing = () => {
   const { listId } = useParams(); // get the listing id from the url
 
   useEffect(() => {
-    setUserAuth(true);
     if (
       listing &&
       listing.userRef !== auth.currentUser.uid &&

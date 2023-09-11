@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, node: true },
+  env: { browser: true, node: true, es6: true },
   globals: { process: true },
   extends: [
     "eslint:recommended",

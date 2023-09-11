@@ -9,9 +9,11 @@ import Sidebar, { SidebarItem } from "../components/pages/settings/Sidebar";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaListAlt, FaUserCog, FaCog } from "react-icons/fa";
 import { BiHelpCircle } from "react-icons/bi";
+import Dashboard from "../components/pages/settings/Dashboard";
+import ProfileContent from "../components/pages/settings/ProfileContent";
 
 const Setting = () => {
-  const [activeItem, setActiveItem] = useState("dashboard"); // Default active item
+  const [activeItem, setActiveItem] = useState("profile"); // Default active item
 
   // Function to set the active item when clicking on a sidebar item
   const handleSidebarItemClick = (item) => {
@@ -22,9 +24,9 @@ const Setting = () => {
   const renderContent = () => {
     switch (activeItem) {
       case "dashboard":
-        return "<DashboardContent />";
+        return <Dashboard />;
       case "profile":
-        return "<ProfileContent />";
+        return <ProfileContent />;
       case "posts":
         return "<PostsContent />";
       case "settings":
@@ -37,66 +39,67 @@ const Setting = () => {
   };
 
   return (
-    <main className="fixed flex min-h-screen">
-      <Sidebar>
-        <div
-          onClick={() => handleSidebarItemClick("dashboard")}
-          style={{ background: "none", color: "inherit" }}
-        >
-          <SidebarItem
-            active={activeItem === "dashboard"}
-            icon={<LuLayoutDashboard size={20} />}
-            text="Dashboard"
-          />
-        </div>
-        <div
-          onClick={() => handleSidebarItemClick("profile")}
-          style={{ background: "none", color: "inherit" }}
-        >
-          <SidebarItem
-            active={activeItem === "profile"}
-            icon={<FaUserCog size={20} />}
-            text="Profile"
-          />
-        </div>
+    <>
+      <main className="fixed z-20 flex min-h-screen">
+        <Sidebar>
+          <div
+            onClick={() => handleSidebarItemClick("dashboard")}
+            style={{ background: "none", color: "inherit" }}
+          >
+            <SidebarItem
+              active={activeItem === "dashboard"}
+              icon={<LuLayoutDashboard size={20} />}
+              text="Dashboard"
+            />
+          </div>
+          <div
+            onClick={() => handleSidebarItemClick("profile")}
+            style={{ background: "none", color: "inherit" }}
+          >
+            <SidebarItem
+              active={activeItem === "profile"}
+              icon={<FaUserCog size={20} />}
+              text="Profile"
+            />
+          </div>
 
-        <div
-          onClick={() => handleSidebarItemClick("posts")}
-          style={{ background: "none", color: "inherit" }}
-        >
-          <SidebarItem
-            active={activeItem === "posts"}
-            icon={<FaListAlt size={20} />}
-            text="Posts"
-          />
-        </div>
+          <div
+            onClick={() => handleSidebarItemClick("posts")}
+            style={{ background: "none", color: "inherit" }}
+          >
+            <SidebarItem
+              active={activeItem === "posts"}
+              icon={<FaListAlt size={20} />}
+              text="Posts"
+            />
+          </div>
 
-        <hr className="my-3" />
-        <div
-          onClick={() => handleSidebarItemClick("settings")}
-          style={{ background: "none", color: "inherit" }}
-        >
-          <SidebarItem
-            active={activeItem === "settings"}
-            icon={<FaCog size={20} />}
-            text="Settings"
-          />
-        </div>
-        <div
-          onClick={() => handleSidebarItemClick("help")}
-          style={{ background: "none", color: "inherit" }}
-        >
-          <SidebarItem
-            active={activeItem === "help"}
-            icon={<BiHelpCircle size={20} />}
-            text="Help"
-          />
-        </div>
-      </Sidebar>
-
+          <hr className="my-3" />
+          <div
+            onClick={() => handleSidebarItemClick("settings")}
+            style={{ background: "none", color: "inherit" }}
+          >
+            <SidebarItem
+              active={activeItem === "settings"}
+              icon={<FaCog size={20} />}
+              text="Settings"
+            />
+          </div>
+          <div
+            onClick={() => handleSidebarItemClick("help")}
+            style={{ background: "none", color: "inherit" }}
+          >
+            <SidebarItem
+              active={activeItem === "help"}
+              icon={<BiHelpCircle size={20} />}
+              text="Help"
+            />
+          </div>
+        </Sidebar>
+      </main>
       {/* Render the appropriate content */}
-      <div className="flex-1 p-4">{renderContent()}</div>
-    </main>
+      <div className="">{renderContent()}</div>
+    </>
   );
 };
 

@@ -27,7 +27,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
           />
 
           {/* the top animation for rent or sell */}
-          <div className="absolute z-40 rounded-es-3xl top-0 right-0 w-24 h-0 group-hover:h-8 group-hover:duration-500 bg-primary-500">
+          <div className="absolute z-0  rounded-es-3xl top-0 right-0 w-24 h-0 group-hover:h-8 group-hover:duration-500 bg-primary-500">
             <p className="text-center opacity-0 pt-1 transition-opacity duration-500 group-hover:opacity-100 text-gray-100 font-semibold text-sm">
               {listing.type === "rent" ? "Rent" : "Sell"}
             </p>

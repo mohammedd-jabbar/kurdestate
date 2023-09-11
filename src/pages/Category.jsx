@@ -28,6 +28,7 @@ const Category = () => {
         const q = query(
           listingRef,
           where("type", "==", categoryName),
+          where("status", "==", "accepted"),
           orderBy("timeStamp", "desc"),
           limit(8)
         );
@@ -49,7 +50,7 @@ const Category = () => {
         setLoading(false);
       } catch (error) {
         console.log(error);
-        notifications("Could not fetch offers");
+        notifications("Could not fetch offers", true);
       }
     };
     fetchListings();
@@ -61,6 +62,7 @@ const Category = () => {
       const q = query(
         listingRef,
         where("type", "==", categoryName),
+        where("status", "==", "accepted"),
         orderBy("timeStamp", "desc"),
         startAfter(lastFetchListings),
         limit(4)

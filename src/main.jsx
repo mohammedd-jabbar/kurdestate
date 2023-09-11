@@ -22,6 +22,9 @@ import Editlisting from "./pages/Editlisting";
 import Listing from "./pages/Listing";
 import Category from "./pages/Category";
 import Setting from "./pages/Setting";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -62,7 +65,7 @@ const router = createBrowserRouter([
         element: <Offers />,
       },
       {
-        path: "setting",
+        path: "settings",
         element: <Setting />,
       },
       {
@@ -105,19 +108,21 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ToastContainer
-      position="top-right"
-      autoClose={3000}
-      hideProgressBar
-      newestOnTop
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover={false}
-      theme="dark"
-    />
-    {/* this is provider for react router */}
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+      />
+      {/* this is provider for react router */}
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );

@@ -89,7 +89,7 @@ const NavbarDropDown = ({
           </li>
 
           <li>
-            <a href="/setting" className="block px-4 py-2 hover:bg-gray-100 ">
+            <a href="/settings" className="block px-4 py-2 hover:bg-gray-100 ">
               Settings
             </a>
           </li>
