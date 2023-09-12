@@ -68,9 +68,8 @@ const EditListing = () => {
 
   useEffect(() => {
     if (
-      listing &&
-      listing.userRef !== auth.currentUser.uid &&
-      !user.uid === "WoRWTrX3FfZSp2bt7Rhf9hqLDE63"
+      (listing && listing?.userRef !== auth?.currentUser?.uid) ||
+      auth?.currentUser?.uid !== "WoRWTrX3FfZSp2bt7Rhf9hqLDE63"
     ) {
       navigateTo("/");
       notifications("You don't have permission to edit this listing", true);

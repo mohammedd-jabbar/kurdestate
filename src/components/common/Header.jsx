@@ -3,8 +3,6 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { notifications } from "./Notifications";
 import NavbarDropDown from "./NavbarDropDown";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
 import { UserInfoContext } from "../../store/UserInfoProvider";
 import Spinner from "../common/Spinner";
 
@@ -32,8 +30,7 @@ const Header = () => {
 
   const auth = getAuth();
 
-  const { data, isLoading, isFetching, error, isError } =
-    useContext(UserInfoContext);
+  const { data, isLoading, isFetching, isError } = useContext(UserInfoContext);
 
   const [user, setUser] = useState({
     firstLetter: "",
@@ -56,34 +53,21 @@ const Header = () => {
         }));
       } else {
         const fetchUser = async () => {
-          const userRef = doc(db, "users", auth?.currentUser?.uid);
+          const fullName = data.displayName;
+          const firstLetterName = fullName.charAt(0);
 
-          try {
-            const userSnapshot = await getDoc(userRef);
-            if (userSnapshot.exists()) {
-              const userData = userSnapshot.data();
-
-              const fullName = userData.name;
-              const firstLetterName = fullName.charAt(0);
-
-              setUser((prevUser) => ({
-                ...prevUser,
-                name: user.displayName,
-                email: user.email,
-                firstLetter: firstLetterName,
-              }));
-            } else {
-              return null;
-            }
-            setUserAuth(true);
-          } catch (error) {
-            return null;
-          }
+          setUser((prevUser) => ({
+            ...prevUser,
+            name: data.displayName,
+            email: data.email,
+            firstLetter: firstLetterName,
+          }));
+          setUserAuth(true);
         };
         fetchUser();
       }
       setUserAuth(true);
-    } else {
+    } else if (isError && isError.isNotAuthenticated) {
       setUserAuth(false);
     }
   }, [data]);

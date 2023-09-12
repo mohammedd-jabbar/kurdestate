@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Sidebar, { SidebarItem } from "../components/pages/settings/Sidebar";
 // import DashboardContent from "../components/pages/settings/DashboardContent"; // Import your content components
 // import ProfileContent from "../components/pages/settings/ProfileContent";
-// import PostsContent from "../components/pages/settings/PostsContent";
+import PostsContent from "../components/pages/settings/PostsContent";
 // import SettingsContent from "../components/pages/settings/SettingsContent";
 // import HelpContent from "../components/pages/settings/HelpContent";
 
@@ -11,10 +11,14 @@ import { FaListAlt, FaUserCog, FaCog } from "react-icons/fa";
 import { BiHelpCircle } from "react-icons/bi";
 import Dashboard from "../components/pages/settings/Dashboard";
 import ProfileContent from "../components/pages/settings/ProfileContent";
+import { UserInfoContext } from "../store/UserInfoProvider";
 
 const Setting = () => {
   const [activeItem, setActiveItem] = useState("profile"); // Default active item
 
+  const { data } = useContext(UserInfoContext);
+
+  console.log(data);
   // Function to set the active item when clicking on a sidebar item
   const handleSidebarItemClick = (item) => {
     setActiveItem(item);
@@ -28,7 +32,7 @@ const Setting = () => {
       case "profile":
         return <ProfileContent />;
       case "posts":
-        return "<PostsContent />";
+        return <PostsContent />;
       case "settings":
         return "<SettingsContent />";
       case "help":
@@ -42,16 +46,18 @@ const Setting = () => {
     <>
       <main className="fixed z-20 flex min-h-screen">
         <Sidebar>
-          <div
-            onClick={() => handleSidebarItemClick("dashboard")}
-            style={{ background: "none", color: "inherit" }}
-          >
-            <SidebarItem
-              active={activeItem === "dashboard"}
-              icon={<LuLayoutDashboard size={20} />}
-              text="Dashboard"
-            />
-          </div>
+          {data.uid === "WoRWTrX3FfZSp2bt7Rhf9hqLDE63" && (
+            <div
+              onClick={() => handleSidebarItemClick("dashboard")}
+              style={{ background: "none", color: "inherit" }}
+            >
+              <SidebarItem
+                active={activeItem === "dashboard"}
+                icon={<LuLayoutDashboard size={20} />}
+                text="Dashboard"
+              />
+            </div>
+          )}
           <div
             onClick={() => handleSidebarItemClick("profile")}
             style={{ background: "none", color: "inherit" }}

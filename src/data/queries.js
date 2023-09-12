@@ -11,7 +11,7 @@ export const getUserInfo = async () => {
         if (user) {
           resolve(user);
         } else {
-          reject(new Error("User not found")); // Reject with an error if user is not found
+          reject({ isNotAuthenticated: true });
         }
       });
     });

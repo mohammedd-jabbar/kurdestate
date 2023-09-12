@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { notifications } from "../../common/Notifications";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { db } from "../../../../firebase";
 import {
   collection,
@@ -17,8 +17,11 @@ import {
 } from "firebase/firestore";
 import DashboardItem from "../settings/DashboardItem";
 import Spinner from "../../common/Spinner";
+import { UserInfoContext } from "../../../store/UserInfoProvider";
 
 const Dashboard = () => {
+  const { data } = useContext(UserInfoContext);
+
   const auth = getAuth();
   const navigateTo = useNavigate();
   const [listings, setListings] = useState(null); // State to store the user listings and edit
@@ -26,6 +29,10 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true); // State to handle the loading
 
   useEffect(() => {
+    if (data.uid !== "WoRWTrX3FfZSp2bt7Rhf9hqLDE63") {
+      navigateTo("/");
+    }
+
     // Fetch the user listings
     const fetchUserListings = async () => {
       // get the listings collection from database
@@ -67,9 +74,11 @@ const Dashboard = () => {
       notifications("Listing deleted successfully");
     }
   };
+
   const handleEdit = (id) => {
     navigateTo(`/edit/${id}`);
   };
+
   const handleToggleStatus = async (id) => {
     if (
       window.confirm(
