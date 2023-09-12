@@ -6,52 +6,36 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../../../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Spinner from "../../common/Spinner";
+import { useUserInfo } from "../../../data/queries";
 
 const ProfileContent = () => {
   // TODO: make the states loading and the component
 
   const auth = getAuth();
 
+  const { isLoading, data, error, isFetching, refetch } = useUserInfo();
+
   const navigateTo = useNavigate();
   const [isEditingName, setIsEditingName] = useState(false); // State to handle the name editing, default is false, so the name input is disabled by default and the user can't edit it, when the user click on the edit button, the state will be true and the name input will be enabled
 
   const [listings, setListings] = useState(null); // State to store the user listings and edit them
-  const [isLoading, setIsLoading] = useState(true); // State to handle the loading
 
-  const [formData, setFormData] = useState({
-    name: "", // Use an empty string as a default if user is not authenticated
-    email: "",
-  });
-
-  if (isLoading) {
+  if (isLoading || isFetching) {
     <Spinner />;
   }
 
+  const [formData, setFormData] = useState({
+    name: data?.name,
+    email: data?.email,
+  });
+
   useEffect(() => {
-    async function fetchData() {
-      try {
-        // Check if the user is authenticated and fetch additional data if needed
-        if (auth.currentUser) {
-          const docRef = doc(db, "users", auth.currentUser.uid);
-          const docSnap = await getDoc(docRef);
-
-          if (docSnap.exists()) {
-            const userData = docSnap.data();
-            setFormData({
-              name: userData.name,
-              email: auth.currentUser.email,
-            });
-          }
-        }
-
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
-  }, [auth.currentUser]);
+    setFormData((prevData) => ({
+      ...prevData,
+      name: data?.name,
+      email: data?.email,
+    }));
+  }, [data]);
 
   const { name, email } = formData;
 

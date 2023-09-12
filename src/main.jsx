@@ -22,7 +22,7 @@ import Editlisting from "./pages/Editlisting";
 import Listing from "./pages/Listing";
 import Category from "./pages/Category";
 import Setting from "./pages/Setting";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 

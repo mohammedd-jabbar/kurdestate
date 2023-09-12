@@ -1,8 +1,11 @@
 import { getUserStatus } from "../data/queries";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const UseAuthStatus = () => {
-  const { data: user, isLoading } = useQuery("auth", getUserStatus);
+  const { data: user, isLoading } = useQuery({
+    queryKey: ["auth"],
+    queryFn: getUserStatus,
+  });
 
   const isLoggedIn = Boolean(user);
 
