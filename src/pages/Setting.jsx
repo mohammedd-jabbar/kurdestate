@@ -14,11 +14,10 @@ import ProfileContent from "../components/pages/settings/ProfileContent";
 import { UserInfoContext } from "../store/UserInfoProvider";
 
 const Setting = () => {
-  const [activeItem, setActiveItem] = useState("profile"); // Default active item
+  const [activeItem, setActiveItem] = useState("posts"); // Default active item
 
   const { data } = useContext(UserInfoContext);
 
-  console.log(data);
   // Function to set the active item when clicking on a sidebar item
   const handleSidebarItemClick = (item) => {
     setActiveItem(item);

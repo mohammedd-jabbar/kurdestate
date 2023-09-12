@@ -5,12 +5,14 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { AiFillCheckCircle } from "react-icons/ai";
 
-const DashboardItem = ({ listing, onDelete, onEdit, onAccept }) => {
+const PostItem = ({ listing, onDelete, onEdit, id }) => {
   return (
     <div className="bg-white flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]">
-      <Link className="p-0 m-0 inline-block w-full">
+      <Link
+        className="p-0 m-0 inline-block w-full"
+        to={`/category/${listing.type}/${id}`}
+      >
         <div className="relative group h-56 w-full">
           <LazyLoadImage
             style={{
@@ -76,20 +78,10 @@ const DashboardItem = ({ listing, onDelete, onEdit, onAccept }) => {
               onClick={() => onEdit(listing.id)}
             />
           )}
-          {onAccept && (
-            <AiFillCheckCircle
-              className={`absolute  w-4 h4  bottom-2 right-12 cursor-pointer h-4 ${
-                listing.status === "accepted"
-                  ? "text-green-500 hover:text-green-700"
-                  : "text-red-500 hover:text-red-700"
-              }`}
-              onClick={() => onAccept(listing.id)}
-            />
-          )}
         </a>
       </Link>
     </div>
   );
 };
 
-export default DashboardItem;
+export default PostItem;
