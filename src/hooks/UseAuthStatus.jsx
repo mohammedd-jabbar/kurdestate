@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { AuthContext } from "../store/AuthStatusProvider";
+import { UserInfoContext } from "../store/UserInfoProvider";
 
 export const UseAuthStatus = () => {
-  const { data, isLoading } = useContext(AuthContext);
+  const { data, isLoading } = useContext(UserInfoContext);
 
   const isLoggedIn = Boolean(data);
 

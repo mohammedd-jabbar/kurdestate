@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { getAuth, updateProfile } from "firebase/auth";
 import { notifications } from "../../common/Notifications";
 import { useNavigate } from "react-router-dom";
@@ -7,14 +7,15 @@ import { db } from "../../../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Spinner from "../../common/Spinner";
 
-import { AuthContext } from "../../../store/AuthStatusProvider";
+import { UserInfoContext } from "../../../store/UserInfoProvider";
 
 const ProfileContent = () => {
   // TODO: make the states loading and the component
 
   const auth = getAuth();
 
-  const { data, isLoading, isFetching } = useContext(AuthContext);
+  const { data, isLoading, isFetching } = useContext(UserInfoContext);
+  console.log(data);
 
   const navigateTo = useNavigate();
   const [isEditingName, setIsEditingName] = useState(false); // State to handle the name editing, default is false, so the name input is disabled by default and the user can't edit it, when the user click on the edit button, the state will be true and the name input will be enabled

@@ -1,18 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { notifications } from "./Notifications";
 import NavbarDropDown from "./NavbarDropDown";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { UserInfoContext } from "../../store/UserInfoProvider";
+import Spinner from "../common/Spinner";
 
 const Header = () => {
   let location = useLocation();
   const navigateTo = useNavigate();
   const [isDropDown, setIsDropDown] = useState(false);
   const [isLanguage, setIsLanguage] = useState(false);
-
+  const [isActive, setIsActive] = useState(false);
   const [userAuth, setUserAuth] = useState(false);
+
+  // navbar animation
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 60) {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
+    });
+    return () => {
+      window.removeEventListener("scroll", () => {});
+    };
+  }, []);
+
+  const auth = getAuth();
+
+  const { data, isLoading, isFetching, error, isError } =
+    useContext(UserInfoContext);
 
   const [user, setUser] = useState({
     firstLetter: "",
@@ -23,35 +44,19 @@ const Header = () => {
 
   const { firstLetter, profilePhoto, name, email } = user;
 
-  const auth = getAuth();
-
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user.emailVerified) {
-        if (user.photoURL) {
-          setUser((prevUser) => ({
-            ...prevUser,
-            profilePhoto: user.photoURL,
-            name: user.displayName,
-            email: user.email,
-          }));
-        } else {
-          const fullName = user.displayName;
-          const firstLetterName = fullName.charAt(0);
-
-          setUser((prevUser) => ({
-            ...prevUser,
-            name: user.displayName,
-            email: user.email,
-            firstLetter: firstLetterName,
-          }));
-
-          setUserAuth(false);
-        }
-        setUserAuth(true);
-      } else if (!user.emailVerified) {
+    if (data && data !== undefined) {
+      if (data?.emailVerified) {
+        setUser((prev) => ({
+          ...prev,
+          firstLetter: "",
+          profilePhoto: data?.photoURL,
+          name: data?.displayName,
+          email: data?.email,
+        }));
+      } else {
         const fetchUser = async () => {
-          const userRef = doc(db, "users", auth.currentUser.uid);
+          const userRef = doc(db, "users", auth?.currentUser?.uid);
 
           try {
             const userSnapshot = await getDoc(userRef);
@@ -76,26 +81,16 @@ const Header = () => {
           }
         };
         fetchUser();
-      } else {
-        setUserAuth(false);
       }
-    });
-  }, [auth]);
+      setUserAuth(true);
+    } else {
+      setUserAuth(false);
+    }
+  }, [data]);
 
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 60) {
-        setIsActive(true);
-      } else {
-        setIsActive(false);
-      }
-    });
-    return () => {
-      window.removeEventListener("scroll", () => {});
-    };
-  }, []);
+  if (isLoading || isFetching) {
+    return <Spinner />;
+  }
 
   const toggleDropdown = () => {
     setIsDropDown(!isDropDown);
