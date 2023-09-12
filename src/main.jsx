@@ -23,6 +23,7 @@ import Listing from "./pages/Listing";
 import Category from "./pages/Category";
 import Setting from "./pages/Setting";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AuthStatusProvider from "./store/AuthStatusProvider";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,18 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "settings",
+        element: <PrivateRoute />,
+        children: [
+          {
+            index: true,
+            element: <Setting />,
+            errorElement: <div>404</div>,
+          },
+        ],
+      },
+
+      {
         path: "sign-in",
         element: <SignIn />,
       },
@@ -63,10 +76,6 @@ const router = createBrowserRouter([
       {
         path: "offers",
         element: <Offers />,
-      },
-      {
-        path: "settings",
-        element: <Setting />,
       },
       {
         path: "category/:categoryName",
@@ -109,20 +118,22 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="dark"
-      />
-      {/* this is provider for react router */}
-      <RouterProvider router={router} />
+      <AuthStatusProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+          theme="dark"
+        />
+        {/* this is provider for react router */}
+        <RouterProvider router={router} />
+      </AuthStatusProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );
