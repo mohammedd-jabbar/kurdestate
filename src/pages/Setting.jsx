@@ -3,12 +3,12 @@ import Sidebar, { SidebarItem } from "../components/pages/settings/Sidebar";
 // import DashboardContent from "../components/pages/settings/DashboardContent"; // Import your content components
 // import ProfileContent from "../components/pages/settings/ProfileContent";
 import PostsContent from "../components/pages/settings/PostsContent";
-// import SettingsContent from "../components/pages/settings/SettingsContent";
+import SettingsContent from "../components/pages/settings/SettingsContent";
 // import HelpContent from "../components/pages/settings/HelpContent";
 
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaListAlt, FaUserCog, FaCog } from "react-icons/fa";
-import { BiHelpCircle } from "react-icons/bi";
+import { RxExit } from "react-icons/rx";
 import Dashboard from "../components/pages/settings/Dashboard";
 import ProfileContent from "../components/pages/settings/ProfileContent";
 import { UserInfoContext } from "../store/UserInfoProvider";
@@ -33,7 +33,7 @@ const Setting = () => {
       case "posts":
         return <PostsContent />;
       case "settings":
-        return "<SettingsContent />";
+        return <SettingsContent />;
       case "help":
         return "<HelpContent />";
       default:
@@ -96,8 +96,8 @@ const Setting = () => {
           >
             <SidebarItem
               active={activeItem === "help"}
-              icon={<BiHelpCircle size={20} />}
-              text="Help"
+              icon={<RxExit size={20} />}
+              text="Sign Out"
             />
           </div>
         </Sidebar>

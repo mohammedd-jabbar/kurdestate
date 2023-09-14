@@ -5,7 +5,6 @@ import { notifications } from "./Notifications";
 import NavbarDropDown from "./NavbarDropDown";
 import { UserInfoContext } from "../../store/UserInfoProvider";
 import Spinner from "../common/Spinner";
-import { RxHamburgerMenu } from "react-icons/rx";
 
 const Header = () => {
   // users url location
@@ -16,6 +15,8 @@ const Header = () => {
   const [isDropDown, setIsDropDown] = useState(false);
   // dropdown for language inside the dropdown
   const [isLanguage, setIsLanguage] = useState(false);
+
+  const [isContentDropDown, setIsContentDropDown] = useState(false);
   // navbar scroll animation
   const [isNavbarScroll, setIsNavbarScroll] = useState(false);
   const [userAuth, setUserAuth] = useState(false);
@@ -96,6 +97,9 @@ const Header = () => {
   const toggleLanguageDropdown = () => {
     setIsLanguage(!isLanguage);
   };
+  const toggleContentDropDown = () => {
+    setIsContentDropDown(!isContentDropDown);
+  };
 
   // when user logout redirect user to the homepage
   const handleLogout = () => {
@@ -111,7 +115,7 @@ const Header = () => {
   // this function is used to check if the current route is the same as the route passed as an argument and return some different styles
   const getActiveRouteStyles = (
     route,
-    style = "!border-b-primary-500 !text-black"
+    style = "md:!border-b-primary-500 md:!text-black"
   ) => {
     return location.pathname === route ? style : "";
   };
@@ -123,7 +127,7 @@ const Header = () => {
           isNavbarScroll ? "border-b py-1 shadow-md" : " py-0 "
         } sticky w-full bg-headerBackground border-b shadow top-0 z-40 transition-all duration-300 ease-in-out`}
       >
-        <header className="flex justify-between items-center px-3 max-w-6xl mx-auto max-sm:py-2">
+        <header className="flex justify-between items-center px-3 max-w-6xl mx-auto ">
           <div>
             <Link to="/">
               <h1 className="h-5 cursor-pointer text-2xl flex items-center justify-center font-bold">
@@ -133,33 +137,38 @@ const Header = () => {
           </div>
           <div>
             <ul
-              className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
-                isDropDown ? "top-12 pt-6" : "top-[-490px]"
+              className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:mr-[65px] md:space-x-10 md:w-auto md:pl-0 transition-all duration-[400ms] ease-in-out ${
+                isContentDropDown
+                  ? "top-12 pt-4 shadow-md"
+                  : "-top-[44rem] max-md:opacity-0"
               }`}
             >
               <Link to="/category/rent">
                 <li
-                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
+                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent hover:bg-slate-200 px-4 hover:rounded-md ${getActiveRouteStyles(
                     "/category/rent"
                   )}`}
+                  onClick={toggleContentDropDown}
                 >
                   Rent
                 </li>
               </Link>
               <Link to="/category/sale">
                 <li
-                  className={`py-3 cursor-pointer text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
+                  className={`py-3 cursor-pointer text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent hover:bg-slate-200 px-4 hover:rounded-md ${getActiveRouteStyles(
                     "/category/sale"
                   )}`}
+                  onClick={toggleContentDropDown}
                 >
                   Sell
                 </li>
               </Link>
               <Link to="/offers">
                 <li
-                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent ${getActiveRouteStyles(
+                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent hover:bg-slate-200 px-4 hover:rounded-md ${getActiveRouteStyles(
                     "/offers"
                   )}`}
+                  onClick={toggleContentDropDown}
                 >
                   Offers
                 </li>
@@ -167,19 +176,42 @@ const Header = () => {
             </ul>
           </div>
           <div>
-            {/* <RxHamburgerMenu className="text-3xl font-extrabold text-gray-950" /> */}
             {userAuth ? (
-              <NavbarDropDown
-                handleLogout={handleLogout}
-                toggleDropdown={toggleDropdown}
-                toggleLanguageDropdown={toggleLanguageDropdown}
-                isLanguage={isLanguage}
-                isDropDown={isDropDown}
-                firstLetter={firstLetter}
-                profilePhoto={profilePhoto}
-                name={name}
-                email={email}
-              />
+              <div className="flex justify-center items-center">
+                <div className="md:hidden">
+                  <button className="relative" onClick={toggleContentDropDown}>
+                    <div className="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all ring-0    ring-opacity-30 duration-200">
+                      <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
+                        {!isContentDropDown && (
+                          <>
+                            <div className="bg-gray-950 h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10"></div>
+                            <div className="bg-gray-950 h-[2px] w-7 rounded transform transition-all duration-300 focus:translate-x-10 delay-75"></div>
+                            <div className="bg-gray-950 h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10 delay-150"></div>
+                          </>
+                        )}
+
+                        {isContentDropDown && (
+                          <div className="absolute items-center justify-between transform transition-all duration-500 top-2.5  translate-x-0 flex w-12">
+                            <div className="absolute bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 rotate-45"></div>
+                            <div className="absolute bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 -rotate-45"></div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                </div>
+                <NavbarDropDown
+                  handleLogout={handleLogout}
+                  toggleDropdown={toggleDropdown}
+                  toggleLanguageDropdown={toggleLanguageDropdown}
+                  isLanguage={isLanguage}
+                  isDropDown={isDropDown}
+                  firstLetter={firstLetter}
+                  profilePhoto={profilePhoto}
+                  name={name}
+                  email={email}
+                />
+              </div>
             ) : (
               <div className="space-x-5">
                 <Link to="/sign-in">
