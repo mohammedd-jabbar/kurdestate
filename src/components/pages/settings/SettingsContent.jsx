@@ -1,6 +1,12 @@
 const SettingsContent = () => {
   return (
-    <div className="max-w-6xl md:ml-[5.3rem] mr-0 z-0 px-3 mt-7">Home</div>
+    <div className="max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center md:ml-24 mr-0 mt-7">
+      <div>
+        <h1 className="text-2xl font-bold pb-4 border-b border-border">
+          General Information
+        </h1>
+      </div>
+    </div>
   );
 };
 

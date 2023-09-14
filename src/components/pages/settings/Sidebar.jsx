@@ -23,7 +23,9 @@ export default function Sidebar({ children }) {
           <LuChevronLast />
         </button>
       </div>
-      <aside className={`h-[94vh] ${expanded ? "md:mr-12" : "max-md:hidden"}`}>
+      <aside
+        className={`h-[94vh] ${expanded ? "md:mr-12 w-52" : "max-md:hidden"}`}
+      >
         <nav className="h-full flex flex-col bg-white border-r shadow-sm">
           <div className="p-4 pb-2 flex justify-between items-center">
             <div
@@ -94,14 +96,14 @@ export function SidebarItem({ icon, text, active, alert }) {
     >
       <button
         type="button"
-        className={`max-md:mr-1 ${text === "Sign Out" ? "text-red-500" : ""}`}
+        className={`max-md:mr-1 ${text === "SignOut" ? "text-red-500" : ""}`}
       >
         {icon}
       </button>
       <span
         className={`overflow-hidden transition-all ${
           expanded ? "w-52 ml-3 max-sm:w-36 max-sm:ml-1" : "w-0"
-        } ${text === "Sign Out" ? "text-red-500" : ""}`}
+        } ${text === "SignOut" ? "text-red-500" : ""}`}
       >
         {text}
       </span>
@@ -120,7 +122,7 @@ export function SidebarItem({ icon, text, active, alert }) {
           bg-indigo-100 text-indigo-800 text-sm
           invisible opacity-20 -translate-x-3 transition-all
           group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-          `}
+          ${text === "SignOut" ? "text-red-500" : ""}`}
         >
           {text}
         </div>

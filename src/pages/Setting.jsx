@@ -97,7 +97,7 @@ const Setting = () => {
             <SidebarItem
               active={activeItem === "help"}
               icon={<RxExit size={20} />}
-              text="Sign Out"
+              text="SignOut"
             />
           </div>
         </Sidebar>

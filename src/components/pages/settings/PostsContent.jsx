@@ -17,11 +17,12 @@ import {
 } from "firebase/firestore";
 import DashboardItem from "../settings/DashboardItem";
 import Spinner from "../../common/Spinner";
-import { UserInfoContext } from "../../../store/UserInfoProvider";
+// import { UserInfoContext } from "../../../store/UserInfoProvider";
 import PostItem from "./PostItem";
 
 const PostsContent = () => {
-  const { data } = useContext(UserInfoContext);
+  // const { data } = useContext(UserInfoContext);
+  // const { expanded } = useContext(SidebarContext);
 
   const auth = getAuth();
   const navigateTo = useNavigate();
@@ -77,8 +78,11 @@ const PostsContent = () => {
     navigateTo(`/edit/${id}`);
   };
 
+  //  ${
+  //   expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
+  // }
   return (
-    <div className="max-w-6xl md:ml-[5.3rem] mr-0 z-0 px-3 mt-7">
+    <div className={`max-w-6xl   mr-0 z-0 px-3 mt-7`}>
       {!isLoading && listings.length > 0 && (
         <>
           <h2 className="text-2xl text-center font-semibold my-6">
