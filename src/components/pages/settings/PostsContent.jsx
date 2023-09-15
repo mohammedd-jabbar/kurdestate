@@ -19,10 +19,12 @@ import DashboardItem from "../settings/DashboardItem";
 import Spinner from "../../common/Spinner";
 // import { UserInfoContext } from "../../../store/UserInfoProvider";
 import PostItem from "./PostItem";
+import { ExpandedContext } from "../../../store/SidebarProvider";
 
 const PostsContent = () => {
   // const { data } = useContext(UserInfoContext);
   // const { expanded } = useContext(SidebarContext);
+  const { expanded, setExpanded } = useContext(ExpandedContext);
 
   const auth = getAuth();
   const navigateTo = useNavigate();
@@ -78,11 +80,12 @@ const PostsContent = () => {
     navigateTo(`/edit/${id}`);
   };
 
-  //  ${
-  //   expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
-  // }
   return (
-    <div className={`max-w-6xl   mr-0 z-0 px-3 mt-7`}>
+    <div
+      className={`max-w-6xl mr-0 z-0 px-3 mt-7 transition-all duration-200 ease-in-out ${
+        expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
+      }`}
+    >
       {!isLoading && listings.length > 0 && (
         <>
           <h2 className="text-2xl text-center font-semibold my-6">

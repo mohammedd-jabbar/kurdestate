@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { LuChevronLast, LuChevronFirst } from "react-icons/lu";
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext } from "react";
+import { ExpandedContext } from "../../../store/SidebarProvider";
 
 const SidebarContext = createContext();
 
 export default function Sidebar({ children }) {
-  const [expanded, setExpanded] = useState(false);
+  const { expanded, setExpanded } = useContext(ExpandedContext);
 
   return (
     <>
@@ -24,7 +25,9 @@ export default function Sidebar({ children }) {
         </button>
       </div>
       <aside
-        className={`h-[94vh] ${expanded ? "md:mr-12 w-52" : "max-md:hidden"}`}
+        className={`h-[94vh] transition-all duration-200 ease-in-out ${
+          expanded ? "md:mr-12 w-52" : "max-md:hidden"
+        }`}
       >
         <nav className="h-full flex flex-col bg-white border-r shadow-sm">
           <div className="p-4 pb-2 flex justify-between items-center">
@@ -42,7 +45,6 @@ export default function Sidebar({ children }) {
               {expanded ? <LuChevronFirst /> : <LuChevronLast />}
             </button>
           </div>
-
           <SidebarContext.Provider value={{ expanded, setExpanded }}>
             <ul className="flex-1 px-3">{children}</ul>
           </SidebarContext.Provider>

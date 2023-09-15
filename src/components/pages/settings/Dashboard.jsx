@@ -18,9 +18,11 @@ import {
 import DashboardItem from "../settings/DashboardItem";
 import Spinner from "../../common/Spinner";
 import { UserInfoContext } from "../../../store/UserInfoProvider";
+import { ExpandedContext } from "../../../store/SidebarProvider";
 
 const Dashboard = () => {
   const { data } = useContext(UserInfoContext);
+  const { expanded } = useContext(ExpandedContext);
 
   const auth = getAuth();
   const navigateTo = useNavigate();
@@ -121,7 +123,11 @@ const Dashboard = () => {
 
   if (isLoading) <Spinner />;
   return (
-    <div className="max-w-6xl md:ml-[5.3rem] mr-0 z-0 px-3 mt-7">
+    <div
+      className={`max-w-6xl mt-7 z-0 px-3 transition-all duration-200 ease-in-out mr-0 ${
+        expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
+      }`}
+    >
       {!isLoading && listings.length > 0 && (
         <>
           <h2 className="text-2xl text-center font-semibold my-6">

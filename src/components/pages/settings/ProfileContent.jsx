@@ -7,6 +7,7 @@ import { db } from "../../../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Spinner from "../../common/Spinner";
 import { UserInfoContext } from "../../../store/UserInfoProvider";
+import { ExpandedContext } from "../../../store/SidebarProvider";
 
 const ProfileContent = () => {
   // TODO: make the states loading and the component
@@ -14,6 +15,7 @@ const ProfileContent = () => {
   const auth = getAuth();
 
   const { data, isLoading, isFetching } = useContext(UserInfoContext);
+  const { expanded } = useContext(ExpandedContext);
 
   const navigateTo = useNavigate();
   const [isEditingName, setIsEditingName] = useState(false); // State to handle the name editing, default is false, so the name input is disabled by default and the user can't edit it, when the user click on the edit button, the state will be true and the name input will be enabled
@@ -63,7 +65,11 @@ const ProfileContent = () => {
   const handleCheckCurrentPassword = async () => {};
 
   return (
-    <div className="max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center md:ml-[13.5rem] mr-0 mt-7">
+    <div
+      className={`max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7  ${
+        expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
+      }`}
+    >
       <div>
         <h1 className="text-2xl font-bold pb-4 border-b border-border">
           General Information
