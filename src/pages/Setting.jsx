@@ -12,11 +12,16 @@ import { RxExit } from "react-icons/rx";
 import Dashboard from "../components/pages/settings/Dashboard";
 import ProfileContent from "../components/pages/settings/ProfileContent";
 import { UserInfoContext } from "../store/UserInfoProvider";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { notifications } from "../components/common/Notifications";
 
 const Setting = () => {
   const [activeItem, setActiveItem] = useState("posts"); // Default active item
 
   const { data } = useContext(UserInfoContext);
+  const auth = getAuth();
+  const navigateTo = useNavigate();
 
   // Function to set the active item when clicking on a sidebar item
   const handleSidebarItemClick = (item) => {
@@ -34,10 +39,22 @@ const Setting = () => {
         return <PostsContent />;
       case "settings":
         return <SettingsContent />;
-      case "help":
-        return "<HelpContent />";
       default:
         return null;
+    }
+  };
+
+  const handleLogout = () => {
+    // when user logout redirect user to the homepage
+
+    try {
+      if (window.confirm("Are you sure you want to delete your account?")) {
+        auth.signOut(auth); // Sign out the current user and update the state
+        navigateTo("/");
+        window.location.reload();
+      }
+    } catch (error) {
+      notifications("You can't logout", true);
     }
   };
 
@@ -91,14 +108,10 @@ const Setting = () => {
             />
           </div>
           <div
-            onClick={() => handleSidebarItemClick("help")}
+            onClick={() => handleLogout()}
             style={{ background: "none", color: "inherit" }}
           >
-            <SidebarItem
-              active={activeItem === "help"}
-              icon={<RxExit size={20} />}
-              text="SignOut"
-            />
+            <SidebarItem icon={<RxExit size={20} />} text="SignOut" />
           </div>
         </Sidebar>
       </main>

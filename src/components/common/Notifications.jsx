@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 
 // this is a custom notification component
 export const notifications = (msg, err = false) => {
+  const theme = localStorage.getItem("theme");
+
   if (!err) {
     return toast(msg, {
       position: "top-center",
@@ -15,7 +17,7 @@ export const notifications = (msg, err = false) => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
-      theme: "dark",
+      theme: theme === "dark" ? "dark" : "light",
     });
   } else {
     return toast.error(msg, {
@@ -27,7 +29,7 @@ export const notifications = (msg, err = false) => {
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
-      theme: "dark",
+      theme: theme === "dark" ? "dark" : "light",
     });
   }
 };

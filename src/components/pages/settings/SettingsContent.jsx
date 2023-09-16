@@ -7,10 +7,12 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { UserInfoContext } from "../../../store/UserInfoProvider";
 import { notifications } from "../../common/Notifications";
-import { getAuth, reauthenticateWithCredential } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const SettingsContent = () => {
   const { t, i18n } = useTranslation();
+  const navigateTo = useNavigate();
 
   const auth = getAuth();
 
@@ -38,18 +40,19 @@ const SettingsContent = () => {
     colorTheme === "light" ? true : false
   );
 
+  const [isChecked1, setIsChecked1] = useState(
+    colorTheme === "light" ? true : false
+  );
+  const [isChecked2, setIsChecked2] = useState(false);
+
   const toggleDarkMode = (checked) => {
     setTheme(colorTheme);
     setDarkSide(checked);
   };
 
-  const [isChecked1, setIsChecked1] = useState(false);
-
   const handleCheckboxChange = () => {
     setIsChecked1(!isChecked1);
   };
-
-  const [isChecked2, setIsChecked2] = useState(false);
 
   const handleCheckboxChange2 = () => {
     const language = i18n.language === "ku" ? "en" : "ku";

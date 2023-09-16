@@ -11,6 +11,7 @@ import {
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 import ListingHome from "../components/pages/home/ListingHome";
+import hero from "../assets/images/house-banner.png";
 
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -117,13 +118,27 @@ const Home = () => {
 
   return (
     <>
-      <div
-        className="h-screen"
-        style={{
-          background: `url("https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1596&q=80") center no-repeat`,
-          backgroundSize: "cover",
-        }}
-      ></div>
+      <header className="max-w-6xl mx-auto h-full max-h-[640px] mt-6 mb-8 xl:mb-24">
+        <div className="flex flex-col lg:flex-row">
+          <div className="lg:mr-8 xl:mr-[135px] flex flex-col items-center lg:items-start text-center lg:text-left justify-center flex-1 px-4 lg:px-0">
+            <div>
+              <h1 className="text-xl lg:text-[40px] font-semibold leading-none mb-6">
+                Find a <span className="text-violet-500">house</span> where you
+                can be yourself.
+              </h1>
+              <p className="max-w-[480px] mb-8 ">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit
+                magni sunt, dolorem minima cupiditate consequuntur?
+              </p>
+            </div>
+          </div>
+
+          <div className="hidden flex-1 lg:flex justify-end items-end  ">
+            <img src={hero} alt="house" />
+          </div>
+        </div>
+      </header>
+
       <div>
         <div className="max-w-6xl max-lg:w-[95%] mx-auto pt-4 space-y-6">
           {/* offer */}

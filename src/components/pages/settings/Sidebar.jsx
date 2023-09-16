@@ -2,10 +2,12 @@
 import { LuChevronLast, LuChevronFirst } from "react-icons/lu";
 import { useContext, createContext } from "react";
 import { ExpandedContext } from "../../../store/SidebarProvider";
+import { UserInfoContext } from "../../../store/UserInfoProvider";
 
 const SidebarContext = createContext();
 
 export default function Sidebar({ children }) {
+  const { data } = useContext(UserInfoContext);
   const { expanded, setExpanded } = useContext(ExpandedContext);
 
   return (
@@ -55,7 +57,7 @@ export default function Sidebar({ children }) {
             }`}
           >
             <img
-              src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
+              src={data.photoURL}
               alt=""
               className="w-10 h-10 rounded-md max-sm:hidden"
             />
@@ -68,8 +70,8 @@ export default function Sidebar({ children }) {
           `}
             >
               <div className="leading-4">
-                <h4 className="font-semibold">John Doe</h4>
-                <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+                <h4 className="font-semibold">{data.displayName}</h4>
+                <span className="text-xs text-gray-600">{data.email}</span>
               </div>
             </div>
           </div>
