@@ -1,13 +1,46 @@
-import { useContext, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useContext, useEffect, useState } from "react";
 import { ExpandedContext } from "../../../store/SidebarProvider";
+import useDarkSide from "../../common/darkmode/useDarkSide";
+import { useTranslation } from "react-i18next";
 
 const SettingsContent = () => {
+  const { t, i18n } = useTranslation();
+
+  // get the language
+  useEffect(() => {
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
+
+  // change language
+  const handleLanguageChange = (languageCode) => {
+    i18n.changeLanguage(languageCode);
+  };
+
   const { expanded } = useContext(ExpandedContext);
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [colorTheme, setTheme] = useDarkSide();
+  const [darkSide, setDarkSide] = useState(
+    colorTheme === "light" ? true : false
+  );
+
+  const toggleDarkMode = (checked) => {
+    setTheme(colorTheme);
+    setDarkSide(checked);
+  };
+
+  const [isChecked1, setIsChecked1] = useState(false);
 
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    setIsChecked1(!isChecked1);
+  };
+
+  const [isChecked2, setIsChecked2] = useState(false);
+
+  const handleCheckboxChange2 = () => {
+    const language = i18n.language === "ku" ? "en" : "ku";
+    handleLanguageChange(language);
+    setIsChecked2(!isChecked2);
   };
   return (
     <div
@@ -32,19 +65,20 @@ const SettingsContent = () => {
           <div>
             <label className="relative inline-flex cursor-pointer select-none items-center">
               <input
+                onClick={toggleDarkMode}
                 type="checkbox"
-                checked={isChecked}
+                checked={isChecked1}
                 onChange={handleCheckboxChange}
                 className="sr-only"
               />
               <span
                 className={`slider mx-4 flex h-7 w-[55px] items-center rounded-full p-1 duration-200 ${
-                  isChecked ? "bg-[#212b36]" : "bg-[#CCCCCE]"
+                  isChecked1 ? "bg-[#212b36]" : "bg-[#CCCCCE]"
                 }`}
               >
                 <span
                   className={`dot h-5 w-5 rounded-full bg-white duration-200 ${
-                    isChecked ? "translate-x-[28px]" : ""
+                    isChecked1 ? "translate-x-[28px]" : ""
                   }`}
                 ></span>
               </span>
@@ -65,8 +99,8 @@ const SettingsContent = () => {
             <label className="themeSwitcherTwo relative inline-flex cursor-pointer select-none items-center">
               <input
                 type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
+                checked={isChecked2}
+                onChange={handleCheckboxChange2}
                 className="sr-only"
               />
               <span className="label flex items-center max-sm:text-xs text-sm font-medium text-black">
@@ -74,12 +108,12 @@ const SettingsContent = () => {
               </span>
               <span
                 className={`slider mx-4 flex h-7 w-[55px] items-center rounded-full p-1 duration-200 ${
-                  isChecked ? "bg-[#212b36]" : "bg-[#CCCCCE]"
+                  isChecked2 ? "bg-[#212b36]" : "bg-[#CCCCCE]"
                 }`}
               >
                 <span
                   className={`dot h-5 w-5 rounded-full bg-white duration-200 ${
-                    isChecked ? "translate-x-[28px]" : ""
+                    isChecked2 ? "translate-x-[28px]" : ""
                   }`}
                 ></span>
               </span>
@@ -104,7 +138,7 @@ const SettingsContent = () => {
               type="button"
               className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >
-              Red
+              {t("Delete")}
             </button>
           </div>
         </div>
