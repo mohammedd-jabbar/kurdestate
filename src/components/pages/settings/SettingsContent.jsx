@@ -3,9 +3,23 @@ import { useContext, useEffect, useState } from "react";
 import { ExpandedContext } from "../../../store/SidebarProvider";
 import useDarkSide from "../../common/darkmode/useDarkSide";
 import { useTranslation } from "react-i18next";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../../../firebase";
+import { UserInfoContext } from "../../../store/UserInfoProvider";
+import { notifications } from "../../common/Notifications";
+import { getAuth, reauthenticateWithCredential } from "firebase/auth";
 
 const SettingsContent = () => {
   const { t, i18n } = useTranslation();
+
+  const auth = getAuth();
+
+  // const credential = GoogleAuthProvider.credential(
+  //   auth?.currentUser?.uid,
+  //   auth?.currentUser?.idToken
+  // );
+
+  const { data, isLoading, isFetching } = useContext(UserInfoContext);
 
   // get the language
   useEffect(() => {
@@ -42,6 +56,42 @@ const SettingsContent = () => {
     handleLanguageChange(language);
     setIsChecked2(!isChecked2);
   };
+
+  const handleDeleteUser = async () => {
+    if (data !== undefined && !isLoading && !isFetching) {
+      if (window.confirm("Are you sure you want to delete your account?"))
+        console.log("delete");
+      await deleteDoc(doc(db, "users", data.uid));
+
+      data
+        .delete()
+        .then(() => {
+          // User deleted.
+          location.reload();
+        })
+        .catch(async (error) => {
+          if (error.code == "auth/requires-recent-login") {
+            notifications("Logout and login again", true);
+          }
+          // we can improve this
+          // if (error.code == "auth/requires-recent-login") {
+          //   reauthenticateWithCredential(auth.currentUser, credential)
+          //     .then(() => {
+          //       location.reload();
+          //       // User re-authenticated.
+          //     })
+          //     .catch((error) => {
+          //       console.log(error);
+          //       // An error ocurred
+          //       // ...
+          //     });
+          // }
+
+          notifications("There is an error for deleting your account!", true);
+        });
+    }
+  };
+
   return (
     <div
       className={`max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7  ${
@@ -135,7 +185,7 @@ const SettingsContent = () => {
           </div>
           <div>
             <button
-              type="button"
+              onClick={handleDeleteUser}
               className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >
               {t("Delete")}

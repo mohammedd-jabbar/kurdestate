@@ -86,11 +86,9 @@ const PostsContent = () => {
         expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
       }`}
     >
-      {!isLoading && listings.length > 0 && (
+      <h2 className="text-2xl text-center font-semibold my-6">My Listing</h2>
+      {!isLoading && listings.length > 0 ? (
         <>
-          <h2 className="text-2xl text-center font-semibold my-6">
-            My Listing
-          </h2>
           <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 my-6">
             {listings.map((listing) => (
               <PostItem
@@ -103,6 +101,8 @@ const PostsContent = () => {
             ))}
           </ul>
         </>
+      ) : (
+        <p>There are no current listings </p>
       )}
     </div>
   );
