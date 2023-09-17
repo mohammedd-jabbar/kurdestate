@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+/* eslint-disable no-undef */
+import { useState, useEffect, useContext } from "react";
 
 import {
   collection,
@@ -11,13 +12,14 @@ import {
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 import ListingHome from "../components/pages/home/ListingHome";
-import hero from "../assets/images/house-banner.png";
+import hero from "../assets/images/wp3236802-buildings-wallpaper.jpg";
 
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode, Mousewheel } from "swiper/modules";
+import Filters from "../components/pages/home/Filters";
 
 const Home = () => {
   // offer
@@ -118,26 +120,29 @@ const Home = () => {
 
   return (
     <>
-      <header className="max-w-6xl mx-auto h-full max-h-[640px] mt-6 mb-8 xl:mb-24">
-        <div className="flex flex-col lg:flex-row">
-          <div className="lg:mr-8 xl:mr-[135px] flex flex-col items-center lg:items-start text-center lg:text-left justify-center flex-1 px-4 lg:px-0">
-            <div>
-              <h1 className="text-xl lg:text-[40px] font-semibold leading-none mb-6">
-                Find a <span className="text-violet-500">house</span> where you
-                can be yourself.
-              </h1>
-              <p className="max-w-[480px] mb-8 ">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit
-                magni sunt, dolorem minima cupiditate consequuntur?
-              </p>
-            </div>
-          </div>
-
-          <div className="hidden flex-1 lg:flex justify-end items-end  ">
-            <img src={hero} alt="house" />
+      <div
+        className="h-[97vh]"
+        style={{
+          background: `url(${hero}) center no-repeat`,
+          backgroundSize: "cover",
+        }}
+      >
+        <div
+          className="absolute inset-0 bg-black opacity-50"
+          style={{ background: "rgba(0, 0, 0, .7)" }}
+        >
+          <div className="absolute top-[47%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
+            <h1 className="text-xl xs:text-3xl sm:text-4xl md:text-6xl font-bold text-white">
+              Find Your Dream Home
+            </h1>
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl font-medium pt-2 text-white">
+              Explore Our Listings and Discover Your Perfect Property
+            </p>
           </div>
         </div>
-      </header>
+      </div>
+
+      <Filters />
 
       <div>
         <div className="max-w-6xl max-lg:w-[95%] mx-auto pt-4 space-y-6">
