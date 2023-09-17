@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { BiBriefcase, BiBuildings, BiMap, BiMoney } from "react-icons/bi";
+import { BiBuildings, BiMap, BiMoney } from "react-icons/bi";
 import { ListingsInfoContext } from "../../../store/ListingsInfoProvider";
 import { useContext, useEffect, useState } from "react";
 
@@ -52,22 +52,30 @@ const Filters = () => {
   };
 
   return (
-    <div className="max-w-[80%] w-full flex justify-between items-center p-3 relative mx-auto  rounded-lg -mt-16 sm:-mt-36 ">
-      <div className=" bg-white w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 drop-shadow-2xl md:rounded-md">
-        <div className="flex flex-col space-y-2">
-          <label htmlFor="property">property type</label>
-          <input
-            type="text"
-            placeholder="property"
-            className="outline-0 text-xs"
-          />
+    <div className="max-w-[80%] w-full flex justify-between items-center p-3 relative mx-auto rounded-md -mt-44">
+      <div className="bg-gray-200 w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5  shadow-2xl md:rounded-md">
+        <div
+          className="flex flex-col space-y-2"
+          // style={{ direction: "rtl" }}
+        >
+          <label
+            htmlFor="property"
+            className="text-base font-medium text-gray-900 flex items-center justify-start"
+          >
+            <BiBuildings className="mr-2" /> Property type
+          </label>
+          <select className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm">
+            <option selected>All Property</option>
+            <option value="rent">Rent</option>
+            <option value="sell">Sell</option>
+          </select>
         </div>
-        <div className=" flex flex-col space-y-2 ">
+        <div className="flex flex-col space-y-2">
           <label
             htmlFor="HeadlineAct"
-            className="block text-sm font-medium text-gray-900"
+            className="text-base font-medium text-gray-900 flex items-center justify-start"
           >
-            Locations
+            <BiMap className="mr-2" /> Locations
           </label>
 
           <select className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm">
@@ -83,80 +91,25 @@ const Filters = () => {
           </select>
         </div>
         <div className="flex flex-col space-y-2">
-          <label htmlFor="price">Max Price</label>
+          <label
+            htmlFor="price"
+            className="text-base font-medium text-gray-900 flex items-center justify-start"
+          >
+            <BiMoney className="mr-2" /> Max Price
+          </label>
+
           <input
             type="text"
             placeholder="$8,544"
-            className="outline-0 text-xs"
+            className="outline-0 rounded border-gray-300 text-gray-700 text-sm"
           />
         </div>
-        <div>
-          <button className="bg-primary-500 text-white px-5 py-2 mt-5 md:mt-0 md:rounded-full">
+        <div className="">
+          <button className="transition duration-200 ease-in-out bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 active:bg-primary-800 text-white px-5 py-3 mt-6 w-full lg:w-36 md:mt-0 rounded-lg">
             Search
           </button>
         </div>
       </div>
-      {/* <div className="flex justify-around items-center space-x-16">
-        <div
-          // style={{ direction: "rtl" }}
-          className="bg-background border-border"
-        >
-          <label
-            htmlFor="HeadlineAct"
-            className="block text-sm font-medium text-gray-900"
-          >
-            Type
-          </label>
-
-          <select className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm">
-            <option selected>Please select</option>
-            <option value="rent">Rent</option>
-            <option value="sell">Sell</option>
-          </select>
-        </div>
-        <div
-          // style={{ direction: "rtl" }}
-          className="bg-background border-border"
-        >
-          <label
-            htmlFor="HeadlineAct"
-            className="block text-sm font-medium text-gray-900"
-          >
-            Type
-          </label>
-
-          <select className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm">
-            <option selected>Please select</option>
-            <option value="rent">Rent</option>
-            <option value="sell">Sell</option>
-          </select>
-        </div>
-        <div
-          // style={{ direction: "rtl" }}
-          className="bg-background border-border"
-        >
-          <label
-            htmlFor="HeadlineAct"
-            className="block text-sm font-medium text-gray-900"
-          >
-            Type
-          </label>
-
-          <select className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm">
-            <option selected>Please select</option>
-            <option value="rent">Rent</option>
-            <option value="sell">Sell</option>
-          </select>
-        </div>
-        <div
-          // style={{ direction: "rtl" }}
-          className="bg-background border-border"
-        >
-          <a className="inline-block rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500">
-            Search
-          </a>
-        </div>
-      </div> */}
     </div>
   );
 };

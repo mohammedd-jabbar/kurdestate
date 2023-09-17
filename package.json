@@ -35,6 +35,7 @@
     "react-toastify": "^9.1.3",
     "react-toggle-dark-mode": "^1.1.1",
     "swiper": "^10.2.0",
+    "typed.js": "^2.0.16",
     "uuid": "^9.0.0",
     "vite-plugin-commonjs": "^0.8.2",
     "zustand": "^4.4.1"

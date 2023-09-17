@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import {
   collection,
@@ -12,7 +12,7 @@ import {
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 import ListingHome from "../components/pages/home/ListingHome";
-import hero from "../assets/images/wp3236802-buildings-wallpaper.jpg";
+import hero from "../assets/images/hero.jpg";
 
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,10 +20,36 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode, Mousewheel } from "swiper/modules";
 import Filters from "../components/pages/home/Filters";
+import Typed from "typed.js";
 
 const Home = () => {
   // offer
   const [offerListing, setOfferListing] = useState(null);
+
+  // Create reference to store the DOM element containing the animation
+  const el = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: [
+        "Find Your Dream Home ^500",
+        "Find Your Dream Property ^500",
+        "Find Your Dream Place ^500",
+        "Find Your Dream Land ^500",
+        "Find Your Dream Villa ^500",
+      ],
+      typeSpeed: 55,
+      showCursor: false,
+      smartBackspace: true,
+      loop: true,
+      loopCount: Infinity,
+    });
+
+    return () => {
+      // Destroy Typed instance during cleanup to stop animation
+      typed.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -129,12 +155,13 @@ const Home = () => {
       >
         <div
           className="absolute inset-0 bg-black opacity-50"
-          style={{ background: "rgba(0, 0, 0, .7)" }}
+          style={{ background: "rgba(0, 0, 0, .5)" }}
         >
           <div className="absolute top-[47%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
-            <h1 className="text-xl xs:text-3xl sm:text-4xl md:text-6xl font-bold text-white">
-              Find Your Dream Home
-            </h1>
+            <h1
+              ref={el}
+              className="text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-bold text-white"
+            ></h1>
             <p className="text-sm xs:text-base sm:text-lg md:text-xl font-medium pt-2 text-white">
               Explore Our Listings and Discover Your Perfect Property
             </p>
@@ -145,7 +172,7 @@ const Home = () => {
       <Filters />
 
       <div>
-        <div className="max-w-6xl max-lg:w-[95%] mx-auto pt-4 space-y-6">
+        <div className="max-w-6xl max-xl:w-[95%] mx-auto pt-4 space-y-6">
           {/* offer */}
           {offerListing && offerListing.length > 0 && (
             <div className="mb-6">
@@ -248,7 +275,7 @@ const Home = () => {
           )}
           {/* sale */}
           {saleListing && saleListing.length > 0 && (
-            <div className="mb-6">
+            <div className="mb-6 mt-12">
               <h2 className="px-3 text-2xl mt-6 font-semibold">
                 Places for sale
               </h2>

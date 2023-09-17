@@ -83,7 +83,7 @@ const Header = () => {
     } else if (isError && isError.isNotAuthenticated) {
       setUserAuth(false);
     }
-  }, [data]);
+  }, [data, isError]);
 
   // loading spinner while user fetching is loading
   if (isLoading || isFetching) {
@@ -139,13 +139,13 @@ const Header = () => {
             <ul
               className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:mr-[65px] md:space-x-10 md:w-auto md:pl-0 transition-all duration-[400ms] ease-in-out ${
                 isContentDropDown
-                  ? "top-12 pt-4 shadow-md"
+                  ? "max-md:top-12 max-md:pt-4 max-md:shadow-md"
                   : "-top-[44rem] max-md:opacity-0"
               }`}
             >
               <Link to="/category/rent">
                 <li
-                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent hover:bg-slate-200 px-4 hover:rounded-md ${getActiveRouteStyles(
+                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent max-md:hover:bg-slate-200 px-4 max-md:hover:rounded-md ${getActiveRouteStyles(
                     "/category/rent"
                   )}`}
                   onClick={toggleContentDropDown}
@@ -155,7 +155,7 @@ const Header = () => {
               </Link>
               <Link to="/category/sale">
                 <li
-                  className={`py-3 cursor-pointer text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent hover:bg-slate-200 px-4 hover:rounded-md ${getActiveRouteStyles(
+                  className={`py-3 cursor-pointer text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent max-md:hover:bg-slate-200 px-4 max-md:hover:rounded-md ${getActiveRouteStyles(
                     "/category/sale"
                   )}`}
                   onClick={toggleContentDropDown}
@@ -165,7 +165,7 @@ const Header = () => {
               </Link>
               <Link to="/offers">
                 <li
-                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent hover:bg-slate-200 px-4 hover:rounded-md ${getActiveRouteStyles(
+                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent max-md:hover:bg-slate-200 px-4 max-md:hover:rounded-md ${getActiveRouteStyles(
                     "/offers"
                   )}`}
                   onClick={toggleContentDropDown}
