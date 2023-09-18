@@ -2,10 +2,35 @@
 import { BiBuildings, BiMap, BiMoney } from "react-icons/bi";
 import { ListingsInfoContext } from "../../../store/ListingsInfoProvider";
 import { useContext, useEffect, useState } from "react";
+import {
+  collection,
+  getDocs,
+  orderBy,
+  where,
+  orderbyChild,
+  startAt,
+  endAt,
+} from "firebase/firestore";
+import { db } from "../../../../firebase";
 
 const Filters = () => {
   const { data, isLoading, isError } = useContext(ListingsInfoContext);
   const [locations, setLocations] = useState(null);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+
+  const [formSearch, setFormSearch] = useState({
+    type: "",
+    location: "",
+    price: "",
+  });
+
+  const handleChange = (e) => {
+    setFormSearch((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,9 +76,41 @@ const Filters = () => {
     }
   };
 
+  const handleSubmit = async () => {
+    if (
+      formSearch.type !== "" &&
+      formSearch.type &&
+      formSearch.location !== "" &&
+      formSearch.location &&
+      formSearch.price !== "" &&
+      formSearch.price
+    )
+      console.log(formSearch.location);
+  };
+
+  const getSearch = async () => {
+    const ref = collection(db, "listings");
+
+    const q = query(
+      ref,
+      where("type", "===", formSearch.type),
+      orderbyChild("address")
+      startAt(formSearch.location)
+      endAt(formSearch.location + "\uf8ff"),
+      where("regularPrice", "=>", formSearch.price),
+      where("status", "==", "accepted"),
+      orderBy("timeStamp", "desc")
+    );
+    const doc_refs = await getDocs(q);
+    const res = [];
+    doc_refs.forEach((doc) => {
+      res.push({ id: doc.id, ...doc.data() });
+    });
+  };
+
   return (
-    <div className="max-w-[80%] w-full flex justify-between items-center p-3 relative mx-auto rounded-md -mt-44">
-      <div className="bg-gray-200 w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5  shadow-2xl md:rounded-md">
+    <div className="max-w-[80%] mb-6 w-full flex flex-col justify-between items-start p-4 relative mx-auto rounded-md -mt-24">
+      <div className="bg-background w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 shadow-lg md:rounded-md">
         <div
           className="flex flex-col space-y-2"
           // style={{ direction: "rtl" }}
@@ -64,10 +121,20 @@ const Filters = () => {
           >
             <BiBuildings className="mr-2" /> Property type
           </label>
-          <select className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm">
-            <option selected>All Property</option>
-            <option value="rent">Rent</option>
-            <option value="sell">Sell</option>
+          <select
+            onChange={handleChange}
+            id="type"
+            className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm"
+          >
+            <option id="type" value="nothing" selected>
+              Property Type
+            </option>
+            <option id="type" value="rent">
+              Rent
+            </option>
+            <option id="type" value="sell">
+              Sell
+            </option>
           </select>
         </div>
         <div className="flex flex-col space-y-2">
@@ -78,12 +145,18 @@ const Filters = () => {
             <BiMap className="mr-2" /> Locations
           </label>
 
-          <select className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm">
-            <option selected>All Locations</option>
+          <select
+            id="location"
+            onChange={handleChange}
+            className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm"
+          >
+            <option id="location" selected>
+              All Locations
+            </option>
             {locations !== undefined &&
               locations?.map((data, index) => {
                 return (
-                  <option key={index} value={data}>
+                  <option id="location" key={index} value={data}>
                     {data}
                   </option>
                 );
@@ -99,13 +172,20 @@ const Filters = () => {
           </label>
 
           <input
-            type="text"
+            onChange={handleChange}
+            type="number"
+            required
+            id="price"
+            min="0"
             placeholder="$8,544"
             className="outline-0 rounded border-gray-300 text-gray-700 text-sm"
           />
         </div>
         <div className="">
-          <button className="transition duration-200 ease-in-out bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 active:bg-primary-800 text-white px-5 py-3 mt-6 w-full lg:w-36 md:mt-0 rounded-lg">
+          <button
+            onClick={handleSubmit}
+            className="transition duration-200 ease-in-out bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 active:bg-primary-800 text-white px-5 py-3 mt-6 w-full lg:w-36 md:mt-0 rounded-lg"
+          >
             Search
           </button>
         </div>

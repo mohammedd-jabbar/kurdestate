@@ -279,12 +279,8 @@ const Home = () => {
               <h2 className="px-3 text-2xl mt-6 font-semibold">
                 Places for sale
               </h2>
-              <Link to="/category/sale">
-                <p className="text-blue-600 px-3 text-sm hover:text-blue-800 transition duration-150 ease-in-out">
-                  Show more places for sale
-                </p>
-              </Link>
-              <div className="mb-6">
+
+              <div className="my-6">
                 <Swiper
                   breakpoints={{
                     100: {
@@ -321,6 +317,11 @@ const Home = () => {
                   ))}
                 </Swiper>
               </div>
+              <Link to="/category/sale">
+                <p className="text-white bg-primary-500 inline font-bold text-center p-3 rounded text-sm hover:bg-primary-600 transition duration-150 ease-in-out">
+                  Show more places for sale
+                </p>
+              </Link>
             </div>
           )}
         </div>
