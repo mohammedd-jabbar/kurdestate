@@ -1,23 +1,16 @@
 /* eslint-disable no-undef */
 import { BiBuildings, BiMap, BiMoney } from "react-icons/bi";
 import { ListingsInfoContext } from "../../../store/ListingsInfoProvider";
-import { useContext, useEffect, useState } from "react";
-import {
-  collection,
-  getDocs,
-  orderBy,
-  where,
-  orderbyChild,
-  startAt,
-  endAt,
-} from "firebase/firestore";
+import { useContext, useState } from "react";
+import { collection, where, getDocs, query } from "firebase/firestore";
+
 import { db } from "../../../../firebase";
+import { notifications } from "../../common/Notifications";
 
 const Filters = () => {
   const { data, isLoading, isError } = useContext(ListingsInfoContext);
-  const [locations, setLocations] = useState(null);
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+
+  const [amount, setAmount] = useState("");
 
   const [formSearch, setFormSearch] = useState({
     type: "",
@@ -30,31 +23,16 @@ const Filters = () => {
       ...prev,
       [e.target.id]: e.target.value,
     }));
+
+    if (e.target.id === "price") {
+      let input = event.target.value;
+      // Remove any non-numeric characters and leading zeros
+      input = input.replace(/[^0-9]/g, "").replace(/^0+/, "");
+
+      // Prefix the input with a "$" symbol
+      setAmount("$" + input);
+    }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const namesPromises = data?.map(async (item) => {
-        const names = await getTheCityNames(
-          item.geoLocation.lat,
-          item.geoLocation.lng
-        );
-        return names;
-      });
-
-      const resolvedNames = await Promise.all(namesPromises);
-
-      const filteredNames = resolvedNames.filter(
-        (names) => names !== undefined
-      );
-
-      const uniqueNames = [...new Set(filteredNames)];
-
-      setLocations(uniqueNames);
-    };
-
-    fetchData();
-  }, [data]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -64,17 +42,17 @@ const Filters = () => {
     return <div>Error fetching locations</div>;
   }
 
-  const getTheCityNames = async (lat, lng) => {
-    const res = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&sensor=true&key=AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps`
-    );
-    const data = await res.json();
-    if (data.status !== "ZERO_RESULTS" && !undefined) {
-      const arrayLocationName = data.results?.[0]?.formatted_address.split(",");
-      const name = arrayLocationName[1].trim();
-      return name;
-    }
-  };
+  // const getTheCityNames = async (lat, lng) => {
+  //   const res = await fetch(
+  //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&sensor=true&key=AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps`
+  //   );
+  //   const data = await res.json();
+  //   if (data.status !== "ZERO_RESULTS" && !undefined) {
+  //     const arrayLocationName = data.results?.[0]?.formatted_address.split(",");
+  //     const name = arrayLocationName[1].trim();
+  //     return name;
+  //   }
+  // };
 
   const handleSubmit = async () => {
     if (
@@ -84,28 +62,40 @@ const Filters = () => {
       formSearch.location &&
       formSearch.price !== "" &&
       formSearch.price
-    )
-      console.log(formSearch.location);
+    ) {
+      // Remove the "$" symbol before submitting
+      const numericValue = amount.replace(/\D/g, "");
+      setFormSearch((prev) => ({
+        ...prev,
+        price: numericValue,
+      }));
+      getSearch();
+    } else {
+      return notifications("Please select all search right", true);
+    }
   };
 
   const getSearch = async () => {
-    const ref = collection(db, "listings");
+    const listingRef = collection(db, "listings");
+
+    console.log(formSearch);
 
     const q = query(
-      ref,
-      where("type", "===", formSearch.type),
-      orderbyChild("address")
-      startAt(formSearch.location)
-      endAt(formSearch.location + "\uf8ff"),
-      where("regularPrice", "=>", formSearch.price),
+      listingRef,
+      where("type", "==", formSearch.type),
+      where("regularPrice", "<=", formSearch.price),
       where("status", "==", "accepted"),
-      orderBy("timeStamp", "desc")
+      where("city", "==", formSearch.location.toLocaleLowerCase())
     );
-    const doc_refs = await getDocs(q);
+
+    const querySnap = await getDocs(q);
+
     const res = [];
-    doc_refs.forEach((doc) => {
-      res.push({ id: doc.id, ...doc.data() });
+    querySnap.forEach((doc) => {
+      res.push({ id: doc.id, data: doc.data() });
+      console.log(doc.data());
     });
+    console.log(res);
   };
 
   return (
@@ -126,13 +116,13 @@ const Filters = () => {
             id="type"
             className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm"
           >
-            <option id="type" value="nothing" selected>
+            <option id="type" value="" selected>
               Property Type
             </option>
             <option id="type" value="rent">
               Rent
             </option>
-            <option id="type" value="sell">
+            <option id="type" value="sale">
               Sell
             </option>
           </select>
@@ -144,23 +134,29 @@ const Filters = () => {
           >
             <BiMap className="mr-2" /> Locations
           </label>
-
           <select
             id="location"
             onChange={handleChange}
             className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm"
           >
-            <option id="location" selected>
+            <option id="location" value="" selected>
               All Locations
             </option>
-            {locations !== undefined &&
-              locations?.map((data, index) => {
-                return (
-                  <option id="location" key={index} value={data}>
-                    {data}
-                  </option>
-                );
-              })}
+            <option id="location" value="erbil" selected>
+              Erbil
+            </option>
+            <option id="location" value="sulaimani" selected>
+              Sulaimani
+            </option>
+            <option id="location" value="duhok" selected>
+              Duhok
+            </option>
+            <option id="location" value="kirkuk" selected>
+              Kirkuk
+            </option>
+            <option id="location" value="soran" selected>
+              Soran
+            </option>
           </select>
         </div>
         <div className="flex flex-col space-y-2">
@@ -170,15 +166,15 @@ const Filters = () => {
           >
             <BiMoney className="mr-2" /> Max Price
           </label>
-
           <input
             onChange={handleChange}
-            type="number"
+            type="text"
+            value={amount}
             required
             id="price"
-            min="0"
+            // min="0"
             placeholder="$8,544"
-            className="outline-0 rounded border-gray-300 text-gray-700 text-sm"
+            className="outline-0 rounded pl-5 border-gray-300 text-gray-700 text-sm"
           />
         </div>
         <div className="">
