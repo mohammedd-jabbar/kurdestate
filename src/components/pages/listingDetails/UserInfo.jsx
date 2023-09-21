@@ -5,10 +5,10 @@ import Spinner from "../../common/Spinner";
 const UserInfo = ({ landLord, screen, listing }) => {
   return (
     <div
-      className={`md:w-1/3 ${
+      className={`md:w-1/3 shadow-lg mb-6 ${
         screen === "sm"
-          ? "max-sm:flex max-sm:order-6 rounded-md flex-col  hidden mx-auto p-6 bg-white"
-          : "flex flex-col  max-sm:hidden mx-auto p-6 bg-white"
+          ? "max-sm:flex max-sm:order-6 rounded-md flex-col hidden mx-auto p-6  bg-white"
+          : "flex flex-col max-sm:hidden mx-auto p-6 bg-white md:-mt-3"
       }`}
     >
       <div className="">

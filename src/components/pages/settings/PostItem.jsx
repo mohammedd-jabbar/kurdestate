@@ -40,13 +40,10 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
 
                 <span className="text-xl font-semibold text-primary-600">
                   $
-                  {listing.offer
-                    ? listing.discountedPrice
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    : listing.regularPrice
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  {listing.price &&
+                    listing.price
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
                 <span className="text-sm font-semibold text-gray-500">
                   {listing.type === "rent" && " / month"}

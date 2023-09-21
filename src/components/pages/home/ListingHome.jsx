@@ -28,13 +28,8 @@ const ListingHome = ({ listing, id }) => {
             </h1>
             <h3 className="text-white truncate py-2 text-lg font-semibold">
               $
-              {listing.offer
-                ? listing.discountedPrice
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                : listing.regularPrice
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              {listing.price &&
+                listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </h3>
             <div className="flex justify-start space-x-3 text-white items-center">
               <p className="font-medium">

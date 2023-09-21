@@ -69,7 +69,7 @@ const Listing = () => {
     {
       id: "map",
       label: <FaMapLocationDot className="h-7 w-7" />,
-      content: <GoogleMaps geo={listing?.geoLocation} />,
+      content: <GoogleMaps geo={listing?.location} />,
     },
     {
       id: "overview",
@@ -83,7 +83,7 @@ const Listing = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-6xl max-lg:max-w-[94%] mt-6 mx-auto">
+    <div className="flex flex-col max-w-6xl max-xl:max-w-[94%] mt-6 mx-auto">
       {/* Basic Info Section */}
       <div className="order-1 max-sm:order-2 max-sm:mt-16 flex w-full max-sm:flex-col max-sm:items-start max-sm:justify-start max-sm:mb-6 justify-between items-center">
         {/* Left Info */}
@@ -117,10 +117,7 @@ const Listing = () => {
             <div className=""></div>
             {/* Listing Price */}
             <h1 className="font-extrabold mb-3 text-xl text-primary-600">
-              $
-              {listing.regularPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              ${listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </h1>
 
             {/* Parking Info
@@ -151,7 +148,7 @@ const Listing = () => {
               ))}
             </div>
             {/* contents */}
-            <div className="font-light mb-6 order-4 max-sm:order-3 rounded transition duration-200 ease-out text-gray-500 shadow-[0_0_10px_1px_rgba(71,85,95,0.08)] hover:shadow-[0_0_12px_2px_rgba(71,85,95,0.20)] bg-white  ">
+            <div className="font-light mb-6 order-4 max-sm:order-3 rounded transition duration-200 ease-out text-gray-500 shadow-lg hover:shadow-[0_0_12px_2px_rgba(71,85,95,0.20)] bg-white  ">
               {tabs.map((tab) => (
                 <div
                   key={tab.id}

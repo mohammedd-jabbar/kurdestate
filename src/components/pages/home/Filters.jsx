@@ -83,7 +83,7 @@ const Filters = () => {
     const q = query(
       listingRef,
       where("type", "==", formSearch.type),
-      where("regularPrice", "<=", formSearch.price),
+      where("price", "<=", formSearch.price),
       where("status", "==", "accepted"),
       where("city", "==", formSearch.location.toLocaleLowerCase())
     );
@@ -122,7 +122,7 @@ const Filters = () => {
             <option id="type" value="rent">
               Rent
             </option>
-            <option id="type" value="sale">
+            <option id="type" value="sell">
               Sell
             </option>
           </select>

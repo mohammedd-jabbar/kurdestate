@@ -7,7 +7,7 @@ const HomeSliderSwiper = ({ data }) => {
         {data?.data?.name}
       </p>
       <p className="text=[#f1faee] absolute left-1 bottom-1 font-semibold max-w-[19%] bg-[#e63946] shadow-lg opacity-90 p-2 text-white rounded-tr-3xl">
-        ${data?.data?.descountedPrice ?? data?.data?.regularPrice}
+        ${data?.data?.price}
         {data?.data?.type === "rent" && " /month"}
       </p>
     </>

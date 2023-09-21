@@ -153,10 +153,10 @@ const Header = () => {
                   Rent
                 </li>
               </Link>
-              <Link to="/category/sale">
+              <Link to="/category/sell">
                 <li
                   className={`py-3 cursor-pointer text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent max-md:hover:bg-slate-200 px-4 max-md:hover:rounded-md ${getActiveRouteStyles(
-                    "/category/sale"
+                    "/category/sell"
                   )}`}
                   onClick={toggleContentDropDown}
                 >
