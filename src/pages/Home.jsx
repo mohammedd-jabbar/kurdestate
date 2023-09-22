@@ -32,8 +32,8 @@ const Home = () => {
   useEffect(() => {
     const typed = new Typed(el.current, {
       strings: [
-        "Find Your Dream Home ^500",
         "Find Your Dream Property ^500",
+        "Find Your Dream House ^500",
         "Find Your Dream Place ^500",
         "Find Your Dream Land ^500",
         "Find Your Dream Villa ^500",

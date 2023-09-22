@@ -7,6 +7,7 @@ import { getAuth } from "firebase/auth"; // for the auth to get the current user
 import i18n from "i18next";
 import { useMutation } from "@tanstack/react-query";
 import { addListing } from "../data/queries";
+import { useNavigate } from "react-router-dom";
 
 const CreateList = () => {
   // get the current year for limit the year input
@@ -14,6 +15,8 @@ const CreateList = () => {
 
   // auth
   const auth = getAuth();
+
+  const navigateTo = useNavigate();
 
   // english form
   const [formDataEn, setFormDataEn] = useState({
@@ -40,14 +43,20 @@ const CreateList = () => {
     addressKu: "",
     descriptionKu: "",
     priceKu: 0,
-    imagesKu: {},
     areaKu: 0,
     yearBuiltKu: 1800,
   });
 
   const [loading, setLoading] = useState(false); // for the loading state
 
-  const { isLoading, isSuccess, error, mutate } = useMutation(addListing);
+  const { isLoading, isSuccess, error, mutate } = useMutation({
+    mutationKey: "addlisting",
+    mutationFn: addListing,
+    onSuccess: () => {
+      notifications("Listing edited we will review it");
+      navigateTo("/");
+    },
+  });
 
   const {
     type,
@@ -349,12 +358,6 @@ const CreateList = () => {
                   </div>
                 </div>
               </div>
-              <button
-                type="submit"
-                className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
-              >
-                Create Listing
-              </button>
             </form>
           )}
           {/* English Form */}
@@ -568,14 +571,14 @@ const CreateList = () => {
                 className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
               />
             </div>
-            <button
-              type="submit"
-              className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
-            >
-              Create Listing
-            </button>
           </form>
         </div>
+        <button
+          type="submit"
+          className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
+        >
+          Create Listing
+        </button>
       </main>
     </>
   );

@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { CgDetailsMore } from "react-icons/cg";
 
 const PostItem = ({ listing, onDelete, onEdit, id }) => {
+  const navigateTo = useNavigate();
+
   return (
     <div className="bg-white flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]">
-      <Link
-        className="p-0 m-0 inline-block w-full"
-        to={`/category/${listing.type}/${id}`}
-      >
+      <Link className="p-0 m-0 inline-block w-full">
         <div className="relative group h-56 w-full">
           <LazyLoadImage
             style={{
@@ -63,15 +63,21 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
               </div>
             </div>
           </div>
+          <Link>
+            <CgDetailsMore
+              className="absolute text-red-500 w-[24px] h-[24px] mb-[-3px] hover:text-red-700 bottom-2 right-14 cursor-pointer"
+              onClick={() => navigateTo(`/category/${listing.type}/${id}`)}
+            />
+          </Link>
           {onDelete && (
             <FaTrash
-              className="absolute text-red-500 w-4 h4 hover:text-red-700 bottom-2 right-2 cursor-pointer h-[14px] "
+              className="absolute text-red-500 w-[18px] h-[16px] hover:text-red-700 bottom-2 right-2 cursor-pointer"
               onClick={() => onDelete(listing.id)}
             />
           )}
           {onEdit && (
             <MdEdit
-              className="absolute text-primary-500 w-4 h4 hover:text-primary-700  bottom-2 right-7 cursor-pointer h-4"
+              className="absolute text-primary-500 w-[18px] h-[18px] hover:text-primary-700  bottom-2 right-8 cursor-pointer"
               onClick={() => onEdit(listing.id)}
             />
           )}
