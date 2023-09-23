@@ -26,6 +26,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserInfoProvider from "./store/UserInfoProvider";
 import SidebarProvider from "./store/SidebarProvider";
 import ListingsInfoProvider from "./store/ListingsInfoProvider";
+import SearchResultProvider from "./store/SearchResultProvider";
 import "./i18n.js";
 
 const queryClient = new QueryClient();
@@ -124,22 +125,24 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <QueryClientProvider client={queryClient}>
         <ListingsInfoProvider>
           <UserInfoProvider>
-            <SidebarProvider>
-              <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover={false}
-                theme="dark"
-              />
-              {/* this is provider for react router */}
-              <RouterProvider router={router} />
-            </SidebarProvider>
+            <SearchResultProvider>
+              <SidebarProvider>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={3000}
+                  hideProgressBar
+                  newestOnTop
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover={false}
+                  theme="dark"
+                />
+                {/* this is provider for react router */}
+                <RouterProvider router={router} />
+              </SidebarProvider>
+            </SearchResultProvider>
           </UserInfoProvider>
         </ListingsInfoProvider>
       </QueryClientProvider>

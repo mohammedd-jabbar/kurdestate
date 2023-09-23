@@ -87,11 +87,11 @@ const Listing = () => {
       {/* Basic Info Section */}
       <div className="order-1 max-sm:order-2 max-sm:mt-16 flex w-full max-sm:flex-col max-sm:items-start max-sm:justify-start max-sm:mb-6 justify-between items-center">
         {/* Left Info */}
-        <div className="">
-          <div className="flex mt-6 mb-3 items-center">
+        <div className="max-xs:w-full">
+          <div className="flex mt-6 mb-3 items-center max-xs:justify-between">
             {/* Listing Name */}
             <h1
-              className="text-3xl font-normal"
+              className="text-3xl max-xs:text-2xl font-normal"
               style={{ WebkitTextStrokeWidth: ".5px" }}
             >
               {listing.name}

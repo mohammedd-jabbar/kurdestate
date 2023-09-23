@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 
 import {
   collection,
@@ -21,10 +21,12 @@ import "swiper/css/free-mode";
 import { FreeMode, Mousewheel } from "swiper/modules";
 import Filters from "../components/pages/home/Filters";
 import Typed from "typed.js";
+import { SearchResultContext } from "../store/SearchResultProvider";
 
 const Home = () => {
   // offer
   const [offerListing, setOfferListing] = useState(null);
+  const { search } = useContext(SearchResultContext);
 
   // Create reference to store the DOM element containing the animation
   const el = useRef(null);
@@ -174,7 +176,7 @@ const Home = () => {
       <div>
         <div className="max-w-6xl max-xl:w-[95%] mx-auto pt-4 space-y-6">
           {/* offer */}
-          {offerListing && offerListing.length > 0 && (
+          {search && search.length > 0 && (
             <div className="mb-6">
               <h2 className="px-3 text-2xl mt-6 font-semibold">
                 Recent Offers
@@ -214,9 +216,9 @@ const Home = () => {
                   grabCursor={true}
                   modules={[FreeMode, Mousewheel]}
                 >
-                  {offerListing.map((offer) => (
-                    <SwiperSlide key={offer.id}>
-                      <ListingHome listing={offer.data} id={offer.id} />
+                  {search.map((data) => (
+                    <SwiperSlide key={data.id}>
+                      <ListingHome listing={data.data} id={data.id} />
                     </SwiperSlide>
                   ))}
                 </Swiper>

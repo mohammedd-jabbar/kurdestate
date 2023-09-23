@@ -6,14 +6,16 @@ import { collection, where, getDocs, query } from "firebase/firestore";
 
 import { db } from "../../../../firebase";
 import { notifications } from "../../common/Notifications";
+import { SearchResultContext } from "../../../store/SearchResultProvider";
 
 const Filters = () => {
-  const { data, isLoading, isError } = useContext(ListingsInfoContext);
+  const { isLoading, isError } = useContext(ListingsInfoContext);
+  const { setSearch } = useContext(SearchResultContext);
 
   const [amount, setAmount] = useState("");
 
   const [formSearch, setFormSearch] = useState({
-    type: "",
+    type: "rent",
     location: "",
     price: "",
   });
@@ -63,27 +65,23 @@ const Filters = () => {
       formSearch.price !== "" &&
       formSearch.price
     ) {
-      // Remove the "$" symbol before submitting
-      const numericValue = amount.replace(/\D/g, "");
-      setFormSearch((prev) => ({
-        ...prev,
-        price: numericValue,
-      }));
       getSearch();
     } else {
       return notifications("Please select all search right", true);
     }
   };
 
+  console.log(formSearch);
   const getSearch = async () => {
-    const listingRef = collection(db, "listings");
+    // Remove the "$" symbol before submitting
+    const numericValue = amount.replace(/\D/g, "").toString();
 
-    console.log(formSearch);
+    const listingRef = collection(db, "listings");
 
     const q = query(
       listingRef,
       where("type", "==", formSearch.type),
-      where("price", "<=", formSearch.price),
+      where("price", "<=", numericValue),
       where("status", "==", "accepted"),
       where("city", "==", formSearch.location.toLocaleLowerCase())
     );
@@ -93,9 +91,10 @@ const Filters = () => {
     const res = [];
     querySnap.forEach((doc) => {
       res.push({ id: doc.id, data: doc.data() });
-      console.log(doc.data());
     });
-    console.log(res);
+    if (res.length > 0) {
+      setSearch(res);
+    }
   };
 
   return (
@@ -116,7 +115,7 @@ const Filters = () => {
             id="type"
             className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm"
           >
-            <option id="type" value="" selected>
+            <option id="type" selected>
               Property Type
             </option>
             <option id="type" value="rent">
@@ -139,22 +138,22 @@ const Filters = () => {
             onChange={handleChange}
             className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm"
           >
-            <option id="location" value="" selected>
+            <option id="location" selected>
               All Locations
             </option>
-            <option id="location" value="erbil" selected>
+            <option id="location" value="erbil">
               Erbil
             </option>
-            <option id="location" value="sulaimani" selected>
+            <option id="location" value="sulaimani">
               Sulaimani
             </option>
-            <option id="location" value="duhok" selected>
+            <option id="location" value="duhok">
               Duhok
             </option>
-            <option id="location" value="kirkuk" selected>
+            <option id="location" value="kirkuk">
               Kirkuk
             </option>
-            <option id="location" value="soran" selected>
+            <option id="location" value="soran">
               Soran
             </option>
           </select>

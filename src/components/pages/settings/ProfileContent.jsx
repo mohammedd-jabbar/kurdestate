@@ -71,7 +71,7 @@ const ProfileContent = () => {
       }`}
     >
       <div>
-        <h1 className="text-2xl font-bold pb-4 border-b border-border">
+        <h1 className="text-2xl max-xs:mt-12 font-bold pb-4 border-b border-border">
           General Information
         </h1>
 

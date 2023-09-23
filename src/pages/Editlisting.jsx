@@ -175,7 +175,7 @@ const EditListing = () => {
     }
   };
 
-  // add some other categorys
+
 
   const onFormChangeKu = (e) => {
     let boolean = null;

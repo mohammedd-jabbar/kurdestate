@@ -10,7 +10,7 @@ import Heart from "../../assets/svg/Heart.jsx";
 
 const ListingItem = ({ listing, id, onDelete, onEdit }) => {
   return (
-    <div className="bg-white flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]">
+    <div className="bg-white flex flex-col justify-between items-center rounded shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]">
       <Link
         to={`/category/${listing.type}/${id}`}
         className="p-0 m-0 inline-block w-full"
@@ -27,8 +27,8 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
           />
 
           {/* the top animation for rent or sell */}
-          <div className="absolute z-0  rounded-es-3xl top-0 right-0 w-24 h-0 group-hover:h-8 group-hover:duration-500 bg-primary-500">
-            <p className="text-center opacity-0 pt-1 transition-opacity duration-500 group-hover:opacity-100 text-gray-100 font-semibold text-sm">
+          <div className="absolute z-0 rounded top-2 duration-200 group group-hover:scale-105 left-2 w-24 h-8 bg-primary-500">
+            <p className="text-center pt-1.5 text-gray-100 font-semibold text-sm">
               {listing.type === "rent" ? "Rent" : "Sell"}
             </p>
           </div>
@@ -70,7 +70,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
               </div>
             </div>
 
-            <div className="mt-4 flex items-center justify-center sm:justify-normal gap-10 text-xs">
+            <div className="mt-4 flex items-center justify-center sm:justify-normal gap-10 max-xs:gap-6 text-xs">
               <div className="sm:hidden md:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
                 <FaParking className="text-primary-500 h-4 w-4" />
 

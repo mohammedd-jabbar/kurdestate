@@ -11,7 +11,7 @@ const Overview = ({ listing }) => {
     listing && (
       <div className="w-full h-[89vh] max-sm:h-[60vh] bg-white max-xs:max-w-[90%] xs:max-w-[90%] lg:max-w-[85%] mx-auto overflow-y-scroll no-scrollbar">
         <div className="mb-2">
-          <h1 className="font-semibold text-2xl py-8 border-b-2 border-border border-opacity-80">
+          <h1 className="font-semibold text-2xl py-4 sm:py-8 border-b-2 border-border border-opacity-80">
             Overview
           </h1>
           <div className="grid grid-cols-3 max-sm:grid-cols-2">
@@ -62,7 +62,7 @@ const Overview = ({ listing }) => {
           </div>
         </div>
         <div className="">
-          <h1 className="font-semibold text-2xl py-8 border-b-2 border-border border-opacity-80">
+          <h1 className="font-semibold text-2xl py-4 sm:py-8 border-b-2 border-border border-opacity-80">
             Description
           </h1>
           <p className="px-6 py-4">{listing.description}</p>
