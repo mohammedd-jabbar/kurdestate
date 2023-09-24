@@ -22,7 +22,7 @@ const ListingHome = ({ listing, id }) => {
           />
 
           {/* transition the transform and when group mean parent hover then translate the text with duration 300ms */}
-          <div className="absolute bottom-3 left-1 px-4 transform transition-transform group-hover:-translate-y-8 duration-[.5s] ease-in-out ">
+          <div className="absolute bottom-3 left-1 px-2 sm:px-4 transform transition-transform group-hover:-translate-y-8 duration-[.5s] ease-in-out ">
             <h1 className="text-white truncate text-2xl font-semibold">
               {listing.name}
             </h1>
@@ -32,14 +32,14 @@ const ListingHome = ({ listing, id }) => {
                 listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </h3>
             <div className="flex justify-start space-x-3 text-white items-center">
-              <p className="font-medium">
+              <p className="font-medium max-sm:text-sm">
                 {listing.beds > 1 ? `${listing.beds} Beds | ` : "1 Bed | "}
               </p>
-              <p className="font-medium">
+              <p className="font-medium max-sm:text-sm">
                 {listing.bath > 1 ? `${listing.bath} Baths | ` : "1 Bath | "}
               </p>
-              <p className="max-xs:hidden font-medium">
-                {listing.parking > true ? "Parking Spot" : "No Parking"}
+              <p className="max-sm:text-sm font-medium">
+                Built in {listing.yearBuilt}
               </p>
             </div>
           </div>

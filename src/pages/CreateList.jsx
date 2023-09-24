@@ -18,6 +18,18 @@ const CreateList = () => {
 
   const navigateTo = useNavigate();
 
+  const [loading, setLoading] = useState(false); // for the loading state
+
+  const { isLoading, isSuccess, error, mutate } = useMutation({
+    mutationKey: "addlisting",
+    mutationFn: addListing,
+    onSuccess: () => {
+      notifications("Listing created we will review it");
+      setLoading(false);
+      navigateTo("/");
+    },
+  });
+
   // english form
   const [formDataEn, setFormDataEn] = useState({
     type: "rent",
@@ -35,7 +47,7 @@ const CreateList = () => {
   });
   // kurdish form
   const [formDataKu, setFormDataKu] = useState({
-    typeKu: "rent",
+    typeKu: "کرێ",
     nameKu: "",
     bedsKu: 1,
     bathsKu: 1,
@@ -45,17 +57,6 @@ const CreateList = () => {
     priceKu: 0,
     areaKu: 0,
     yearBuiltKu: 1800,
-  });
-
-  const [loading, setLoading] = useState(false); // for the loading state
-
-  const { isLoading, isSuccess, error, mutate } = useMutation({
-    mutationKey: "addlisting",
-    mutationFn: addListing,
-    onSuccess: () => {
-      notifications("Listing edited we will review it");
-      navigateTo("/");
-    },
   });
 
   const {
@@ -163,7 +164,7 @@ const CreateList = () => {
     mutate({ e, address, images, formDataEn, formDataKu });
   };
 
-  if (isLoading) {
+  if (loading || isLoading) {
     // if the loading is true, show the spinner
     return <Spinner />;
   }
@@ -283,7 +284,7 @@ const CreateList = () => {
                     ڕووبەر (مەتر چوارگۆشە)
                   </p>
                   <input
-                    type="text"
+                    type="number"
                     id="areaKu"
                     value={areaKu}
                     onChange={onFormChangeKu}
@@ -461,7 +462,7 @@ const CreateList = () => {
               <div className="w-full">
                 <p className="text-lg font-semibold">Area (Square Meters)</p>
                 <input
-                  type="text"
+                  type="number"
                   id="area"
                   value={area}
                   onChange={onFormChange}
@@ -500,7 +501,7 @@ const CreateList = () => {
               className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
             />
 
-            {/* Descriptiow-fulln */}
+            {/* Description */}
             <p className="text-lg font-semibold">Description</p>
             <textarea
               type="text"
@@ -571,14 +572,14 @@ const CreateList = () => {
                 className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
               />
             </div>
+            <button
+              type="submit"
+              className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
+            >
+              Create Listing
+            </button>
           </form>
         </div>
-        <button
-          type="submit"
-          className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
-        >
-          Create Listing
-        </button>
       </main>
     </>
   );

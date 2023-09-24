@@ -4,21 +4,8 @@
 import { useEffect, useState } from "react";
 import Spinner from "../components/common/Spinner"; // for the loading state
 import { notifications } from "../components/common/Notifications"; // for the notifications
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage"; // for the storage
 import { getAuth } from "firebase/auth"; // for the auth to get the current user
 import { v4 as uuid } from "uuid"; // for the unique id to store the images
-import {
-  addDoc,
-  doc,
-  getDoc,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { editListing } from "../data/queries";
@@ -39,6 +26,7 @@ const EditListing = () => {
     mutationFn: editListing,
     onSuccess: () => {
       notifications("Listing edited we will review it");
+      setLoading(false);
       navigateTo("/");
     },
   });
@@ -175,8 +163,6 @@ const EditListing = () => {
     }
   };
 
-
-
   const onFormChangeKu = (e) => {
     let boolean = null;
 
@@ -202,10 +188,11 @@ const EditListing = () => {
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true); // set the loading to true while we are uploading the images or storing the data
 
+    // sometime user don't want to upload new images
     if (images !== undefined) {
+      // check the already images in database and the images now user want to upload bigger then 6  make it error
       const imagesCheck = images.length + listing?.imgUrls?.length;
 
       if (imagesCheck) {
@@ -222,13 +209,13 @@ const EditListing = () => {
           return;
         }
       }
-      mutate({ e, address, formDataEn, formDataKu, listId });
+      mutate({ e, address, formDataEn, images, formDataKu, listId });
     } else {
       mutate({ e, address, formDataEn, formDataKu, listId });
     }
   };
 
-  if (loading) {
+  if (loading || isLoading) {
     // if the loading is true, show the spinner
     return <Spinner />;
   }
@@ -565,7 +552,7 @@ const EditListing = () => {
               className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
             />
 
-            {/* Descriptiow-fulln */}
+            {/* Description */}
             <p className="text-lg font-semibold">Description</p>
             <textarea
               type="text"
@@ -635,14 +622,14 @@ const EditListing = () => {
                 className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
               />
             </div>
+            <button
+              type="submit"
+              className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
+            >
+              Edit Listing
+            </button>
           </form>
         </div>
-        <button
-          type="submit"
-          className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
-        >
-          Edit Listing
-        </button>
       </main>
     </>
   );

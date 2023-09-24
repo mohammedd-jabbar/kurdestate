@@ -132,11 +132,11 @@ const Listing = () => {
         <div className="md:w-2/3 md:pr-6">
           <div className="flex flex-col">
             {/* buttons */}
-            <div className="flex order-3 max-sm:order-4 max-sm:justify-center justify-end items-center -mb-14">
+            <div className="flex order-3 space-x-5 max-sm:order-4 max-sm:justify-center justify-end items-center -mb-14">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  className={`rounded-md p-2 text-white z-10 mr-5 ${
+                  className={`rounded-md p-2 text-white z-10 ${
                     activeTab === tab.id
                       ? "text-opacity-100 bg-primary-500 "
                       : "text-opacity-60 bg-opacity-40 bg-slate-950"

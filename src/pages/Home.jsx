@@ -83,7 +83,7 @@ const Home = () => {
   }, []);
 
   // rent
-  const [rentListing, setRentListing] = useState(null);
+  const [listings, setListings] = useState(null);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -92,8 +92,8 @@ const Home = () => {
         // create the query
         const q = query(
           listingRef,
-          where("type", "==", "rent"),
           where("status", "==", "accepted"),
+          orderBy("type"),
           orderBy("timeStamp", "desc"),
           limit(4)
         );
@@ -106,7 +106,7 @@ const Home = () => {
             data: doc.data(),
           });
         });
-        setRentListing(listings);
+        setListings(listings);
       } catch (error) {
         console.log(error);
       }
@@ -124,7 +124,7 @@ const Home = () => {
         // create the query
         const q = query(
           listingRef,
-          where("type", "==", "sale"),
+          where("type", "==", "sell"),
           where("status", "==", "accepted"),
           orderBy("timeStamp", "desc"),
           limit(6)
@@ -178,16 +178,12 @@ const Home = () => {
           {/* offer */}
           {search && search.length > 0 && (
             <div className="mb-6">
-              <h2 className="px-3 text-2xl mt-6 font-semibold">
-                Recent Offers
+              <h2 className="px-3 font-roboto text-center text-xl mt-6 font-medium">
+                Browse Our Exclusive Listings
               </h2>
-              <Link to="/offers">
-                <p className="text-blue-600 px-3 text-sm hover:text-blue-800 transition duration-150 ease-in-out">
-                  Show more offers
-                </p>
-              </Link>
-              <div className="mb-6">
+              <div>
                 <Swiper
+                  className="my-6"
                   breakpoints={{
                     100: {
                       slidesPerView: 1.4,
@@ -226,29 +222,25 @@ const Home = () => {
             </div>
           )}
           {/* rent */}
-          {rentListing && rentListing.length > 0 && (
+          {listings && listings.length > 0 && (
             <div className="mb-6">
-              <h2 className="px-3 text-2xl mt-6 font-semibold">
-                Places for rent
+              <h2 className="px-3 text-center text-xl my-6 font-semibold">
+                Browse Our Exclusive Listings
               </h2>
-              <Link to="/category/rent">
-                <p className="text-blue-600 px-3 text-sm hover:text-blue-800 transition duration-150 ease-in-out">
-                  Show more places for rent
-                </p>
-              </Link>
-              <div className="mb-6">
+              <div>
                 <Swiper
+                  className="my-6"
                   breakpoints={{
                     100: {
-                      slidesPerView: 1.4,
+                      slidesPerView: 1.2,
                       spaceBetween: 20,
                     },
                     640: {
-                      slidesPerView: 2.4,
+                      slidesPerView: 2.2,
                       spaceBetween: 20,
                     },
                     796: {
-                      slidesPerView: 2.6,
+                      slidesPerView: 2.4,
                       spaceBetween: 25,
                     },
                     930: {
@@ -266,17 +258,22 @@ const Home = () => {
                   grabCursor={true}
                   modules={[FreeMode, Mousewheel]}
                 >
-                  {rentListing.map((rent) => (
+                  {listings.map((rent) => (
                     <SwiperSlide key={rent.id}>
                       <ListingHome listing={rent.data} id={rent.id} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
+                {/* <Link to="/category/rent" className="text-center">
+                  <p className="text-white bg-primary-500 inline font-bold text-center p-3 rounded text-sm hover:bg-primary-600 transition duration-150 ease-in-out">
+                    Show more places for sale
+                  </p>
+                </Link> */}
               </div>
             </div>
           )}
           {/* sale */}
-          {saleListing && saleListing.length > 0 && (
+          {/* {saleListing && saleListing.length > 0 && (
             <div className="mb-6 mt-12">
               <h2 className="px-3 text-2xl mt-6 font-semibold">
                 Places for sale
@@ -325,7 +322,7 @@ const Home = () => {
                 </p>
               </Link>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>

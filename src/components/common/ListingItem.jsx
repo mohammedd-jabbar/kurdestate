@@ -73,20 +73,28 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
 
             <div className="mt-4 flex items-center justify-center gap-10 text-xs">
               <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
-                <FaBath className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
-
-                <div className="mt-1.5 sm:mt-0">
-                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
-                    {listing.bath > 1 ? `${listing.bath} Baths` : "1 Bath"}
-                  </p>
-                </div>
-              </div>
-              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
                 <LuBedDouble className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
                   <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
-                    {listing.beds > 1 ? `${listing.beds} Rooms` : "1 Rooms"}
+                    {listing.beds > 1
+                      ? `${listing.beds} Rooms`
+                      : !listing.beds
+                      ? "No Rooms"
+                      : "1 Rooms"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+                <FaBath className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+
+                <div className="mt-1.5 sm:mt-0">
+                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
+                    {listing.bath > 1
+                      ? `${listing.bath} Baths`
+                      : !listing.bath
+                      ? "No Baths"
+                      : "1 Bath"}
                   </p>
                 </div>
               </div>
@@ -104,7 +112,11 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
 
                 <div className="mt-1.5 sm:mt-0">
                   <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
-                    {listing.bath > 1 ? `${listing.bath} Garages` : "1 Garage"}
+                    {listing.parking > 1
+                      ? `${listing.parking} Garages`
+                      : !listing.parking
+                      ? "No Garage"
+                      : "1 Garage"}
                   </p>
                 </div>
               </div>

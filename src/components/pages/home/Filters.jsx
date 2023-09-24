@@ -153,6 +153,12 @@ const Filters = () => {
             <option id="location" value="kirkuk">
               Kirkuk
             </option>
+            <option id="location" value="kalar">
+              Kalar
+            </option>
+            <option id="location" value="rawanduz">
+              Rawanduz
+            </option>
             <option id="location" value="soran">
               Soran
             </option>

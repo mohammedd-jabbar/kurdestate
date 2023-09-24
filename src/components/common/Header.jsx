@@ -213,7 +213,7 @@ const Header = () => {
                 />
               </div>
             ) : (
-              <div className="space-x-5">
+              <div className="space-x-5 py-2">
                 <Link to="/sign-in">
                   <button
                     // Login Button: white background with an outline. Sign Up Button: Blue background without an outline.
