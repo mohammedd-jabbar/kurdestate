@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { FaTrash } from "react-icons/fa";
-import { MdEdit } from "react-icons/md";
-import { FaBath, FaParking, FaMapMarkerAlt } from "react-icons/fa";
+import { MdEdit, MdOutlineCalendarMonth } from "react-icons/md";
+import { FaBath, FaMapMarkerAlt } from "react-icons/fa";
+import { BiSolidCarGarage } from "react-icons/bi";
 import { LuBedDouble } from "react-icons/lu";
 import Heart from "../../assets/svg/Heart.jsx";
 
@@ -34,14 +35,14 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
           </div>
         </div>
         {/* Heart wishList */}
-        <a href="#" className="block w-full relative p-4">
+        <a className="block w-full relative p-3 sm:p-4">
           <button className="absolute group shadow end-4 bottom-30 border-2 border-border z-10 rounded-full bg-white p-2 transition duration-200 hover:border-primary-500 hover:bg-primary-500 focus:border-primary-500 focus:bg-primary-500 active:border-primary-500 active:bg-primary-500">
             <span className="sr-only">Wishlist</span>
             <Heart />
           </button>
 
           <div className="mb-2">
-            <div className="mb-4 border-b-2 pb-4 space-y-2 border-gray-400 border-opacity-20">
+            <div className="mb-6 border-b-2 pb-4 space-y-2 border-gray-400 border-opacity-20">
               <div>
                 <dt className="sr-only">Price</dt>
 
@@ -70,44 +71,40 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
               </div>
             </div>
 
-            <div className="mt-4 flex items-center justify-center sm:justify-normal gap-10 max-xs:gap-6 text-xs">
-              <div className="sm:hidden md:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-                <FaParking className="text-primary-500 h-4 w-4" />
+            <div className="mt-4 flex items-center justify-center gap-10 text-xs">
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+                <FaBath className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="text-gray-500 xl:font-base xl:text-xs">
-                    Parking
-                  </p>
-                  <p className="font-medium xl:font-base xl:text-xs">
-                    {listing.parking > true ? "Parking Spot" : "No Parking"}
+                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
+                    {listing.bath > 1 ? `${listing.bath} Baths` : "1 Bath"}
                   </p>
                 </div>
               </div>
-
-              <div className="sm:inline-flex sm:shrink-0 sm:items-center pt-0.5 sm:gap-2">
-                <FaBath className="text-primary-500 h-4 w-4" />
-
-                <div className="mt-1.5 sm:mt-0">
-                  <p className="text-gray-500 xl:font-base xl:text-xs">
-                    Bathroom
-                  </p>
-
-                  <p className="font-medium xl:font-base xl:text-xs">
-                    {listing.bath > 1 ? `${listing.bath} Rooms` : "1 Room"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="sm:inline-flex sm:shrink-0 sm:items-center pt-0.5 sm:gap-2">
-                <LuBedDouble className="text-primary-500 h-5 w-5" />
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+                <LuBedDouble className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="text-gray-500 xl:font-base xl:text-xs">
-                    Bedroom
-                  </p>
-
-                  <p className="font-medium xl:font-base xl:text-xs">
+                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
                     {listing.beds > 1 ? `${listing.beds} Rooms` : "1 Rooms"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+                <MdOutlineCalendarMonth className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+
+                <div className="mt-1.5 sm:mt-0">
+                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
+                    {listing.yearBuilt}
+                  </p>
+                </div>
+              </div>
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+                <BiSolidCarGarage className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+
+                <div className="mt-1.5 sm:mt-0">
+                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
+                    {listing.bath > 1 ? `${listing.bath} Garages` : "1 Garage"}
                   </p>
                 </div>
               </div>

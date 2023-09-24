@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -25,6 +26,10 @@ export default {
       "2xl": "1536px",
     },
     extend: {
+      fontFamily: {
+        roboto: ['"Roboto"', ...fontFamily.sans],
+        lato: ['"Lato"', ...fontFamily.sans],
+      },
       colors: {
         primary: {
           500: "#7065f0",

@@ -48,7 +48,7 @@ const Setting = () => {
     // when user logout redirect user to the homepage
 
     try {
-      if (window.confirm("Are you sure you want to delete your account?")) {
+      if (window.confirm("Are you sure you want to logout?")) {
         auth.signOut(auth); // Sign out the current user and update the state
         navigateTo("/");
         window.location.reload();

@@ -162,10 +162,10 @@ const Home = () => {
           <div className="absolute top-[47%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
             <h1
               ref={el}
-              className="text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-bold text-white"
+              className="text-3xl sm:text-4xl md:text-6xl font-bold text-white"
             ></h1>
             <p className="text-sm xs:text-base sm:text-lg md:text-xl font-medium pt-2 text-white">
-              Explore Our Listings and Discover Your Perfect Property
+              Discover Your Dream Property with Us
             </p>
           </div>
         </div>
