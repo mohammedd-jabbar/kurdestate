@@ -71,12 +71,12 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
               </div>
             </div>
 
-            <div className="mt-4 flex items-center justify-center gap-10 text-xs">
-              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+            <div className="mt-4 flex items-center justify-center gap-4 xs:gap-10 text-xs">
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center">
                 <LuBedDouble className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
+                  <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
                     {listing.beds > 1
                       ? `${listing.beds} Rooms`
                       : !listing.beds
@@ -85,11 +85,11 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center gap-1">
                 <FaBath className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
+                  <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
                     {listing.bath > 1
                       ? `${listing.bath} Baths`
                       : !listing.bath
@@ -98,20 +98,20 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center">
                 <MdOutlineCalendarMonth className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
+                  <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
                     {listing.yearBuilt}
                   </p>
                 </div>
               </div>
-              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center sm:gap-2">
+              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center">
                 <BiSolidCarGarage className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="mt-1.5 sm:mt-0">
-                  <p className="max-xs:text-xs text-gray-500 xl:font-base xl:text-sm">
+                  <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
                     {listing.parking > 1
                       ? `${listing.parking} Garages`
                       : !listing.parking

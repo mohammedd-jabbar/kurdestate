@@ -4,7 +4,7 @@ import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 // swiper
-import Spinner from "../components/Spinner";
+import Spinner from "../common/Spinner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";

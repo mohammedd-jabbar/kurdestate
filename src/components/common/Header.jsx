@@ -5,6 +5,7 @@ import { notifications } from "./Notifications";
 import NavbarDropDown from "./NavbarDropDown";
 import { UserInfoContext } from "../../store/UserInfoProvider";
 import Spinner from "../common/Spinner";
+import { FiChevronDown } from "react-icons/fi";
 
 const Header = () => {
   // users url location
@@ -13,6 +14,9 @@ const Header = () => {
   const navigateTo = useNavigate();
   // show and hide the dropdown
   const [isDropDown, setIsDropDown] = useState(false);
+  // show and hide the dropdown
+  const [isCategoryDropDown, setIsCategoryDropDown] = useState(false);
+
   // dropdown for language inside the dropdown
   const [isLanguage, setIsLanguage] = useState(false);
 
@@ -94,6 +98,9 @@ const Header = () => {
   const toggleDropdown = () => {
     setIsDropDown(!isDropDown);
   };
+  const toggleCategoryDropDown = () => {
+    setIsCategoryDropDown(!isCategoryDropDown);
+  };
   const toggleLanguageDropdown = () => {
     setIsLanguage(!isLanguage);
   };
@@ -113,68 +120,158 @@ const Header = () => {
   };
 
   // this function is used to check if the current route is the same as the route passed as an argument and return some different styles
-  const getActiveRouteStyles = (
-    route,
-    style = "md:!border-b-primary-500 md:!text-black"
-  ) => {
+  const getActiveRouteStyles = (route, style = "!text-black") => {
     return location.pathname === route ? style : "";
   };
 
   return (
     <>
       <div
-        className={`${
-          isNavbarScroll ? "border-b py-1 shadow-md" : " py-0 "
-        } sticky w-full bg-headerBackground border-b shadow top-0 z-40 transition-all duration-300 ease-in-out`}
+        className={`border-b shadow-md bg-headerBackground ${
+          location.pathname === "/" && "-mb-[69px]"
+        } ${
+          location.pathname === "/" &&
+          !isNavbarScroll &&
+          "border-none shadow-none  text-white bg-transparent"
+        } ${
+          isNavbarScroll && "bg-headerBackground"
+        } py-2 sticky w-full top-0 z-40`}
       >
-        <header className="flex justify-between items-center px-3 max-w-6xl mx-auto ">
-          <div>
-            <Link to="/">
-              <h1 className="h-5 cursor-pointer text-2xl flex items-center justify-center font-bold">
-                Kurd <span className="text-primary-500">Estate</span>
-              </h1>
-            </Link>
-          </div>
-          <div>
-            <ul
-              className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:mr-[65px] md:space-x-10 md:w-auto md:pl-0 transition-all duration-[400ms] ease-in-out ${
-                isContentDropDown
-                  ? "max-md:top-12 max-md:pt-4 max-md:shadow-md"
-                  : "-top-[44rem] max-md:opacity-0"
-              }`}
-            >
-              <Link to="/category/rent">
-                <li
-                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent max-md:hover:bg-slate-200 px-4 max-md:hover:rounded-md ${getActiveRouteStyles(
+        <header
+          className={`${
+            location.pathname === "/" && !isNavbarScroll
+              ? "bg-transparent text-white"
+              : ""
+          } flex justify-between px-3 max-w-6xl mx-auto`}
+        >
+          <div className="flex items-center justify-normal font-bold space-x-4">
+            <h1 className="cursor-pointer text-2xl">
+              <a href="/">
+                Kurd
+                <span
+                  className={`text-primary-500 ${
+                    location.pathname === "/" &&
+                    !isNavbarScroll &&
+                    " text-yellow-200"
+                  }`}
+                >
+                  Estate
+                </span>
+              </a>
+            </h1>
+            <nav className="font-semibold text-lg">
+              <ul
+                className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static md:z-auto z-[-1] left-0 w-full md:mr-[65px]  md:w-auto md:pl-0 max-md:transition-all max-md:duration-300 max-md:ease-in-out bg-white ${
+                  location.pathname === "/" &&
+                  !isNavbarScroll &&
+                  "!bg-transparent !text-white"
+                }  ${
+                  isContentDropDown
+                    ? "max-md:top-12 max-md:pt-4 max-md:shadow-md"
+                    : "-top-[44rem] max-md:opacity-0"
+                }`}
+              >
+                {/* <li
+                  className={`cursor-pointer text-lg pt-0.5 font-semibold px-8 max-md:px-4 max-md:hover:rounded-md ${
+                    !isNavbarScroll ? "text-white" : "text-gray-500"
+                  } max-md:hover:bg-slate-200 ${getActiveRouteStyles(
                     "/category/rent"
-                  )}`}
+                  )} ${isContentDropDown && "max-md:py-4 max-md:my-2"}`}
                   onClick={toggleContentDropDown}
                 >
-                  Rent
+                  <a href="category/rent">Rent</a>
                 </li>
-              </Link>
-              <Link to="/category/sell">
+
                 <li
-                  className={`py-3 cursor-pointer text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent max-md:hover:bg-slate-200 px-4 max-md:hover:rounded-md ${getActiveRouteStyles(
+                  className={`cursor-pointer text-lg pt-0.5 font-semibold px-8 max-md:px-4 max-md:hover:rounded-md ${
+                    !isNavbarScroll ? "text-white" : "text-gray-500"
+                  } max-md:hover:bg-slate-200 ${getActiveRouteStyles(
                     "/category/sell"
-                  )}`}
+                  )} ${isContentDropDown && "max-md:py-4 max-md:my-2"}`}
                   onClick={toggleContentDropDown}
                 >
-                  Sell
-                </li>
-              </Link>
-              <Link to="/offers">
+                  <a href="category/sell">Sell</a>
+                </li> */}
+
                 <li
-                  className={`py-3 cursor-pointer transition duration-500 ease-in-out text-base font-semibold text-gray-500 border-b-[3px] border-b-transparent max-md:hover:bg-slate-200 px-4 max-md:hover:rounded-md ${getActiveRouteStyles(
-                    "/offers"
-                  )}`}
-                  onClick={toggleContentDropDown}
+                  className={`flex items-center justify-between relative cursor-pointer text-lg font-semibold px-8 max-md:px-4 max-md:hover:rounded-md text-gray-500 ${
+                    location.pathname === "/" && !isNavbarScroll
+                      ? "max-md:hover:!bg-none text-white"
+                      : "max-md:hover:bg-slate-100"
+                  }  ${getActiveRouteStyles("/category/sell")}  ${
+                    isContentDropDown && `max-md:py-4 max-md:my-2`
+                  }`}
+                  onClick={toggleCategoryDropDown}
                 >
-                  Offers
+                  Category
+                  <FiChevronDown
+                    className={`ml-1 transition-all duration-300 ease-in-out ${
+                      isCategoryDropDown && "rotate-180"
+                    }`}
+                  />
+                  <div
+                    className={`absolute mt-1 p-2 right-4 top-11 md:right-0 md:top-7 min-w-max shadow rounded  ${
+                      isCategoryDropDown ? "block" : "hidden"
+                    } bg-white border border-border transition delay-75 ease-in-out z-10`}
+                  >
+                    <ul className="block text-right text-gray-900">
+                      <li>
+                        <a
+                          href="category/rent"
+                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
+                        >
+                          Rent
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="category/rent"
+                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
+                        >
+                          Sell
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href=""
+                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
+                        >
+                          Houses
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
+                        >
+                          Apartments
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
+                        >
+                          Land
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                        >
+                          Shops
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </li>
-              </Link>
-            </ul>
+
+                {/* TODO: fix padding issue */}
+              </ul>
+            </nav>
           </div>
+
           <div>
             {userAuth ? (
               <div className="flex justify-center items-center">
@@ -184,16 +281,48 @@ const Header = () => {
                       <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
                         {!isContentDropDown && (
                           <>
-                            <div className="bg-gray-950 h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10"></div>
-                            <div className="bg-gray-950 h-[2px] w-7 rounded transform transition-all duration-300 focus:translate-x-10 delay-75"></div>
-                            <div className="bg-gray-950 h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10 delay-150"></div>
+                            <div
+                              className={`bg-gray-950 ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "!bg-white"
+                              } h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10`}
+                            ></div>
+                            <div
+                              className={`bg-gray-950 ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "!bg-white"
+                              } h-[2px] w-7 rounded transform transition-all duration-300 focus:translate-x-10 delay-75`}
+                            ></div>
+                            <div
+                              className={`bg-gray-950 ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "!bg-white"
+                              } h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10 delay-150`}
+                            ></div>
                           </>
                         )}
 
                         {isContentDropDown && (
-                          <div className="absolute items-center justify-between transform transition-all duration-500 top-2.5  translate-x-0 flex w-12">
-                            <div className="absolute bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 rotate-45"></div>
-                            <div className="absolute bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 -rotate-45"></div>
+                          <div
+                            className={`absolute items-center justify-between transform transition-all duration-500 top-2.5  translate-x-0 flex w-12`}
+                          >
+                            <div
+                              className={`absolute ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "bg-white"
+                              } bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 rotate-45`}
+                            ></div>
+                            <div
+                              className={`absolute ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "bg-white"
+                              } bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 -rotate-45`}
+                            ></div>
                           </div>
                         )}
                       </div>
@@ -206,6 +335,7 @@ const Header = () => {
                   toggleLanguageDropdown={toggleLanguageDropdown}
                   isLanguage={isLanguage}
                   isDropDown={isDropDown}
+                  isNavbarScroll={isNavbarScroll}
                   firstLetter={firstLetter}
                   profilePhoto={profilePhoto}
                   name={name}
@@ -219,12 +349,16 @@ const Header = () => {
                     // Login Button: white background with an outline. Sign Up Button: Blue background without an outline.
 
                     // When the Login button is clicked, the Sign Up button outline becomes visible to differentiate between the two buttons. This approach ensures clarity when both buttons have a blue background.
-                    className={`shadow-sm ${
+                    className={`shadow-sm  ${
                       // If on the "/sign-in" page, style as active Login button.
                       location.pathname === "/sign-in"
                         ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out border-2 px-4 py-[5px] rounded-lg bg-primary-500 border-primary-500 !text-white hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
                         : // If not on "/sign-in", style as inactive Login button.
                           `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
+                    } ${
+                      location.pathname === "/" &&
+                      !isNavbarScroll &&
+                      "text-white"
                     }`}
                   >
                     Login

@@ -1,15 +1,20 @@
+import { BiConfused } from "react-icons/bi";
+import { useLocation } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
 const NavbarDropDown = ({
   handleLogout,
   toggleDropdown,
   toggleLanguageDropdown,
-  firstLetter,
   profilePhoto,
   name,
   email,
   isLanguage,
   isDropDown,
+  isNavbarScroll,
 }) => {
+  // users url location
+  let location = useLocation();
   return (
     <div className="flex relative justify-center justify-items-center items-center">
       {/* Avatar */}
@@ -20,13 +25,17 @@ const NavbarDropDown = ({
       >
         {profilePhoto ? (
           <img
-            className="w-10 border border-primary-500 border-opacity-50 h-10 rounded-full"
+            className={`w-10 border-2 border-primary-500 ${
+              location.pathname === "/" && !isNavbarScroll && "border-white"
+            } border-opacity-50 h-10 rounded-full`}
             src={profilePhoto}
             alt=""
           />
         ) : (
-          <span className="w-8 h-8 border border-primary-500 rounded-[50%] font-bold text-center border-opacity-50 text-xl">
-            {firstLetter}
+          <span
+            className={`rounded-[50%] font-bold text-center border-opacity-50 text-xl`}
+          >
+            <BiConfused className="w-9 h-9" />
           </span>
         )}
       </button>

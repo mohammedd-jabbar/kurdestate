@@ -98,7 +98,7 @@ const Filters = () => {
   };
 
   return (
-    <div className="max-w-[80%] mb-6 w-full flex flex-col justify-between items-start p-4 relative mx-auto rounded-md -mt-24">
+    <div className="max-w-[85%] mb-24 w-full flex flex-col justify-between items-start relative mx-auto p-4 rounded-md -mt-56 md:-mt-40">
       <div className="bg-background w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 shadow-lg md:rounded-md">
         <div
           className="flex flex-col space-y-2"
@@ -113,7 +113,7 @@ const Filters = () => {
           <select
             onChange={handleChange}
             id="type"
-            className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm"
+            className="mt-1.5 w-full rounded border-gray-300 text-gray-700 text-sm"
           >
             <option id="type" selected>
               Property Type
@@ -136,7 +136,7 @@ const Filters = () => {
           <select
             id="location"
             onChange={handleChange}
-            className="mt-1.5 w-full rounded border-gray-300 text-gray-700 sm:text-sm"
+            className="mt-1.5 w-full rounded border-gray-300 text-gray-700 text-sm"
           >
             <option id="location" selected>
               All Locations

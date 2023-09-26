@@ -29,6 +29,7 @@ export default {
       fontFamily: {
         roboto: ['"Roboto"', ...fontFamily.sans],
         lato: ['"Lato"', ...fontFamily.sans],
+        bebas: ['"Bebas Neue"', ...fontFamily.sans],
       },
       colors: {
         primary: {

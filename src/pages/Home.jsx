@@ -22,6 +22,7 @@ import { FreeMode, Mousewheel } from "swiper/modules";
 import Filters from "../components/pages/home/Filters";
 import Typed from "typed.js";
 import { SearchResultContext } from "../store/SearchResultProvider";
+import Slider from "../components/common/Slider";
 
 const Home = () => {
   // offer
@@ -114,57 +115,57 @@ const Home = () => {
     fetchListings();
   }, []);
 
-  // sale
-  const [saleListing, setSaleListing] = useState(null);
+  // // sale
+  // const [saleListing, setSaleListing] = useState(null);
 
-  useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        const listingRef = collection(db, "listings");
-        // create the query
-        const q = query(
-          listingRef,
-          where("type", "==", "sell"),
-          where("status", "==", "accepted"),
-          orderBy("timeStamp", "desc"),
-          limit(6)
-        );
+  // useEffect(() => {
+  //   const fetchListings = async () => {
+  //     try {
+  //       const listingRef = collection(db, "listings");
+  //       // create the query
+  //       const q = query(
+  //         listingRef,
+  //         where("type", "==", "sell"),
+  //         where("status", "==", "accepted"),
+  //         orderBy("timeStamp", "desc"),
+  //         limit(6)
+  //       );
 
-        const snapShotQuery = await getDocs(q);
-        let listings = [];
-        snapShotQuery.forEach((doc) => {
-          return listings.push({
-            id: doc.id,
-            data: doc.data(),
-          });
-        });
-        setSaleListing(listings);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchListings();
-  }, []);
+  //       const snapShotQuery = await getDocs(q);
+  //       let listings = [];
+  //       snapShotQuery.forEach((doc) => {
+  //         return listings.push({
+  //           id: doc.id,
+  //           data: doc.data(),
+  //         });
+  //       });
+  //       setSaleListing(listings);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchListings();
+  // }, []);
 
   return (
     <>
       <div
-        className="h-[97vh]"
+        className="h-[103vh]"
         style={{
           background: `url(${hero}) center no-repeat`,
           backgroundSize: "cover",
         }}
       >
         <div
-          className="absolute inset-0 bg-black opacity-50"
+          className="absolute inset-0 bg-black opacity-95"
           style={{ background: "rgba(0, 0, 0, .5)" }}
         >
-          <div className="absolute top-[47%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
+          <div className="absolute top-[40%] md:top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
             <h1
               ref={el}
-              className="text-3xl sm:text-4xl md:text-6xl font-bold text-white"
+              className="font-bebas text-4xl md:text-6xl font-bold text-white"
             ></h1>
-            <p className="text-sm xs:text-base sm:text-lg md:text-xl font-medium pt-2 text-white">
+            <p className="font-bebas text-base sm:text-lg md:text-xl font-medium pt-2 text-white">
               Discover Your Dream Property with Us
             </p>
           </div>
