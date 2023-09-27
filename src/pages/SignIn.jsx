@@ -72,6 +72,7 @@ const SignIn = () => {
             />
             <div className="relative mb-6 ">
               <input
+                min="6"
                 id="password"
                 value={password}
                 type={showPassword ? "text" : "password"} // if showPassword is true, show text, else show password

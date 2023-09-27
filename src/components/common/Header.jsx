@@ -382,6 +382,8 @@ const Header = () => {
       </div>
 
       <Outlet />
+
+      
     </>
   );
 };

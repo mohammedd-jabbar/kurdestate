@@ -51,7 +51,6 @@ const ProfileContent = () => {
         // update the name in the firestore
         const docRef = doc(db, "users", auth?.currentUser?.uid);
         await updateDoc(docRef, {
-          // name: name,
           name,
         });
 
@@ -76,6 +75,13 @@ const ProfileContent = () => {
         </h1>
 
         <div className="mt-8 w-full md:w-[50%] px-4 ">
+          <div>
+            <img
+              src={data.photoURL}
+              alt="user"
+              className="w-24 h-24 text-center my-6 border border-primary-500 rounded-full "
+            />
+          </div>
           <h3 className="text-xl font-semibold pb-4">Change your name</h3>
           <form>
             {/* name input */}
@@ -97,60 +103,6 @@ const ProfileContent = () => {
               disabled
               value={email}
               className="w-full mb-6 px-4 py-2 mt- text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition ease-in-out "
-            />
-            <div className="flex justify-between mb-6 whitespace-nowrap text-sm sm:text-lg items-center">
-              <p className="flex items-center justify-center">
-                <span
-                  onClick={() => {
-                    isEditingName && handleChangeName();
-                    setIsEditingName((prevstate) => !prevstate);
-                  }} // Toggle the state, if it's false, it will be true, and if it's true, it will be false, so the user can enable/disable the input to edit the name
-                  className="text-white text-center bg-primary-500 hover:bg-primary-600 active:bg-primary-700 focus:bg-primary-700 rounded-md px-3 py-0.5 transition duration-200 ease-in-out cursor-pointer ml-1.5"
-                >
-                  {/* If the state is true, the text will be "Apply changes", if it's false, the text will be "Edit" */}
-                  {isEditingName ? "Apply changes" : "Edit"}
-                </span>
-              </p>
-            </div>
-          </form>
-        </div>
-
-        <hr />
-        <div className="mt-8 w-full md:w-[50%] px-4 ">
-          <h3 className="text-xl font-semibold pb-4">Change your Password</h3>
-          <form>
-            {/* name input */}
-            <input
-              type="text"
-              id="name"
-              placeholder="Current Password"
-              onChange={handleCheckCurrentPassword}
-              disabled={!isEditingName} // If the state is false, the input will be disabled, if it's true, the input will be enabled, so the user can edit the name
-              className={`w-full mb-6 px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition ease-in-out ${
-                isEditingName &&
-                "bg-blue-100 focus:bg-blue-100 focus:border-blue-100 focus:ring-0 focus:outline-none  "
-              }`}
-            />
-            {/* email input */}
-            <input
-              type="text"
-              id="name"
-              placeholder="New Password"
-              disabled={!isEditingName} // If the state is false, the input will be disabled, if it's true, the input will be enabled, so the user can edit the name
-              className={`w-full mb-6 px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition ease-in-out ${
-                isEditingName &&
-                "bg-blue-100 focus:bg-blue-100 focus:border-blue-100 focus:ring-0 focus:outline-none  "
-              }`}
-            />
-            <input
-              type="text"
-              id="name"
-              placeholder="New Password"
-              disabled={!isEditingName} // If the state is false, the input will be disabled, if it's true, the input will be enabled, so the user can edit the name
-              className={`w-full mb-6 px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition ease-in-out ${
-                isEditingName &&
-                "bg-blue-100 focus:bg-blue-100 focus:border-blue-100 focus:ring-0 focus:outline-none  "
-              }`}
             />
             <div className="flex justify-between mb-6 whitespace-nowrap text-sm sm:text-lg items-center">
               <p className="flex items-center justify-center">

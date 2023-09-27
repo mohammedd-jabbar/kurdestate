@@ -3,7 +3,7 @@ import { LuChevronLast, LuChevronFirst } from "react-icons/lu";
 import { useContext, createContext } from "react";
 import { ExpandedContext } from "../../../store/SidebarProvider";
 import { UserInfoContext } from "../../../store/UserInfoProvider";
-
+import { BiConfused } from "react-icons/bi";
 const SidebarContext = createContext();
 
 export default function Sidebar({ children }) {
@@ -56,11 +56,16 @@ export default function Sidebar({ children }) {
               !expanded && "max-sm:border-none"
             }`}
           >
-            <img
-              src={data.photoURL}
-              alt=""
-              className="w-10 h-10 rounded-md max-sm:hidden"
-            />
+            {data.emailVerified === false ? (
+              <BiConfused className="w-10 h-10 max-sm:hidden" />
+            ) : (
+              <img
+                src={data.photoURL}
+                alt=""
+                className="w-10 h-10 rounded-md max-sm:hidden"
+              />
+            )}
+
             <div
               className={`
               flex justify-between items-center
