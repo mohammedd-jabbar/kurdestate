@@ -23,6 +23,73 @@ const Category = () => {
 
   useEffect(() => {
     const fetchListings = async () => {
+      if (categoryName === "sell" || categoryName === "rent") {
+        try {
+          const listingRef = collection(db, "listings");
+          const q = query(
+            listingRef,
+            where("type", "==", categoryName),
+            where("status", "==", "accepted"),
+            orderBy("timeStamp", "desc"),
+            limit(8)
+          );
+          const querySnap = await getDocs(q);
+
+          const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+          setLastFetchListings(lastVisible);
+          let listing = [];
+
+          querySnap.forEach((doc) => {
+            return listing.push({
+              id: doc.id,
+              data: doc.data(),
+            });
+          });
+
+          setListings(listing);
+
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          notifications("Could not fetch offers", true);
+        }
+      } else {
+        try {
+          const listingRef = collection(db, "listings");
+          const q = query(
+            listingRef,
+            where("category", "==", categoryName),
+            where("status", "==", "accepted"),
+            orderBy("timeStamp", "desc"),
+            limit(8)
+          );
+          const querySnap = await getDocs(q);
+
+          const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+          setLastFetchListings(lastVisible);
+          let listing = [];
+
+          querySnap.forEach((doc) => {
+            return listing.push({
+              id: doc.id,
+              data: doc.data(),
+            });
+          });
+
+          setListings(listing);
+
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          notifications("Could not fetch", true);
+        }
+      }
+    };
+    fetchListings();
+  }, [categoryName]);
+
+  const handleFetchMoreListings = async () => {
+    if (categoryName === "sell" || categoryName === "rent") {
       try {
         const listingRef = collection(db, "listings");
         const q = query(
@@ -30,7 +97,8 @@ const Category = () => {
           where("type", "==", categoryName),
           where("status", "==", "accepted"),
           orderBy("timeStamp", "desc"),
-          limit(8)
+          startAfter(lastFetchListings),
+          limit(4)
         );
         const querySnap = await getDocs(q);
 
@@ -45,47 +113,44 @@ const Category = () => {
           });
         });
 
-        setListings(listing);
+        setListings((prev) => [...prev, ...listing]);
 
         setLoading(false);
       } catch (error) {
         console.log(error);
-        notifications("Could not fetch offers", true);
+        notifications("Could not fetch");
       }
-    };
-    fetchListings();
-  }, [categoryName]);
+    } else {
+      try {
+        const listingRef = collection(db, "listings");
+        const q = query(
+          listingRef,
+          where("category", "==", categoryName),
+          where("status", "==", "accepted"),
+          orderBy("timeStamp", "desc"),
+          startAfter(lastFetchListings),
+          limit(4)
+        );
+        const querySnap = await getDocs(q);
 
-  const handleFetchMoreListings = async () => {
-    try {
-      const listingRef = collection(db, "listings");
-      const q = query(
-        listingRef,
-        where("type", "==", categoryName),
-        where("status", "==", "accepted"),
-        orderBy("timeStamp", "desc"),
-        startAfter(lastFetchListings),
-        limit(4)
-      );
-      const querySnap = await getDocs(q);
+        const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+        setLastFetchListings(lastVisible);
+        let listing = [];
 
-      const lastVisible = querySnap.docs[querySnap.docs.length - 1];
-      setLastFetchListings(lastVisible);
-      let listing = [];
-
-      querySnap.forEach((doc) => {
-        return listing.push({
-          id: doc.id,
-          data: doc.data(),
+        querySnap.forEach((doc) => {
+          return listing.push({
+            id: doc.id,
+            data: doc.data(),
+          });
         });
-      });
 
-      setListings((prev) => [...prev, ...listing]);
+        setListings((prev) => [...prev, ...listing]);
 
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      notifications("Could not fetch offers");
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        notifications("Could not fetch");
+      }
     }
   };
 
@@ -94,8 +159,8 @@ const Category = () => {
       <h1 className="text-3xl text-center my-6 font-bold">
         {categoryName === "rent"
           ? "Places for Rent"
-          : categoryName === "sale"
-          ? "Places for Sale"
+          : categoryName === "sell"
+          ? "Places for Sell"
           : "There is no place for that name"}
       </h1>
       {loading ? (
@@ -125,10 +190,7 @@ const Category = () => {
           )}
         </>
       ) : (
-        <p>
-          There are no current
-          {categoryName === "rent" ? " Places for Rent" : "Places for Sale"}
-        </p>
+        <p>There are no current {categoryName}</p>
       )}
     </div>
   );

@@ -23,6 +23,10 @@ import Filters from "../components/pages/home/Filters";
 import Typed from "typed.js";
 import { SearchResultContext } from "../store/SearchResultProvider";
 import Slider from "../components/common/Slider";
+import { FaRegFaceLaughWink } from "react-icons/fa6";
+import { FaPeopleCarry } from "react-icons/fa";
+import { BsHouse, BsSearchHeart } from "react-icons/bs";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
 
 const Home = () => {
   // offer
@@ -175,16 +179,16 @@ const Home = () => {
       <Filters />
 
       <div>
-        <div className="max-w-6xl max-xl:w-[95%] mx-auto pt-4 space-y-6">
+        <div className="max-w-6xl max-xl:w-[95%] mx-auto pt-4 ">
           {/* offer */}
           {search && search.length > 0 && (
-            <div className="mb-6">
-              <h2 className="px-3 font-roboto text-center text-xl mt-6 font-medium">
+            <div className="my-16">
+              <h2 className="px-3 font-semibold text-3xl text-center">
                 Browse Our Exclusive Listings
               </h2>
               <div>
                 <Swiper
-                  className="my-6"
+                  className=""
                   breakpoints={{
                     100: {
                       slidesPerView: 1.4,
@@ -222,11 +226,11 @@ const Home = () => {
               </div>
             </div>
           )}
-          {/* rent */}
+          {/* listings */}
           {listings && listings.length > 0 && (
-            <div className="mb-6">
-              <h2 className="px-3 text-center text-xl my-6 font-semibold">
-                Browse Our Exclusive Listings
+            <div className="my-16">
+              <h2 className="px-3 font-semibold text-3xl text-center">
+                Discover Our Listings
               </h2>
               <div>
                 <Swiper
@@ -273,57 +277,152 @@ const Home = () => {
               </div>
             </div>
           )}
-          {/* sale */}
-          {/* {saleListing && saleListing.length > 0 && (
-            <div className="mb-6 mt-12">
-              <h2 className="px-3 text-2xl mt-6 font-semibold">
-                Places for sale
-              </h2>
-
-              <div className="my-6">
-                <Swiper
-                  breakpoints={{
-                    100: {
-                      slidesPerView: 1.4,
-                      spaceBetween: 20,
-                    },
-                    640: {
-                      slidesPerView: 2.4,
-                      spaceBetween: 20,
-                    },
-                    796: {
-                      slidesPerView: 2.6,
-                      spaceBetween: 25,
-                    },
-                    930: {
-                      slidesPerView: 2.8,
-                      spaceBetween: 25,
-                    },
-                    1110: {
-                      slidesPerView: 3.7,
-                      spaceBetween: 30,
-                    },
-                  }}
-                  loop={false}
-                  freeMode={true}
-                  mousewheel={true}
-                  grabCursor={true}
-                  modules={[FreeMode, Mousewheel]}
-                >
-                  {saleListing.map((sale) => (
-                    <SwiperSlide key={sale.id}>
-                      <ListingHome listing={sale.data} id={sale.id} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-              <Link to="/category/sale">
-                <p className="text-white bg-primary-500 inline font-bold text-center p-3 rounded text-sm hover:bg-primary-600 transition duration-150 ease-in-out">
-                  Show more places for sale
+          <div className="py-16 mt-12 bg-background w-full h-[100vh] text-center">
+            <h1 className="font-semibold text-3xl ">Why Choose Us</h1>
+            <p className="text-gray-500 text-sm font-medium">
+              Lorem ipsum dolor sit, amet consectetur adipisicing.
+            </p>
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+              <div className="p-6 bg-white pb-12 rounded-lg shadow-md">
+                <p className="text-center">
+                  <FaRegFaceLaughWink className="w-16 h-16 text-center mx-auto mb-6 text-white bg-primary-500 p-4 rounded-[50%]" />
                 </p>
+
+                <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
+                  Trusted By Thousands
+                </h2>
+
+                <p className="mt-2 text-gray-800 text-center">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Alias excepturi fuga, laudantium molestias nesciunt tempore.
+                </p>
+              </div>
+              <div className="p-6 bg-white pb-12 rounded-lg shadow-lg">
+                <p className="text-center">
+                  <BsSearchHeart className="w-16 h-16 text-center mx-auto mb-6 p-2 text-primary-500 " />
+                </p>
+
+                <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
+                  Easy Searching
+                </h2>
+
+                <p className="mt-2 text-gray-800 text-center">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Alias excepturi fuga, laudantium molestias nesciunt tempore.
+                </p>
+              </div>
+              <div className="p-6 bg-white pb-12 rounded-lg shadow-lg">
+                <p className="text-center">
+                  <RiMoneyDollarCircleLine className="w-16 h-16 text-center mx-auto mb-6 text-white bg-primary-500 p-4 rounded-[50%]" />
+                </p>
+
+                <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
+                  Financing Made Easy
+                </h2>
+
+                <p className="mt-2 text-gray-800 text-center">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Alias excepturi fuga, laudantium molestias nesciunt tempore.
+                </p>
+              </div>
+              <div className="p-6 bg-white pb-12 rounded-lg shadow-lg">
+                <p className="text-center">
+                  <FaPeopleCarry className="w-16 h-16 text-center mx-auto mb-6 p-2 text-primary-500 " />
+                </p>
+
+                <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
+                  See Neighborhoods
+                </h2>
+
+                <p className="mt-2 text-gray-800 text-center">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Alias excepturi fuga, laudantium molestias nesciunt tempore.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Images */}
+          <div className="py-16 bg-background w-full h-[100vh] text-center">
+            <h1 className="font-semibold text-3xl ">Explore Our Properties</h1>
+            <p className="text-gray-500 text-sm font-medium">
+              Lorem ipsum dolor sit, amet consectetur adipisicing.
+            </p>
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+              <Link
+                to={"category/house"}
+                className="cursor-pointer group p-4 shadow-lg bg-white rounded-lg flex justify-center items-center flex-col hover:scale-105 transition-all duration-300 ease-in-out"
+                style={{
+                  background: `url(https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXBhcnRtZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60) center no-repeat`,
+                  backgroundSize: "cover",
+                }}
+              >
+                <div className="pb-16"></div>
+                <p className="text-center group-hover:scale-150 transition-all duration-300 ease-in-out">
+                  <BsHouse className="w-16 h-16  text-center mx-auto mb-6 text-white" />
+                </p>
+
+                <h2 className="font-semibold text-lg text-center text-white mt-2">
+                  Trusted By Thousands
+                </h2>
+                <div className="pb-24"></div>
+              </Link>
+              <Link
+                to={"category/house"}
+                className="cursor-pointer group p-4 shadow-lg bg-white rounded-lg flex justify-center items-center flex-col hover:scale-105 transition-all duration-300 ease-in-out"
+                style={{
+                  background: `url(https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXBhcnRtZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60) center no-repeat`,
+                  backgroundSize: "cover",
+                }}
+              >
+                <div className="pb-16"></div>
+                <p className="text-center group-hover:scale-150 transition-all duration-300 ease-in-out">
+                  <BsHouse className="w-16 h-16  text-center mx-auto mb-6 text-white" />
+                </p>
+
+                <h2 className="font-semibold text-lg text-center text-white mt-2">
+                  Trusted By Thousands
+                </h2>
+                <div className="pb-24"></div>
+              </Link>
+              <Link
+                to={"category/house"}
+                className="cursor-pointer group p-4 shadow-lg bg-white rounded-lg flex justify-center items-center flex-col hover:scale-105 transition-all duration-300 ease-in-out"
+                style={{
+                  background: `url(https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXBhcnRtZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60) center no-repeat`,
+                  backgroundSize: "cover",
+                }}
+              >
+                <div className="pb-16"></div>
+                <p className="text-center group-hover:scale-150 transition-all duration-300 ease-in-out">
+                  <BsHouse className="w-16 h-16  text-center mx-auto mb-6 text-white" />
+                </p>
+
+                <h2 className="font-semibold text-lg text-center text-white mt-2">
+                  Trusted By Thousands
+                </h2>
+                <div className="pb-24"></div>
+              </Link>
+              <Link
+                to={"category/house"}
+                className="cursor-pointer group p-4 shadow-lg bg-white rounded-lg flex justify-center items-center flex-col hover:scale-105 transition-all duration-300 ease-in-out"
+                style={{
+                  background: `url(https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXBhcnRtZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60) center no-repeat`,
+                  backgroundSize: "cover",
+                }}
+              >
+                <div className="pb-16"></div>
+                <p className="text-center group-hover:scale-150 transition-all duration-300 ease-in-out">
+                  <BsHouse className="w-16 h-16  text-center mx-auto mb-6 text-white" />
+                </p>
+
+                <h2 className="font-semibold text-lg text-center text-white mt-2">
+                  Trusted By Thousands
+                </h2>
+                <div className="pb-24"></div>
               </Link>
             </div>
-          )} */}
+          </div>
         </div>
       </div>
     </>

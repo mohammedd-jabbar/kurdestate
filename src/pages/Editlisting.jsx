@@ -33,6 +33,7 @@ const EditListing = () => {
 
   const [formDataEn, setFormDataEn] = useState({
     type: "rent",
+    category: "",
     name: "",
     beds: 1,
     baths: 1,
@@ -48,6 +49,7 @@ const EditListing = () => {
   // kurdish form
   const [formDataKu, setFormDataKu] = useState({
     typeKu: "کرێ",
+    categoryKu: "",
     nameKu: "",
     bedsKu: 1,
     bathsKu: 1,
@@ -61,6 +63,7 @@ const EditListing = () => {
 
   const {
     type,
+    category,
     name,
     beds,
     baths,
@@ -76,6 +79,7 @@ const EditListing = () => {
 
   const {
     typeKu,
+    categoryKu,
     nameKu,
     bedsKu,
     bathsKu,
@@ -269,6 +273,21 @@ const EditListing = () => {
                   کرێ
                 </button>
               </div>
+              {/* Category */}
+              <p className="text-lg mt-6 font-semibold">جۆر</p>
+              <select
+                id="categoryKu"
+                value={categoryKu}
+                onChange={onFormChangeKu}
+                required
+                className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+              >
+                <option value="">جۆری موڵکەکەت</option>
+                <option value="خانوو">خانوو</option>
+                <option value="شوقە">شوقە</option>
+                <option value="زەوی">زەوی</option>
+                <option value="دووکان">دووکان</option>
+              </select>
               {/* Name */}
               <p className="text-lg mt-6 font-semibold">ناو</p>
               <input
@@ -449,6 +468,21 @@ const EditListing = () => {
                 Rent
               </button>
             </div>
+            {/* Category */}
+            <p className="text-lg mt-6 font-semibold">Category</p>
+            <select
+              id="category"
+              value={category}
+              onChange={onFormChange}
+              required
+              className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+            >
+              <option value="">Category Property</option>
+              <option value="house">House</option>
+              <option value="apartment">Apartment</option>
+              <option value="land">Land</option>
+              <option value="shop">Shop</option>
+            </select>
             {/* Name */}
             <p className="text-lg mt-6 font-semibold">Name</p>
             <input

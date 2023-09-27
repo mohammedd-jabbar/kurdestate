@@ -217,7 +217,7 @@ const Header = () => {
                     <ul className="block text-right text-gray-900">
                       <li>
                         <a
-                          href="category/rent"
+                          href="/category/rent"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
                           Rent
@@ -225,7 +225,7 @@ const Header = () => {
                       </li>
                       <li>
                         <a
-                          href="category/rent"
+                          href="/category/sell"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
                           Sell
@@ -233,7 +233,7 @@ const Header = () => {
                       </li>
                       <li>
                         <a
-                          href=""
+                          href="/category/house"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
                           Houses
@@ -241,7 +241,7 @@ const Header = () => {
                       </li>
                       <li>
                         <a
-                          href="#"
+                          href="/category/apartment"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
                           Apartments
@@ -249,7 +249,7 @@ const Header = () => {
                       </li>
                       <li>
                         <a
-                          href="#"
+                          href="/category/land"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
                           Land
@@ -257,7 +257,7 @@ const Header = () => {
                       </li>
                       <li>
                         <a
-                          href="#"
+                          href="category/shop"
                           className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
                         >
                           Shops
@@ -266,8 +266,6 @@ const Header = () => {
                     </ul>
                   </div>
                 </li>
-
-                {/* TODO: fix padding issue */}
               </ul>
             </nav>
           </div>
