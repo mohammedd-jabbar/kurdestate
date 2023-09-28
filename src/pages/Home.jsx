@@ -13,7 +13,6 @@ import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 import ListingHome from "../components/pages/home/ListingHome";
 import hero from "../assets/images/hero.jpg";
-import { notifications } from "../components/common/Notifications";
 
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -180,7 +179,6 @@ const Home = () => {
       <Filters />
 
       <div>
-        <button onClick={() => notifications("You can't logout")}>CLick</button>
         <div className="max-w-6xl max-xl:w-[95%] mx-auto pt-4 ">
           {/* offer */}
           {search && search.length > 0 && (

@@ -30,6 +30,7 @@ import SearchResultProvider from "./store/SearchResultProvider";
 import ListingIdProvider from "./store/ListingIdProvider";
 import "./i18n.js";
 import { Toaster } from "react-hot-toast";
+import Error from "./components/common/Error";
 
 const queryClient = new QueryClient();
 
@@ -37,12 +38,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Header />,
-    errorElement: <div>404</div>,
+    errorElement: <Error />,
     children: [
       {
         index: true,
         element: <Home />,
-        errorElement: <div>404</div>,
+        errorElement: <Error />,
       },
       {
         path: "profile",
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Profile />,
-            errorElement: <div>404</div>,
+            errorElement: <Error />,
           },
         ],
       },
@@ -62,7 +63,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Setting />,
-            errorElement: <div>404</div>,
+            errorElement: <Error />,
           },
         ],
       },
@@ -98,7 +99,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <CreateList />,
-            errorElement: <div>404</div>,
+            errorElement: <Error />,
           },
         ],
       },
@@ -109,13 +110,13 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Editlisting />,
-            errorElement: <div>404</div>,
+            errorElement: <Error />,
           },
         ],
       },
       {
         path: "*",
-        element: <div>Not found</div>,
+        element: <Error />,
       },
     ],
   },
