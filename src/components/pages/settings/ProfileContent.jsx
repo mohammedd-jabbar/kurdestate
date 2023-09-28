@@ -2,13 +2,14 @@
 import { useContext, useState } from "react";
 import { getAuth, updateProfile } from "firebase/auth";
 import { notifications } from "../../common/Notifications";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Spinner from "../../common/Spinner";
 import { UserInfoContext } from "../../../store/UserInfoProvider";
 import { ExpandedContext } from "../../../store/SidebarProvider";
 import { BiConfused } from "react-icons/bi";
+import { FcHome } from "react-icons/fc";
 
 const ProfileContent = () => {
   // TODO: make the states loading and the component
@@ -66,7 +67,7 @@ const ProfileContent = () => {
 
   return (
     <div
-      className={`max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7  ${
+      className={`max-w-6xl max-md:max-w-[95%] h-screen mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7  ${
         expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
       }`}
     >
@@ -88,7 +89,7 @@ const ProfileContent = () => {
             )}
           </div>
           <h3 className="text-xl font-semibold pb-4">Change your name</h3>
-          <form>
+          <form className="border-b border-border">
             {/* name input */}
             <input
               type="text"
@@ -116,7 +117,7 @@ const ProfileContent = () => {
                     isEditingName && handleChangeName();
                     setIsEditingName((prevstate) => !prevstate);
                   }} // Toggle the state, if it's false, it will be true, and if it's true, it will be false, so the user can enable/disable the input to edit the name
-                  className="text-white text-center bg-primary-500 hover:bg-primary-600 active:bg-primary-700 focus:bg-primary-700 rounded-md px-3 py-0.5 transition duration-200 ease-in-out cursor-pointer ml-1.5"
+                  className="text-white text-center bg-primary-500 hover:bg-primary-600 active:bg-primary-700 focus:bg-primary-700 rounded-md px-3 py-0.5 transition duration-200 ease-in-out cursor-pointer ml-1.5 "
                 >
                   {/* If the state is true, the text will be "Apply changes", if it's false, the text will be "Edit" */}
                   {isEditingName ? "Apply changes" : "Edit"}
@@ -124,6 +125,16 @@ const ProfileContent = () => {
               </p>
             </div>
           </form>
+
+          <button
+            type="submit"
+            className="w-full max-xs:mt-16 mt-4 bg-primary-500 text-white uppercase px-7 py-3 text-sm font-bold rounded-md hover:bg-primary-600 transition duration-200 ease-in-out shadow-md hover:shadow-lg active:bg-primary-700  "
+          >
+            <Link to="/create" className="flex justify-center items-center">
+              <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
+              Sell or rent your home
+            </Link>
+          </button>
         </div>
       </div>
     </div>

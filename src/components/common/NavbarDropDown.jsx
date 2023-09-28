@@ -102,6 +102,11 @@ const NavbarDropDown = ({
               Settings
             </a>
           </li>
+          <li>
+            <a href="/create" className="block px-4 py-2 hover:bg-gray-100 ">
+              Sell Your Property
+            </a>
+          </li>
         </ul>
         <div className="py-2" onClick={handleLogout}>
           <a className="block px-4 py-2 text-sm text-gray-700 cursor-pointer  hover:bg-gray-100 ">

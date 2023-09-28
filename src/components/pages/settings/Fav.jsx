@@ -4,6 +4,7 @@ import { getFavItem, getPropertyByIdAndData } from "../../../data/queries";
 import { useMutation } from "@tanstack/react-query";
 import Spinner from "../../common/Spinner";
 import ListingItem from "../../common/ListingItem";
+import Error from "../../common/Error";
 
 // Fetch the favorite IDs from local storage
 const fetchFavoriteIds = async () => {
@@ -59,8 +60,7 @@ const Fav = () => {
         expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
       }`}
     >
-      Fav
-      <div>
+      {favoriteIds.length > 0 ? (
         <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3">
           {favoriteListings.map((property, index) => (
             <ListingItem
@@ -71,7 +71,9 @@ const Fav = () => {
             />
           ))}
         </ul>
-      </div>
+      ) : (
+        <Error text={"There is no favorite listings"} />
+      )}
     </div>
   );
 };

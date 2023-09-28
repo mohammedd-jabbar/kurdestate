@@ -2,7 +2,7 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 
 // style
 import "./index.css";
@@ -29,6 +29,7 @@ import ListingsInfoProvider from "./store/ListingsInfoProvider";
 import SearchResultProvider from "./store/SearchResultProvider";
 import ListingIdProvider from "./store/ListingIdProvider";
 import "./i18n.js";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -129,18 +130,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <UserInfoProvider>
               <SearchResultProvider>
                 <SidebarProvider>
-                  <ToastContainer
-                    position="top-right"
-                    autoClose={3000}
-                    hideProgressBar
-                    newestOnTop
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover={false}
-                    theme="dark"
-                  />
+                  <Toaster position="top-center" reverseOrder={true} />
                   {/* this is provider for react router */}
                   <RouterProvider router={router} />
                 </SidebarProvider>

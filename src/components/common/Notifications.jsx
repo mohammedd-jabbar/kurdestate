@@ -1,35 +1,39 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 // this is a custom notification component
 export const notifications = (msg, err = false) => {
   const theme = localStorage.getItem("theme");
 
   if (!err) {
-    return toast(msg, {
-      position: "top-center",
-      autoClose: 3000,
-      icon: "✅",
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: theme === "dark" ? "dark" : "light",
+    return toast.success(msg, {
+      duration: 3000,
+      style:
+        theme === "dark"
+          ? {
+              background: "#333",
+              color: "#fff",
+            }
+          : {
+              background: "#fff",
+              color: "#333",
+            },
     });
   } else {
     return toast.error(msg, {
-      position: "top-center",
-      icon: "🔴",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: theme === "dark" ? "dark" : "light",
+      duration: 3000,
+      style:
+        theme === "dark"
+          ? {
+              background: "#333",
+              color: "#fff",
+            }
+          : {
+              background: "#fff",
+              color: "#333",
+            },
     });
   }
 };
