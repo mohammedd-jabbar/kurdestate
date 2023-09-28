@@ -44,18 +44,6 @@ const Filters = () => {
     return <div>Error fetching locations</div>;
   }
 
-  // const getTheCityNames = async (lat, lng) => {
-  //   const res = await fetch(
-  //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&sensor=true&key=AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps`
-  //   );
-  //   const data = await res.json();
-  //   if (data.status !== "ZERO_RESULTS" && !undefined) {
-  //     const arrayLocationName = data.results?.[0]?.formatted_address.split(",");
-  //     const name = arrayLocationName[1].trim();
-  //     return name;
-  //   }
-  // };
-
   const handleSubmit = async () => {
     if (
       formSearch.type !== "" &&
@@ -71,7 +59,6 @@ const Filters = () => {
     }
   };
 
-  console.log(formSearch);
   const getSearch = async () => {
     // Remove the "$" symbol before submitting
     const numericValue = amount.replace(/\D/g, "").toString();
@@ -98,8 +85,13 @@ const Filters = () => {
   };
 
   return (
-    <div className="max-w-[80%] mb-6 w-full flex flex-col justify-between items-start relative mx-auto p-4 rounded-md -mt-56 md:-mt-40">
-      <div className="bg-background w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 shadow-lg md:rounded-md">
+    <div className="max-w-[80%] mb-16 w-full flex flex-col justify-between items-start relative mx-auto p-4 rounded-md -mt-56 md:-mt-72">
+      <div
+        className="bg-headerBackground w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 md:rounded-md"
+        style={{
+          boxShadow: "0px 7px 29px 0px rgba(100, 100, 111, 0.2)",
+        }}
+      >
         <div
           className="flex flex-col space-y-2"
           // style={{ direction: "rtl" }}

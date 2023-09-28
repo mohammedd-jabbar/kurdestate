@@ -30,6 +30,7 @@ export default {
         roboto: ['"Roboto"', ...fontFamily.sans],
         lato: ['"Lato"', ...fontFamily.sans],
         bebas: ['"Bebas Neue"', ...fontFamily.sans],
+        inter: ['"Inter"', ...fontFamily.sans],
       },
       colors: {
         primary: {

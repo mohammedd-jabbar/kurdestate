@@ -10,7 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ListingHome from "../components/pages/home/ListingHome";
 import hero from "../assets/images/hero.jpg";
 
@@ -29,9 +29,12 @@ import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { MdApartment } from "react-icons/md";
 import { GiIsland } from "react-icons/gi";
 import { AiOutlineShop } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
+  const { t, i18n } = useTranslation();
   const { search } = useContext(SearchResultContext);
+  const navigateTo = useNavigate();
 
   // Create reference to store the DOM element containing the animation
   const el = useRef(null);
@@ -39,11 +42,11 @@ const Home = () => {
   useEffect(() => {
     const typed = new Typed(el.current, {
       strings: [
-        "Find Your Dream Property ^500",
-        "Find Your Dream House ^500",
-        "Find Your Dream Place ^500",
-        "Find Your Dream Land ^500",
-        "Find Your Dream Villa ^500",
+        t("Find Your Dream Property ^500"),
+        t("Find Your Dream House ^500"),
+        t("Find Your Dream Place ^500"),
+        t("Find Your Dream Land ^500"),
+        t("Find Your Dream Villa ^500"),
       ],
       typeSpeed: 55,
       showCursor: false,
@@ -56,36 +59,7 @@ const Home = () => {
       // Destroy Typed instance during cleanup to stop animation
       typed.destroy();
     };
-  }, []);
-
-  useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        const listingRef = collection(db, "listings");
-        // create the query
-        const q = query(
-          listingRef,
-          where("offer", "==", true),
-          where("status", "==", "accepted"),
-          orderBy("timeStamp", "desc"),
-          limit(4)
-        );
-
-        const snapShotQuery = await getDocs(q);
-        let listings = [];
-        snapShotQuery.forEach((doc) => {
-          return listings.push({
-            id: doc.id,
-            data: doc.data(),
-          });
-        });
-        setOfferListing(listings);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchListings();
-  }, []);
+  }, [t, i18n.language]);
 
   // rent
   const [listings, setListings] = useState(null);
@@ -154,24 +128,28 @@ const Home = () => {
   return (
     <>
       <div
-        className="h-[103vh]"
-        style={{
-          background: `url(${hero}) center no-repeat`,
-          backgroundSize: "cover",
-        }}
+        dir={i18n.language === "ku" ? "rtl" : "ltr"}
+        className="h-[103vh] bg-background"
+        // style={{
+        //   background: `url(${hero}) center no-repeat`,
+        //   backgroundSize: "cover",
+        // }}
       >
-        <div
-          className="absolute inset-0 bg-black opacity-95"
-          style={{ background: "rgba(0, 0, 0, .5)" }}
-        >
-          <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
+        <div className="">
+          <div className="absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
             <h1
               ref={el}
-              className="font-bebas text-4xl md:text-6xl font-bold text-white"
+              className="font-inter text-4xl md:text-6xl font-bold text-black"
             ></h1>
-            <p className="font-bebas text-base sm:text-lg md:text-xl font-medium pt-2 text-white">
-              Discover Your Dream Property with Us
+            <p className="font-inter text-base sm:text-lg md:text-xl font-medium mt-6 text-black">
+              {t("Discover Your Dream Property with Us")}
             </p>
+            <button
+              onClick={() => navigateTo("sign-in")}
+              className="mt-4 transition-all duration-200 ease-in-out bg-primary-500 py-1.5 px-5 text-lg font-inter font-semibold rounded text-white shadow-md hover:bg-primary-600 hover:shadow-xl focus:bg-primary-700 active:bg-primary-800"
+            >
+              Start Searching
+            </button>
           </div>
         </div>
       </div>

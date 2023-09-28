@@ -12,6 +12,7 @@ const NavbarDropDown = ({
   isLanguage,
   isDropDown,
   isNavbarScroll,
+  handleLanguageChange,
 }) => {
   // users url location
   let location = useLocation();
@@ -84,12 +85,18 @@ const NavbarDropDown = ({
             >
               <ul className="py-2 text-sm text-gray-700 ">
                 <li>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-100 ">
+                  <a
+                    onClick={() => handleLanguageChange("ku")}
+                    className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  >
                     Kurdish
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-100 ">
+                  <a
+                    onClick={() => handleLanguageChange("en")}
+                    className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  >
                     English
                   </a>
                 </li>

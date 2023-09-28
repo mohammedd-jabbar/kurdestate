@@ -6,6 +6,7 @@ import NavbarDropDown from "./NavbarDropDown";
 import { UserInfoContext } from "../../store/UserInfoProvider";
 import Spinner from "../common/Spinner";
 import { FiChevronDown } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   // users url location
@@ -53,6 +54,17 @@ const Header = () => {
   });
 
   const { firstLetter, profilePhoto, name, email } = user;
+
+  const { t, i18n } = useTranslation();
+
+  // get the language
+  useEffect(() => {
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
+
+  const handleLanguageChange = (languageCode) => {
+    i18n.changeLanguage(languageCode);
+  };
 
   useEffect(() => {
     // if user logged in show the users information
@@ -127,80 +139,32 @@ const Header = () => {
   return (
     <>
       <div
-        className={`border-b shadow-md bg-headerBackground ${
-          location.pathname === "/" && "-mb-[69px]"
-        } ${
-          location.pathname === "/" &&
-          !isNavbarScroll &&
-          "border-none shadow-none  text-white bg-transparent"
-        } ${
-          isNavbarScroll && "bg-headerBackground"
-        } py-2 sticky w-full top-0 z-40`}
+        className={`border-b py-2 shadow-md bg-headerBackground  ${
+          isNavbarScroll && "bg-headerBackground py-2"
+        } sticky w-full top-0 z-40`}
       >
         <header
-          className={`${
-            location.pathname === "/" && !isNavbarScroll
-              ? "bg-transparent text-white"
-              : ""
-          } flex justify-between px-3 max-w-6xl mx-auto`}
+          className={`flex text-black justify-between px-3 max-w-6xl mx-auto`}
         >
           <div className="flex items-center justify-normal font-bold space-x-4">
             <h1 className="cursor-pointer text-2xl">
               <a href="/">
                 Kurd
-                <span
-                  className={`text-primary-500 ${
-                    location.pathname === "/" &&
-                    !isNavbarScroll &&
-                    " text-yellow-200"
-                  }`}
-                >
-                  Estate
-                </span>
+                <span className={`text-primary-500`}>Estate</span>
               </a>
             </h1>
             <nav className="font-semibold text-lg">
               <ul
                 className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static md:z-auto z-[-1] left-0 w-full md:mr-[65px]  md:w-auto md:pl-0 max-md:transition-all max-md:duration-300 max-md:ease-in-out bg-white ${
-                  location.pathname === "/" &&
-                  !isNavbarScroll &&
-                  "!bg-transparent !text-white"
-                }  ${
                   isContentDropDown
                     ? "max-md:top-12 max-md:pt-4 max-md:shadow-md"
                     : "-top-[44rem] max-md:opacity-0"
                 }`}
               >
-                {/* <li
-                  className={`cursor-pointer text-lg pt-0.5 font-semibold px-8 max-md:px-4 max-md:hover:rounded-md ${
-                    !isNavbarScroll ? "text-white" : "text-gray-500"
-                  } max-md:hover:bg-slate-200 ${getActiveRouteStyles(
-                    "/category/rent"
-                  )} ${isContentDropDown && "max-md:py-4 max-md:my-2"}`}
-                  onClick={toggleContentDropDown}
-                >
-                  <a href="category/rent">Rent</a>
-                </li>
-
                 <li
-                  className={`cursor-pointer text-lg pt-0.5 font-semibold px-8 max-md:px-4 max-md:hover:rounded-md ${
-                    !isNavbarScroll ? "text-white" : "text-gray-500"
-                  } max-md:hover:bg-slate-200 ${getActiveRouteStyles(
+                  className={`flex items-center justify-between relative cursor-pointer text-lg font-semibold px-8 max-md:px-4 max-md:hover:rounded-md text-gray-500 max-md:hover:bg-slate-100 ${getActiveRouteStyles(
                     "/category/sell"
-                  )} ${isContentDropDown && "max-md:py-4 max-md:my-2"}`}
-                  onClick={toggleContentDropDown}
-                >
-                  <a href="category/sell">Sell</a>
-                </li> */}
-
-                <li
-                  className={`flex items-center justify-between relative cursor-pointer text-lg font-semibold px-8 max-md:px-4 max-md:hover:rounded-md text-gray-500 ${
-                    location.pathname === "/" && !isNavbarScroll
-                      ? "max-md:hover:!bg-none text-white"
-                      : "max-md:hover:bg-slate-100"
-                  }  ${getActiveRouteStyles("/category/sell")}  ${
-                    isContentDropDown && `max-md:py-4 max-md:my-2`
-                  }`}
+                  )}  ${isContentDropDown && `max-md:py-4 max-md:my-2`}`}
                   onClick={toggleCategoryDropDown}
                 >
                   Category
@@ -283,21 +247,21 @@ const Header = () => {
                               className={`bg-gray-950 ${
                                 location.pathname === "/" &&
                                 !isNavbarScroll &&
-                                "!bg-white"
+                                "!bg-primary-500"
                               } h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10`}
                             ></div>
                             <div
                               className={`bg-gray-950 ${
                                 location.pathname === "/" &&
                                 !isNavbarScroll &&
-                                "!bg-white"
+                                "!bg-primary-500"
                               } h-[2px] w-7 rounded transform transition-all duration-300 focus:translate-x-10 delay-75`}
                             ></div>
                             <div
                               className={`bg-gray-950 ${
                                 location.pathname === "/" &&
                                 !isNavbarScroll &&
-                                "!bg-white"
+                                "!bg-primary-500"
                               } h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10 delay-150`}
                             ></div>
                           </>
@@ -311,14 +275,14 @@ const Header = () => {
                               className={`absolute ${
                                 location.pathname === "/" &&
                                 !isNavbarScroll &&
-                                "bg-white"
+                                "bg-primary-500"
                               } bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 rotate-45`}
                             ></div>
                             <div
                               className={`absolute ${
                                 location.pathname === "/" &&
                                 !isNavbarScroll &&
-                                "bg-white"
+                                "bg-primary-500"
                               } bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 -rotate-45`}
                             ></div>
                           </div>
@@ -331,6 +295,7 @@ const Header = () => {
                   handleLogout={handleLogout}
                   toggleDropdown={toggleDropdown}
                   toggleLanguageDropdown={toggleLanguageDropdown}
+                  handleLanguageChange={handleLanguageChange}
                   isLanguage={isLanguage}
                   isDropDown={isDropDown}
                   isNavbarScroll={isNavbarScroll}
@@ -382,8 +347,6 @@ const Header = () => {
       </div>
 
       <Outlet />
-
-      
     </>
   );
 };
