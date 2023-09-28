@@ -8,6 +8,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Spinner from "../../common/Spinner";
 import { UserInfoContext } from "../../../store/UserInfoProvider";
 import { ExpandedContext } from "../../../store/SidebarProvider";
+import { BiConfused } from "react-icons/bi";
 
 const ProfileContent = () => {
   // TODO: make the states loading and the component
@@ -76,11 +77,15 @@ const ProfileContent = () => {
 
         <div className="mt-8 w-full md:w-[50%] px-4 ">
           <div>
-            <img
-              src={data.photoURL}
-              alt="user"
-              className="w-24 h-24 text-center my-6 border border-primary-500 rounded-full "
-            />
+            {data.emailVerified === false ? (
+              <BiConfused className="w-24 h-24 my-6 border-primary-500 rounded-full" />
+            ) : (
+              <img
+                src={data.photoURL}
+                alt="user"
+                className="w-24 h-24 my-6 border border-primary-500 rounded-full "
+              />
+            )}
           </div>
           <h3 className="text-xl font-semibold pb-4">Change your name</h3>
           <form>

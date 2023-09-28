@@ -13,6 +13,7 @@ import {
   serverTimestamp,
   doc,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid"; // for the unique id to store the images
 import { notifications } from "../components/common/Notifications"; // for the notifications
@@ -66,6 +67,96 @@ export const getPropertyLocations = async () => {
   } catch (error) {
     throw error;
   }
+};
+
+export const getPropertyByIdAndData = async (id) => {
+  try {
+    const listingRef = collection(db, "listings");
+    // get the listings where the userRef is equal to the current user id and order them by timestamp
+    const q = query(
+      listingRef,
+      where("status", "==", "accepted"),
+      orderBy("timeStamp", "desc")
+    );
+
+    // Get the querySnapshot from the query it mean get the data from the query
+    const querySnapshot = await getDocs(q);
+
+    let result = null; // Variable to store the found data
+
+    for (const doc of querySnapshot.docs) {
+      if (doc.id === id) {
+        result = { data: doc.data(), id: doc.id };
+        break; // Exit the loop when the desired data is found
+      }
+    }
+
+    return result; // Return the found data (or null if not found)
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getPropertyIds = async () => {
+  try {
+    const listingRef = collection(db, "listings");
+    // get the listings where the userRef is equal to the current user id and order them by timestamp
+    const q = query(
+      listingRef,
+      where("status", "==", "accepted"),
+      orderBy("timeStamp", "desc")
+    );
+
+    // Get the querySnapshot from the query it mean get the data from the query
+    const querySnapshot = await getDocs(q);
+
+    // Create an empty array to store the listings data and update the listings state with it
+    let locations = [];
+
+    // Loop through the querySnapshot and push the data to the locations array
+    querySnapshot.forEach((doc) => locations.push(doc.id));
+
+    return locations;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getFavItem = async () => {
+  // Retrieve the existing array from local storage
+  const existingArrayJSON = localStorage.getItem("fav");
+
+  // Parse the existing JSON string into an array or return an empty array if it doesn't exist
+  const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
+
+  return existingArray;
+};
+
+export const setFavItem = async (id) => {
+  // Retrieve the existing array from local storage
+  const existingArrayJSON = localStorage.getItem("fav");
+
+  // Parse the existing JSON string into an array or create an empty array if it doesn't exist
+  const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
+
+  existingArray.push(id);
+  // Update the local storage with the modified array
+  const updatedArrayJSON = JSON.stringify(existingArray);
+  localStorage.setItem("fav", updatedArrayJSON);
+};
+export const removeFavItem = async (id) => {
+  // Retrieve the existing array from local storage
+  const existingArrayJSON = localStorage.getItem("fav");
+
+  // Parse the existing JSON string into an array or create an empty array if it doesn't exist
+  const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
+
+  // Filter out the specific ID you want to remove (even if it's duplicated)
+  const updatedArray = existingArray.filter((itemId) => itemId !== id);
+
+  // Update the local storage with the filtered array
+  const updatedArrayJSON = JSON.stringify(updatedArray);
+  localStorage.setItem("fav", updatedArrayJSON);
 };
 
 export const addListing = async (form) => {

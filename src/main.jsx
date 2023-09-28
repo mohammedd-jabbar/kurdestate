@@ -27,6 +27,7 @@ import UserInfoProvider from "./store/UserInfoProvider";
 import SidebarProvider from "./store/SidebarProvider";
 import ListingsInfoProvider from "./store/ListingsInfoProvider";
 import SearchResultProvider from "./store/SearchResultProvider";
+import ListingIdProvider from "./store/ListingIdProvider";
 import "./i18n.js";
 
 const queryClient = new QueryClient();
@@ -123,28 +124,30 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Suspense fallback="Loading...">
       <QueryClientProvider client={queryClient}>
-        <ListingsInfoProvider>
-          <UserInfoProvider>
-            <SearchResultProvider>
-              <SidebarProvider>
-                <ToastContainer
-                  position="top-right"
-                  autoClose={3000}
-                  hideProgressBar
-                  newestOnTop
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover={false}
-                  theme="dark"
-                />
-                {/* this is provider for react router */}
-                <RouterProvider router={router} />
-              </SidebarProvider>
-            </SearchResultProvider>
-          </UserInfoProvider>
-        </ListingsInfoProvider>
+        <ListingIdProvider>
+          <ListingsInfoProvider>
+            <UserInfoProvider>
+              <SearchResultProvider>
+                <SidebarProvider>
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+                  />
+                  {/* this is provider for react router */}
+                  <RouterProvider router={router} />
+                </SidebarProvider>
+              </SearchResultProvider>
+            </UserInfoProvider>
+          </ListingsInfoProvider>
+        </ListingIdProvider>
       </QueryClientProvider>
     </Suspense>
   </React.StrictMode>

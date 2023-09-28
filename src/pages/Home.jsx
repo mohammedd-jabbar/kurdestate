@@ -22,7 +22,6 @@ import { FreeMode, Mousewheel } from "swiper/modules";
 import Filters from "../components/pages/home/Filters";
 import Typed from "typed.js";
 import { SearchResultContext } from "../store/SearchResultProvider";
-import Slider from "../components/common/Slider";
 import { FaRegFaceLaughWink } from "react-icons/fa6";
 import { FaPeopleCarry } from "react-icons/fa";
 import { BsHouse, BsSearchHeart } from "react-icons/bs";
@@ -32,8 +31,6 @@ import { GiIsland } from "react-icons/gi";
 import { AiOutlineShop } from "react-icons/ai";
 
 const Home = () => {
-  // offer
-  const [offerListing, setOfferListing] = useState(null);
   const { search } = useContext(SearchResultContext);
 
   // Create reference to store the DOM element containing the animation

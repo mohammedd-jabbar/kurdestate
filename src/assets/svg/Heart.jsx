@@ -1,4 +1,5 @@
-const Heart = () => {
+/* eslint-disable react/prop-types */
+const Heart = ({ isFav }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +7,9 @@ const Heart = () => {
       viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="#7065f0"
-      className="h-[22px] group-hover:stroke-white group-active:stroke-white group-focus:stroke-white w-[22px]"
+      className={`h-[22px] group-hover:stroke-white group-active:stroke-white group-focus:stroke-white w-[22px] ${
+        isFav ? "stroke-white" : ""
+      }`}
     >
       <path
         strokeLinecap="round"

@@ -15,6 +15,8 @@ import { UserInfoContext } from "../store/UserInfoProvider";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { notifications } from "../components/common/Notifications";
+import Fav from "../components/pages/settings/Fav";
+import { MdFavoriteBorder } from "react-icons/md";
 
 const Setting = () => {
   const [activeItem, setActiveItem] = useState("posts"); // Default active item
@@ -39,6 +41,8 @@ const Setting = () => {
         return <PostsContent />;
       case "settings":
         return <SettingsContent />;
+      case "favorites":
+        return <Fav />;
       default:
         return null;
     }
@@ -93,6 +97,16 @@ const Setting = () => {
               active={activeItem === "posts"}
               icon={<FaListAlt size={20} />}
               text="Posts"
+            />
+          </div>
+          <div
+            onClick={() => handleSidebarItemClick("favorites")}
+            style={{ background: "none", color: "inherit" }}
+          >
+            <SidebarItem
+              active={activeItem === "favorites"}
+              icon={<MdFavoriteBorder size={20} />}
+              text="Favorites"
             />
           </div>
 
