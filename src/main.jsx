@@ -11,7 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 // pages
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile";
-import SignIn from "./pages/SignIn";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -72,10 +71,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
-      {
-        path: "sign-in",
-        element: <SignIn />,
-      },
+
       {
         path: "sign-up",
         element: <SignUp />,

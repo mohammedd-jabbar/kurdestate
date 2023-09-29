@@ -49,11 +49,8 @@ const Login = () => {
   return (
     <div>
       <h1 className="text-3xl text-center mt-8 font-bold">Login</h1>
-      <div className="flex justify-center items-center flex-wrap px-6 mt-8 pb-12 mx-auto max-w-6xl">
-        <div className="hidden lg:block w-[40%] mb-12 md:mb-6">
-          <img src={login} alt="key" className="w-full rounded-xl" />
-        </div>
-        <div className="bg-headerBackground w-full shadow-lg md:w-[60%] p-8 rounded-lg">
+      <div className="flex justify-center items-center flex-wrap px-6 max-lg:mt-8 pb-12 mx-auto max-w-6xl">
+        <div className="bg-headerBackground w-full shadow-lg md:w-[50%] p-8 rounded-lg">
           <form onSubmit={handleFormSubmit}>
             <h1 className="text-2xl font-inter font-semibold">Welcome back</h1>
             <h1 className="text-sm my-1 cursor-pointer font-inter font-normal">
@@ -73,7 +70,7 @@ const Login = () => {
                   id="email"
                   value={email}
                   type="email"
-                  placeholder="name@gmail.com"
+                  placeholder="example@gmail.com"
                   onChange={handleInputChange}
                   className="w-full px-4 py-2  text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
                 />
@@ -107,11 +104,17 @@ const Login = () => {
             </div>
             <OAuth />
 
-            <div className="text-end my-6">
+            <div className="flex justify-between items-center my-6 whitespace-nowrap text-sm sm:text-lg">
+              <p className="" onClick={() => navigateTo("/sign-up")}>
+                Have a account?
+                <Link className="text-primary-600 ml-1 hover:text-primary-800 transition duration-200 ease-in-out">
+                  Sign Up
+                </Link>
+              </p>
               <p>
                 <Link
                   to="/forgot-password"
-                  className="text-blue-600 text-center hover:text-blue-800 transition duration-200 ease-in-out"
+                  className="text-primary-600 hover:text-primary-800 transition duration-200 ease-in-out"
                 >
                   Forgot Password?
                 </Link>
@@ -124,6 +127,9 @@ const Login = () => {
               Sign In
             </button>
           </form>
+        </div>
+        <div className="hidden md:block w-[50%] mb-12 md:mb-6">
+          <img src={login} alt="key" className="w-full" />
         </div>
       </div>
     </div>

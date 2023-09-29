@@ -307,16 +307,16 @@ const Header = () => {
               </div>
             ) : (
               <div className="space-x-5 py-2">
-                <Link to="/sign-in">
+                <Link to="/login">
                   <button
                     // Login Button: white background with an outline. Sign Up Button: Blue background without an outline.
 
                     // When the Login button is clicked, the Sign Up button outline becomes visible to differentiate between the two buttons. This approach ensures clarity when both buttons have a blue background.
                     className={`shadow-sm  ${
-                      // If on the "/sign-in" page, style as active Login button.
-                      location.pathname === "/sign-in"
+                      // If on the "/login" page, style as active Login button.
+                      location.pathname === "/login"
                         ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out border-2 px-4 py-[5px] rounded-lg bg-primary-500 border-primary-500 !text-white hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
-                        : // If not on "/sign-in", style as inactive Login button.
+                        : // If not on "/login", style as inactive Login button.
                           `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
                     } ${
                       location.pathname === "/" &&
@@ -330,10 +330,10 @@ const Header = () => {
                 <Link to="/sign-up">
                   <button
                     className={`shadow-sm ${
-                      // If on the "/sign-in" page, style as inactive Sign Up button.
-                      location.pathname === "/sign-in"
+                      // If on the "/login" page, style as inactive Sign Up button.
+                      location.pathname === "/login"
                         ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
-                        : // If not on "/sign-in", style as active Sign Up button.
+                        : // If not on "/login", style as active Sign Up button.
                           `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-white bg-primary-500 border-2 border-primary-500 px-4 py-[5px] rounded-lg hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
                     }`}
                   >

@@ -141,7 +141,7 @@ const Home = () => {
               {t("Discover Your Dream Property with Us")}
             </p>
             <button
-              onClick={() => navigateTo("sign-in")}
+              onClick={() => navigateTo("login")}
               className="mt-4 transition-all duration-200 ease-in-out bg-primary-500 py-1.5 px-5 text-lg font-inter font-semibold rounded text-white shadow-md hover:bg-primary-600 hover:shadow-xl focus:bg-primary-700 active:bg-primary-800"
             >
               Start Searching
