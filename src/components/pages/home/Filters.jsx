@@ -85,105 +85,107 @@ const Filters = () => {
   };
 
   return (
-    <div className="max-w-[80%] mb-16 w-full flex flex-col justify-between items-start relative mx-auto p-4 rounded-md -mt-56 md:-mt-72">
-      <div
-        className="bg-headerBackground w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 md:rounded-md"
-        style={{
-          boxShadow: "0px 7px 29px 0px rgba(100, 100, 111, 0.2)",
-        }}
-      >
+    <>
+      <div className="max-w-[80%] mb-16 w-full flex flex-col justify-between items-start relative mx-auto p-4 rounded-md -mt-56 md:-mt-72">
         <div
-          className="flex flex-col space-y-2"
-          // style={{ direction: "rtl" }}
+          className="bg-headerBackground w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 md:rounded-md"
+          style={{
+            boxShadow: "0px 7px 29px 0px rgba(100, 100, 111, 0.2)",
+          }}
         >
-          <label
-            htmlFor="property"
-            className="text-base font-medium text-gray-900 flex items-center justify-start"
+          <div
+            className="flex flex-col space-y-2"
+            // style={{ direction: "rtl" }}
           >
-            <BiBuildings className="mr-2" /> Property type
-          </label>
-          <select
-            onChange={handleChange}
-            id="type"
-            className="mt-1.5 w-full rounded border-gray-300 text-gray-700 text-sm"
-          >
-            <option id="type" selected>
-              Property Type
-            </option>
-            <option id="type" value="rent">
-              Rent
-            </option>
-            <option id="type" value="sell">
-              Sell
-            </option>
-          </select>
-        </div>
-        <div className="flex flex-col space-y-2">
-          <label
-            htmlFor="HeadlineAct"
-            className="text-base font-medium text-gray-900 flex items-center justify-start"
-          >
-            <BiMap className="mr-2" /> Locations
-          </label>
-          <select
-            id="location"
-            onChange={handleChange}
-            className="mt-1.5 w-full rounded border-gray-300 text-gray-700 text-sm"
-          >
-            <option id="location" selected>
-              All Locations
-            </option>
-            <option id="location" value="erbil">
-              Erbil
-            </option>
-            <option id="location" value="sulaimani">
-              Sulaimani
-            </option>
-            <option id="location" value="duhok">
-              Duhok
-            </option>
-            <option id="location" value="kirkuk">
-              Kirkuk
-            </option>
-            <option id="location" value="kalar">
-              Kalar
-            </option>
-            <option id="location" value="rawanduz">
-              Rawanduz
-            </option>
-            <option id="location" value="soran">
-              Soran
-            </option>
-          </select>
-        </div>
-        <div className="flex flex-col space-y-2">
-          <label
-            htmlFor="price"
-            className="text-base font-medium text-gray-900 flex items-center justify-start"
-          >
-            <BiMoney className="mr-2" /> Max Price
-          </label>
-          <input
-            onChange={handleChange}
-            type="text"
-            value={amount}
-            required
-            id="price"
-            // min="0"
-            placeholder="$8,544"
-            className="outline-0 rounded pl-5 border-gray-300 text-gray-700 text-sm"
-          />
-        </div>
-        <div className="">
-          <button
-            onClick={handleSubmit}
-            className="transition duration-200 ease-in-out bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 active:bg-primary-800 text-white px-5 py-3 mt-6 w-full lg:w-36 md:mt-0 rounded-lg"
-          >
-            Search
-          </button>
+            <label
+              htmlFor="property"
+              className="text-base font-medium text-gray-900 flex items-center justify-start"
+            >
+              <BiBuildings className="mr-2" /> Property type
+            </label>
+            <select
+              onChange={handleChange}
+              id="type"
+              className="mt-1.5 w-full rounded border-gray-300 text-gray-700 text-sm"
+            >
+              <option id="type" selected>
+                Property Type
+              </option>
+              <option id="type" value="rent">
+                Rent
+              </option>
+              <option id="type" value="sell">
+                Sell
+              </option>
+            </select>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <label
+              htmlFor="HeadlineAct"
+              className="text-base font-medium text-gray-900 flex items-center justify-start"
+            >
+              <BiMap className="mr-2" /> Locations
+            </label>
+            <select
+              id="location"
+              onChange={handleChange}
+              className="mt-1.5 w-full rounded border-gray-300 text-gray-700 text-sm"
+            >
+              <option id="location" selected>
+                All Locations
+              </option>
+              <option id="location" value="erbil">
+                Erbil
+              </option>
+              <option id="location" value="sulaimani">
+                Sulaimani
+              </option>
+              <option id="location" value="duhok">
+                Duhok
+              </option>
+              <option id="location" value="kirkuk">
+                Kirkuk
+              </option>
+              <option id="location" value="kalar">
+                Kalar
+              </option>
+              <option id="location" value="rawanduz">
+                Rawanduz
+              </option>
+              <option id="location" value="soran">
+                Soran
+              </option>
+            </select>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <label
+              htmlFor="price"
+              className="text-base font-medium text-gray-900 flex items-center justify-start"
+            >
+              <BiMoney className="mr-2" /> Max Price
+            </label>
+            <input
+              onChange={handleChange}
+              type="text"
+              value={amount}
+              required
+              id="price"
+              // min="0"
+              placeholder="$8,544"
+              className="outline-0 rounded pl-5 border-gray-300 text-gray-700 text-sm"
+            />
+          </div>
+          <div className="">
+            <button
+              onClick={handleSubmit}
+              className="transition duration-200 ease-in-out bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 active:bg-primary-800 text-white px-5 py-3 mt-6 w-full lg:w-36 md:mt-0 rounded-lg"
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

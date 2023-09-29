@@ -130,10 +130,6 @@ const Home = () => {
       <div
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
         className="h-[103vh] bg-background"
-        // style={{
-        //   background: `url(${hero}) center no-repeat`,
-        //   backgroundSize: "cover",
-        // }}
       >
         <div className="">
           <div className="absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
@@ -160,7 +156,7 @@ const Home = () => {
         <div className="max-w-6xl max-xl:w-[95%] mx-auto pt-4 ">
           {/* offer */}
           {search && search.length > 0 && (
-            <div className="my-6">
+            <div className="my-16">
               <h2 className="px-3 font-semibold text-3xl text-center">
                 Browse Our Exclusive Listings
               </h2>
@@ -206,7 +202,7 @@ const Home = () => {
           )}
           {/* listings */}
           {listings && listings.length > 0 && (
-            <div className="my-16">
+            <div className="my-20">
               <h2 className="px-3 font-semibold text-3xl text-center">
                 Discover Our Listings
               </h2>
@@ -402,7 +398,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <footer className="bg-headerBackground shadow-2xl py-4 dark:bg-gray-800">
+        <footer className="bg-background border-t-2 border-border shadow-2xl py-4 dark:bg-gray-800">
           <div className="w-full mx-auto p-4 flex items-center justify-center">
             <span className="text-lg font-bold text-primary-500 sm:text-center dark:text-gray-400">
               © 2023 -
