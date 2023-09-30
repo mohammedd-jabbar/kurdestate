@@ -31,7 +31,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true); // State to handle the loading
 
   useEffect(() => {
-    if (data.uid !== "WoRWTrX3FfZSp2bt7Rhf9hqLDE63") {
+    if (data.uid !== "TvddowUjyETNVQbDiwhoFekvj0J3") {
       navigateTo("/");
     }
 
@@ -87,7 +87,7 @@ const Dashboard = () => {
         "Are you sure you want to change the status of this listing?"
       )
     ) {
-      if (auth.currentUser.uid === "WoRWTrX3FfZSp2bt7Rhf9hqLDE63") {
+      if (auth.currentUser.uid === "TvddowUjyETNVQbDiwhoFekvj0J3") {
         try {
           const docRef = doc(db, "listings", id); // get the listing id from the URL
           const docSnap = await getDoc(docRef); // get the current listing data from Firestore

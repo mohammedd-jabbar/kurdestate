@@ -12,5 +12,6 @@ export const PrivateRoute = () => {
       </div>
     );
   }
+
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 };

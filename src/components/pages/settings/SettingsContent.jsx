@@ -9,12 +9,13 @@ import { UserInfoContext } from "../../../store/UserInfoProvider";
 import { notifications } from "../../common/Notifications";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "../../common/DeleteModal";
 
 const SettingsContent = () => {
   const { t, i18n } = useTranslation();
   const navigateTo = useNavigate();
 
-  const auth = getAuth();
+  const [isOpen, setIsOpen] = useState(false); // State to handle open module
 
   // const credential = GoogleAuthProvider.credential(
   //   auth?.currentUser?.uid,
@@ -62,8 +63,6 @@ const SettingsContent = () => {
 
   const handleDeleteUser = async () => {
     if (data !== undefined && !isLoading && !isFetching) {
-      if (window.confirm("Are you sure you want to delete your account?"))
-        console.log("delete");
       await deleteDoc(doc(db, "users", data.uid));
 
       data
@@ -92,6 +91,8 @@ const SettingsContent = () => {
 
           notifications("There is an error for deleting your account!", true);
         });
+
+      setIsOpen(false);
     }
   };
 
@@ -101,6 +102,36 @@ const SettingsContent = () => {
         expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
       }`}
     >
+      <DeleteModal
+        open={isOpen}
+        childern={
+          <>
+            <div className="mx-auto my-4 w-72 z-50">
+              <h3 className="text-lg font-black text-gray-800">
+                Confirm Delete Account
+              </h3>
+              <p className="text-sm text-gray-500 pt-2">
+                Are you sure you want to delete your account?
+              </p>
+            </div>
+            <div className="flex mt-8 gap-6">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="w-full font-inter bg-white border border-border text-black rounded-md py-1.5 px-3 "
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteUser}
+                className="w-full font-inter bg-red-600 text-white rounded-md py-1.5 px-3 hover:bg-red-700 active:bg-red-800 transition-all duration-150 ease-in-out"
+              >
+                Delete
+              </button>
+            </div>
+          </>
+        }
+        onClose={() => setIsOpen(false)}
+      />
       <div>
         <h1 className="text-2xl font-bold pb-4 border-b border-border">
           Settings
@@ -188,7 +219,7 @@ const SettingsContent = () => {
           </div>
           <div>
             <button
-              onClick={handleDeleteUser}
+              onClick={() => setIsOpen(true)}
               className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >
               {t("Delete")}

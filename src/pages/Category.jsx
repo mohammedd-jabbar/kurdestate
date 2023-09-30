@@ -18,7 +18,7 @@ import { useParams } from "react-router-dom";
 const Category = () => {
   const [listings, setListings] = useState(null);
   const [lastFetchListings, setLastFetchListings] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { categoryName } = useParams();
 
   useEffect(() => {
@@ -154,6 +154,10 @@ const Category = () => {
     }
   };
 
+  if (loading) {
+    <Spinner />;
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-3">
       <h1 className="text-3xl text-center my-6 font-bold">
@@ -163,9 +167,7 @@ const Category = () => {
           ? "Places for Sell"
           : "There is no place for that name"}
       </h1>
-      {loading ? (
-        <Spinner />
-      ) : listings && listings.length > 0 ? (
+      {listings && listings.length > 0 ? (
         <>
           <main>
             <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3">

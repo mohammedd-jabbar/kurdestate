@@ -14,9 +14,9 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
-import Offers from "./pages/Offers";
 import Header from "./components/common/Header";
 import { PrivateRoute } from "./components/common/PrivateRoute";
+import { PrivateLoginRoute } from "./components/common/PrivateLoginRoute";
 import CreateList from "./pages/CreateList";
 import Editlisting from "./pages/Editlisting";
 import Listing from "./pages/Listing";
@@ -68,21 +68,39 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/login",
-        element: <Login />,
+        path: "login",
+        element: <PrivateLoginRoute />,
+        children: [
+          {
+            index: true,
+            element: <Login />,
+            errorElement: <Error />,
+          },
+        ],
       },
-
       {
         path: "sign-up",
-        element: <SignUp />,
+        element: <PrivateLoginRoute />,
+        children: [
+          {
+            index: true,
+
+            element: <SignUp />,
+            errorElement: <Error />,
+          },
+        ],
       },
       {
         path: "forgot-password",
-        element: <ForgotPassword />,
-      },
-      {
-        path: "offers",
-        element: <Offers />,
+        element: <PrivateLoginRoute />,
+        children: [
+          {
+            index: true,
+
+            element: <ForgotPassword />,
+            errorElement: <Error />,
+          },
+        ],
       },
       {
         path: "category/:categoryName",

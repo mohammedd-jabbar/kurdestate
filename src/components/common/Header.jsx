@@ -317,11 +317,7 @@ const Header = () => {
                         ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out border-2 px-4 py-[5px] rounded-lg bg-primary-500 border-primary-500 !text-white hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
                         : // If not on "/login", style as inactive Login button.
                           `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
-                    } ${
-                      location.pathname === "/" &&
-                      !isNavbarScroll &&
-                      "text-white"
-                    }`}
+                    } `}
                   >
                     Login
                   </button>

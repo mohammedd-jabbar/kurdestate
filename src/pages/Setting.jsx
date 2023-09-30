@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { notifications } from "../components/common/Notifications";
 import Fav from "../components/pages/settings/Fav";
 import { MdFavoriteBorder } from "react-icons/md";
+import DeleteModal from "../components/common/DeleteModal";
 
 const Setting = () => {
   const [activeItem, setActiveItem] = useState("posts"); // Default active item
@@ -24,6 +25,8 @@ const Setting = () => {
   const { data } = useContext(UserInfoContext);
   const auth = getAuth();
   const navigateTo = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false); // State to handle open module
 
   // Function to set the active item when clicking on a sidebar item
   const handleSidebarItemClick = (item) => {
@@ -52,11 +55,9 @@ const Setting = () => {
     // when user logout redirect user to the homepage
 
     try {
-      if (window.confirm("Are you sure you want to logout?")) {
-        auth.signOut(auth); // Sign out the current user and update the state
-        navigateTo("/");
-        window.location.reload();
-      }
+      auth.signOut(auth); // Sign out the current user and update the state
+      navigateTo("/");
+      window.location.reload();
     } catch (error) {
       notifications("You can't logout", true);
     }
@@ -65,8 +66,38 @@ const Setting = () => {
   return (
     <>
       <main className="fixed z-20 flex min-h-screen">
+        <DeleteModal
+          open={isOpen}
+          childern={
+            <>
+              <div className="mx-auto my-4 w-72 z-50">
+                <h3 className="text-lg font-black text-gray-800">
+                  Confirm Delete
+                </h3>
+                <p className="text-sm text-gray-500 pt-2">
+                  Are you sure you want to delete this listing?
+                </p>
+              </div>
+              <div className="flex mt-8 gap-6">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-full font-inter bg-white border border-border text-black rounded-md py-1.5 px-3 "
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleLogout()}
+                  className="w-full font-inter bg-red-600 text-white rounded-md py-1.5 px-3 hover:bg-red-700 active:bg-red-800 transition-all duration-150 ease-in-out"
+                >
+                  Confirm
+                </button>
+              </div>
+            </>
+          }
+          onClose={() => setIsOpen(false)}
+        />
         <Sidebar>
-          {data.uid === "WoRWTrX3FfZSp2bt7Rhf9hqLDE63" && (
+          {data.uid === "TvddowUjyETNVQbDiwhoFekvj0J3" && (
             <div
               onClick={() => handleSidebarItemClick("dashboard")}
               style={{ background: "none", color: "inherit" }}
@@ -122,7 +153,7 @@ const Setting = () => {
             />
           </div>
           <div
-            onClick={() => handleLogout()}
+            onClick={() => setIsOpen(true)}
             style={{ background: "none", color: "inherit" }}
           >
             <SidebarItem icon={<RxExit size={20} />} text="SignOut" />

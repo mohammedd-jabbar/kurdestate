@@ -43,7 +43,7 @@ const Login = () => {
         notifications("Successfully signed in!");
       }
     } catch (error) {
-      notifications("Could not sign in!", true);
+      notifications("There is no user with this email", true);
     }
   };
   return (
