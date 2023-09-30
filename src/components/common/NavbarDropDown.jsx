@@ -1,5 +1,4 @@
 import { BiConfused } from "react-icons/bi";
-import { useLocation } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const NavbarDropDown = ({
@@ -11,11 +10,8 @@ const NavbarDropDown = ({
   email,
   isLanguage,
   isDropDown,
-  isNavbarScroll,
   handleLanguageChange,
 }) => {
-  // users url location
-  let location = useLocation();
   return (
     <div className="flex relative justify-center justify-items-center items-center">
       {/* Avatar */}
@@ -26,9 +22,7 @@ const NavbarDropDown = ({
       >
         {profilePhoto ? (
           <img
-            className={`w-10 border-2 border-primary-500 ${
-              location.pathname === "/" && !isNavbarScroll && "border-white"
-            } border-opacity-50 h-10 rounded-full`}
+            className={`w-10 border-2 border-primary-500 border-opacity-50 h-10 rounded-full`}
             src={profilePhoto}
             alt=""
           />
@@ -111,7 +105,7 @@ const NavbarDropDown = ({
           </li>
           <li>
             <a href="/create" className="block px-4 py-2 hover:bg-gray-100 ">
-              Sell Your Property
+              Listing Your Property
             </a>
           </li>
         </ul>

@@ -139,7 +139,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`border-b py-2 shadow-md bg-headerBackground  ${
+        className={`transition-all duration-200 ease-in-out border-b py-1 shadow-md bg-headerBackground  ${
           isNavbarScroll && "bg-headerBackground py-2"
         } sticky w-full top-0 z-40`}
       >
@@ -298,7 +298,6 @@ const Header = () => {
                   handleLanguageChange={handleLanguageChange}
                   isLanguage={isLanguage}
                   isDropDown={isDropDown}
-                  isNavbarScroll={isNavbarScroll}
                   firstLetter={firstLetter}
                   profilePhoto={profilePhoto}
                   name={name}

@@ -54,7 +54,7 @@ const Login = () => {
           <form onSubmit={handleFormSubmit}>
             <h1 className="text-2xl font-inter font-semibold">Welcome back</h1>
             <h1 className="text-sm my-1 cursor-pointer font-inter font-normal">
-              Start your website in seconds. Don’t have an account?
+              Listing your property in seconds. Don’t have an account?
               <span
                 className="text-primary-500"
                 onClick={() => navigateTo("/sign-up")}
@@ -104,13 +104,7 @@ const Login = () => {
             </div>
             <OAuth />
 
-            <div className="flex justify-between items-center my-6 whitespace-nowrap text-sm sm:text-lg">
-              <p className="" onClick={() => navigateTo("/sign-up")}>
-                Have a account?
-                <Link className="text-primary-600 ml-1 hover:text-primary-800 transition duration-200 ease-in-out">
-                  Sign Up
-                </Link>
-              </p>
+            <div className="flex justify-end items-center my-6 whitespace-nowrap text-sm sm:text-lg">
               <p>
                 <Link
                   to="/forgot-password"
@@ -124,7 +118,7 @@ const Login = () => {
               type="submit"
               className="w-full font-inter bg-primary-500 text-white px-7 py-3 text-sm font-semibold uppercase rounded-md shadow-md hover:bg-primary-600 transition duration-200 ease-in-out hover:shadow-lg active:bg-primary-700 active:shadow-lg"
             >
-              Sign In
+              Login to your account
             </button>
           </form>
         </div>

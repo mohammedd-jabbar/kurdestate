@@ -78,7 +78,16 @@ const SignUp = () => {
         <div className="bg-headerBackground w-full shadow-lg md:w-[50%] p-8 rounded-lg">
           <form onSubmit={handleFormSubmit}>
             <h1 className="text-2xl font-inter font-semibold">Welcome back</h1>
-
+            <h1 className="text-sm my-1 cursor-pointer font-inter font-normal">
+              Listing your property in seconds. have an account?
+              <span
+                className="text-primary-500"
+                onClick={() => navigateTo("/login")}
+              >
+                {" "}
+                Login.
+              </span>
+            </h1>
             <div className="mt-6 flex flex-col md:flex-row space-y-7 md:space-y-0 md:space-x-7">
               <div>
                 <label className="mb-2">Name</label>
@@ -126,16 +135,7 @@ const SignUp = () => {
                 />
               )}
             </div>
-            <div className="flex justify-between items-center mb-6 whitespace-nowrap text-sm sm:text-lg">
-              <p className="">
-                Have a account?
-                <Link
-                  to="/login"
-                  className="text-primary-600 ml-1 hover:text-primary-800 transition duration-200 ease-in-out"
-                >
-                  Login
-                </Link>
-              </p>
+            <div className="flex justify-end items-center mb-6 whitespace-nowrap text-sm sm:text-lg">
               <p>
                 <Link
                   to="/forgot-password"
@@ -153,7 +153,7 @@ const SignUp = () => {
               type="submit"
               className="w-full font-inter my-6 bg-primary-500 text-white px-7 py-3 text-sm font-semibold uppercase rounded-md shadow-md hover:bg-primary-600 transition duration-200 ease-in-out hover:shadow-lg active:bg-primary-700 active:shadow-lg"
             >
-              Sign In
+              Sign up to your account
             </button>
           </form>
         </div>

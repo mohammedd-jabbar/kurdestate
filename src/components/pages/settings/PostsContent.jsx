@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import { notifications } from "../../common/Notifications";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../../../firebase";
+import { BsFillTrashFill } from "react-icons/bs";
 import {
   collection,
   deleteDoc,
@@ -20,6 +21,7 @@ import Spinner from "../../common/Spinner";
 // import { UserInfoContext } from "../../../store/UserInfoProvider";
 import PostItem from "./PostItem";
 import { ExpandedContext } from "../../../store/SidebarProvider";
+import DeleteModal from "../../common/DeleteModal";
 
 const PostsContent = () => {
   // const { data } = useContext(UserInfoContext);
@@ -60,10 +62,10 @@ const PostsContent = () => {
       setIsLoading(false); // Update the state to false to stop the loading
     };
     fetchUserListings();
-  }, []);
+  }, [auth.currentUser.uid]);
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this listing?")) {
+    if (id) {
       // Delete the listing from the firestore
       await deleteDoc(doc(db, "listings", id));
 

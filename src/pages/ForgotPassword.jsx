@@ -48,9 +48,9 @@ const ForgotPassword = () => {
 
             <div className="flex justify-between items-center my-6 whitespace-nowrap text-sm sm:text-lg">
               <p className="" onClick={() => navigateTo("/sign-up")}>
-                Have a account?
+                Don’t have an account?
                 <Link className="text-primary-600 ml-1 hover:text-primary-800 transition duration-200 ease-in-out">
-                  Sign Up
+                  Sign up.
                 </Link>
               </p>
               <p>
@@ -66,7 +66,7 @@ const ForgotPassword = () => {
               type="submit"
               className="w-full font-inter bg-primary-500 text-white px-7 py-3 text-sm font-semibold uppercase rounded-md shadow-md hover:bg-primary-600 transition duration-200 ease-in-out hover:shadow-lg active:bg-primary-700 active:shadow-lg"
             >
-              Sign In
+              Send Reset Email
             </button>
             <div className="my-4 flex before:border-t before:flex-1 items-center before:border-gray-300 after:border-t after:flex-1 after:border-gray-300 ">
               <p className="text-center font-semibold mx-4">OR</p>
