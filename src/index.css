@@ -24,6 +24,14 @@
     }
   }
 }
+/* fix arrow in select not going to left side while dir is rtl */
+@layer base {
+  :where([dir="rtl"]) select {
+    background-position: left theme("spacing.2") center;
+    padding-left: theme("spacing.10");
+    padding-right: theme("spacing.3");
+  }
+}
 
 /* .swiper-button-next::after,
 .swiper-button-prev::after {

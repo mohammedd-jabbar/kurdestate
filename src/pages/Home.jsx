@@ -252,9 +252,9 @@ const Home = () => {
             </div>
           )}
           <div className="py-16 mt-12 bg-background w-full h-full text-center">
-            <h1 className="font-semibold text-3xl ">Why Choose Us</h1>
+            <h1 className="font-semibold text-3xl ">{t("Why Choose Us")}</h1>
             <p className="text-gray-500 text-sm font-medium">
-              Lorem ipsum dolor sit, amet consectetur adipisicing.
+              {t("At Our Company, We Prioritize Your Satisfaction")}
             </p>
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
               <div className="p-6 bg-white pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-md">
@@ -263,12 +263,13 @@ const Home = () => {
                 </p>
 
                 <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
-                  Trusted By Thousands
+                  {t("Trusted By Thousands")}
                 </h2>
 
                 <p className="mt-2 text-gray-800 text-center">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Alias excepturi fuga, laudantium molestias nesciunt tempore.
+                  {t(
+                    "Our platform is trusted by thousands of satisfied customers who have found their dream homes with us. We prioritize your trust and satisfaction above all else."
+                  )}
                 </p>
               </div>
               <div className="p-6 bg-white pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
@@ -277,12 +278,13 @@ const Home = () => {
                 </p>
 
                 <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
-                  Easy Searching
+                  {t("Easy Searching")}
                 </h2>
 
                 <p className="mt-2 text-gray-800 text-center">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Alias excepturi fuga, laudantium molestias nesciunt tempore.
+                  {t(
+                    "Finding your perfect property has never been easier. Our intuitive search tools allow you to effortlessly browse through a wide range of listings, tailored to your specific preferences."
+                  )}
                 </p>
               </div>
               <div className="p-6 bg-white pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
@@ -291,12 +293,13 @@ const Home = () => {
                 </p>
 
                 <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
-                  Financing Made Easy
+                  {t("Financing Made Easy")}
                 </h2>
 
                 <p className="mt-2 text-gray-800 text-center">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Alias excepturi fuga, laudantium molestias nesciunt tempore.
+                  {t(
+                    "Navigating the financial aspect of buying a home can be daunting. We simplify the process by providing expert guidance and resources, ensuring your home financing journey is smooth and stress-free."
+                  )}
                 </p>
               </div>
               <div className="p-6 bg-white pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
@@ -305,12 +308,13 @@ const Home = () => {
                 </p>
 
                 <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
-                  See Neighborhoods
+                  {t("See Neighborhoods")}
                 </h2>
 
                 <p className="mt-2 text-gray-800 text-center">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Alias excepturi fuga, laudantium molestias nesciunt tempore.
+                  {t(
+                    "Discover more than just a property; explore vibrant neighborhoods that match your lifestyle. From bustling city centers to serene suburban communities, find the ideal location for your new home."
+                  )}
                 </p>
               </div>
             </div>
@@ -318,9 +322,11 @@ const Home = () => {
 
           {/* Images */}
           <div className="my-16 bg-background w-full h-full text-center">
-            <h1 className="font-semibold text-3xl ">Explore Our Properties</h1>
+            <h1 className="font-semibold text-3xl ">
+              {t("Explore Our Properties")}
+            </h1>
             <p className="text-gray-500 text-sm font-medium">
-              Lorem ipsum dolor sit, amet consectetur adipisicing.
+              {t("Discover Your Ideal Home with Us")}
             </p>
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
               <Link
@@ -337,7 +343,7 @@ const Home = () => {
                 </p>
 
                 <h2 className="font-semibold text-lg text-center text-white mt-2">
-                  House
+                  {t("Houses")}
                 </h2>
                 <div className="pb-24"></div>
               </Link>
@@ -355,7 +361,7 @@ const Home = () => {
                 </p>
 
                 <h2 className="font-semibold text-lg text-center text-white mt-2">
-                  Apartment
+                  {t("Apartments")}
                 </h2>
                 <div className="pb-24"></div>
               </Link>
@@ -373,7 +379,7 @@ const Home = () => {
                 </p>
 
                 <h2 className="font-semibold text-lg text-center text-white mt-2">
-                  Land
+                  {t("Lands")}
                 </h2>
                 <div className="pb-24"></div>
               </Link>
@@ -391,7 +397,7 @@ const Home = () => {
                 </p>
 
                 <h2 className="font-semibold text-lg text-center text-white mt-2">
-                  Shop
+                  {t("Shops")}
                 </h2>
                 <div className="pb-24"></div>
               </Link>
