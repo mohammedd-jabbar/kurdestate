@@ -13,6 +13,9 @@ const Header = () => {
   let location = useLocation();
   // go to this url
   const navigateTo = useNavigate();
+
+  const { t, i18n } = useTranslation("header");
+
   // show and hide the dropdown
   const [isDropDown, setIsDropDown] = useState(false);
   // show and hide the dropdown
@@ -54,8 +57,6 @@ const Header = () => {
   });
 
   const { firstLetter, profilePhoto, name, email } = user;
-
-  const { t, i18n } = useTranslation();
 
   // get the language
   useEffect(() => {
@@ -142,20 +143,21 @@ const Header = () => {
         className={`transition-all duration-200 ease-in-out border-b py-1 shadow-md bg-headerBackground  ${
           isNavbarScroll && "bg-headerBackground py-2"
         } sticky w-full top-0 z-40`}
+        dir={i18n.language === "ku" ? "rtl" : "ltr"}
       >
         <header
           className={`flex text-black justify-between px-3 max-w-6xl mx-auto`}
         >
-          <div className="flex items-center justify-normal font-bold space-x-4">
+          <div className="flex items-center justify-normal font-bold space-x-4 rtl:space-x-0">
             <h1 className="cursor-pointer text-2xl">
               <a href="/">
-                Kurd
-                <span className={`text-primary-500`}>Estate</span>
+                {t("Kurd")}
+                <span className={`text-primary-500`}>{t("Estate")}</span>
               </a>
             </h1>
             <nav className="font-semibold text-lg">
               <ul
-                className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static md:z-auto z-[-1] left-0 w-full md:mr-[65px]  md:w-auto md:pl-0 max-md:transition-all max-md:duration-300 max-md:ease-in-out bg-white ${
+                className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static md:z-auto z-[-1] left-0 w-full ltr:md:mr-[65px]  md:w-auto md:pl-0 max-md:transition-all max-md:duration-300 max-md:ease-in-out bg-white ${
                   isContentDropDown
                     ? "max-md:top-12 max-md:pt-4 max-md:shadow-md"
                     : "-top-[44rem] max-md:opacity-0"
@@ -167,7 +169,7 @@ const Header = () => {
                   )}  ${isContentDropDown && `max-md:py-4 max-md:my-2`}`}
                   onClick={toggleCategoryDropDown}
                 >
-                  Category
+                  {t("Category")}
                   <FiChevronDown
                     className={`ml-1 transition-all duration-300 ease-in-out ${
                       isCategoryDropDown && "rotate-180"
@@ -184,7 +186,7 @@ const Header = () => {
                           href="/category/rent"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
-                          Rent
+                          {t("Rent")}
                         </a>
                       </li>
                       <li>
@@ -192,7 +194,7 @@ const Header = () => {
                           href="/category/sell"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
-                          Sell
+                          {t("Sell")}
                         </a>
                       </li>
                       <li>
@@ -200,7 +202,7 @@ const Header = () => {
                           href="/category/house"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
-                          Houses
+                          {t("Houses")}
                         </a>
                       </li>
                       <li>
@@ -208,7 +210,7 @@ const Header = () => {
                           href="/category/apartment"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
-                          Apartments
+                          {t("Apartments")}
                         </a>
                       </li>
                       <li>
@@ -216,7 +218,7 @@ const Header = () => {
                           href="/category/land"
                           className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
                         >
-                          Land
+                          {t("Lands")}
                         </a>
                       </li>
                       <li>
@@ -224,7 +226,7 @@ const Header = () => {
                           href="category/shop"
                           className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
                         >
-                          Shops
+                          {t("Shops")}
                         </a>
                       </li>
                     </ul>

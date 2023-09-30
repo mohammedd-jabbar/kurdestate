@@ -32,7 +32,7 @@ import { AiOutlineShop } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 
 const Home = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation("home");
   const { search } = useContext(SearchResultContext);
   const navigateTo = useNavigate();
 
@@ -135,16 +135,16 @@ const Home = () => {
           <div className="absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
             <h1
               ref={el}
-              className="font-inter text-4xl md:text-6xl font-bold text-black"
+              className="font-inter rtl:!font-rabar text-4xl md:text-6xl font-bold text-black"
             ></h1>
-            <p className="font-inter text-base sm:text-lg md:text-xl font-medium mt-6 text-black">
+            <p className="font-inter rtl:!font-rabar text-base sm:text-lg md:text-xl font-medium mt-6 text-black">
               {t("Discover Your Dream Property with Us")}
             </p>
             <button
               onClick={() => navigateTo("login")}
-              className="mt-4 transition-all duration-200 ease-in-out bg-primary-500 py-1.5 px-5 text-lg font-inter font-semibold rounded text-white shadow-md hover:bg-primary-600 hover:shadow-xl focus:bg-primary-700 active:bg-primary-800"
+              className="mt-4 transition-all duration-200 ease-in-out bg-primary-500 py-1.5 px-5 text-lg font-inter font-semibold rounded text-white shadow-md hover:bg-primary-600 rtl:!font-rabar hover:shadow-xl focus:bg-primary-700 active:bg-primary-800"
             >
-              Start Searching
+              {t("Start Searching")}
             </button>
           </div>
         </div>

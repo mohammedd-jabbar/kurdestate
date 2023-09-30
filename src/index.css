@@ -1,3 +1,10 @@
+/* Import the rabar font */
+@font-face {
+  font-family: "rabar";
+  src: url("/public/Rabar_021.woff") format("woff");
+  font-weight: regular;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,4 +52,10 @@ html {
 
 body {
   background-color: #f5f7fb;
+}
+
+/* Apply the nrt font for Kurdish language (ku) */
+html[lang="ku"],
+body[lang="ku"] {
+  font-family: "rabar", sans-serif !important;
 }

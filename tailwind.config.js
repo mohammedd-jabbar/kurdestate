@@ -31,6 +31,7 @@ export default {
         lato: ['"Lato"', ...fontFamily.sans],
         bebas: ['"Bebas Neue"', ...fontFamily.sans],
         inter: ['"Inter"', ...fontFamily.sans],
+        rabar: ['"rabar"', ...fontFamily.sans],
       },
       colors: {
         primary: {
