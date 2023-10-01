@@ -10,11 +10,13 @@ import { UserInfoContext } from "../../../store/UserInfoProvider";
 import { ExpandedContext } from "../../../store/SidebarProvider";
 import { BiConfused } from "react-icons/bi";
 import { FcHome } from "react-icons/fc";
+import { useTranslation } from "react-i18next";
 
 const ProfileContent = () => {
   // TODO: make the states loading and the component
 
   const auth = getAuth();
+  const { t, i18n } = useTranslation("settings");
 
   const { data, isLoading, isFetching } = useContext(UserInfoContext);
   const { expanded } = useContext(ExpandedContext);
@@ -67,8 +69,11 @@ const ProfileContent = () => {
 
   return (
     <div
-      className={`max-w-6xl max-md:max-w-[95%] h-screen mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7  ${
-        expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
+      className={`max-w-6xl max-md:max-w-[95%] h-screen mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7 ${
+        expanded
+          ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
+          : `${i18n.language === "ku" ? "md:mr-[5.3rem]" : "md:ml-[5.3rem]"}`
       }`}
     >
       <div>

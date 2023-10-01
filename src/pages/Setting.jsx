@@ -18,9 +18,11 @@ import { notifications } from "../components/common/Notifications";
 import Fav from "../components/pages/settings/Fav";
 import { MdFavoriteBorder } from "react-icons/md";
 import DeleteModal from "../components/common/DeleteModal";
+import { useTranslation } from "react-i18next";
 
 const Setting = () => {
   const [activeItem, setActiveItem] = useState("posts"); // Default active item
+  const { t, i18n } = useTranslation("settings");
 
   const { data } = useContext(UserInfoContext);
   const auth = getAuth();
@@ -65,17 +67,22 @@ const Setting = () => {
 
   return (
     <>
-      <main className="fixed z-20 flex min-h-screen">
+      <main
+        className={`fixed z-20 flex min-h-screen ${
+          i18n.language === "ku" && "right-0"
+        }`}
+        dir={i18n.language === "ku" ? "rtl" : "ltr"}
+      >
         <DeleteModal
           open={isOpen}
           childern={
             <>
               <div className="mx-auto my-4 w-72 z-50">
                 <h3 className="text-lg font-black text-gray-800">
-                  Confirm Delete
+                  {t("Confirm Delete")}
                 </h3>
                 <p className="text-sm text-gray-500 pt-2">
-                  Are you sure you want to delete this listing?
+                  {t("Are you sure you want to delete this listing?")}
                 </p>
               </div>
               <div className="flex mt-8 gap-6">
@@ -83,13 +90,13 @@ const Setting = () => {
                   onClick={() => setIsOpen(false)}
                   className="w-full font-inter bg-white border border-border text-black rounded-md py-1.5 px-3 "
                 >
-                  Cancel
+                  {t("Cancel")}
                 </button>
                 <button
                   onClick={() => handleLogout()}
                   className="w-full font-inter bg-red-600 text-white rounded-md py-1.5 px-3 hover:bg-red-700 active:bg-red-800 transition-all duration-150 ease-in-out"
                 >
-                  Confirm
+                  {t("Delete")}
                 </button>
               </div>
             </>
@@ -105,7 +112,7 @@ const Setting = () => {
               <SidebarItem
                 active={activeItem === "dashboard"}
                 icon={<LuLayoutDashboard size={20} />}
-                text="Dashboard"
+                text={t("Dashboard")}
               />
             </div>
           )}
@@ -116,7 +123,7 @@ const Setting = () => {
             <SidebarItem
               active={activeItem === "profile"}
               icon={<FaUserCog size={20} />}
-              text="Profile"
+              text={t("Profile")}
             />
           </div>
 
@@ -127,7 +134,7 @@ const Setting = () => {
             <SidebarItem
               active={activeItem === "posts"}
               icon={<FaListAlt size={20} />}
-              text="Posts"
+              text={t("Posts")}
             />
           </div>
           <div
@@ -137,7 +144,7 @@ const Setting = () => {
             <SidebarItem
               active={activeItem === "favorites"}
               icon={<MdFavoriteBorder size={20} />}
-              text="Favorites"
+              text={t("Favorites")}
             />
           </div>
 
@@ -149,14 +156,14 @@ const Setting = () => {
             <SidebarItem
               active={activeItem === "settings"}
               icon={<FaCog size={20} />}
-              text="Settings"
+              text={t("Settings")}
             />
           </div>
           <div
             onClick={() => setIsOpen(true)}
             style={{ background: "none", color: "inherit" }}
           >
-            <SidebarItem icon={<RxExit size={20} />} text="SignOut" />
+            <SidebarItem icon={<RxExit size={20} />} text={t("SignOut")} />
           </div>
         </Sidebar>
       </main>

@@ -28,7 +28,7 @@ export default function Sidebar({ children }) {
       </div>
       <aside
         className={`h-[94vh] transition-all duration-200 ease-in-out ${
-          expanded ? "md:mr-12 w-52" : "max-md:hidden"
+          expanded ? "ltr:md:mr-12 rtl:md:ml-12 w-52" : "max-md:hidden"
         }`}
       >
         <nav className="h-full flex flex-col bg-white border-r shadow-sm">
@@ -44,7 +44,11 @@ export default function Sidebar({ children }) {
                 !expanded && "max-md:absolute left-8"
               }`}
             >
-              {expanded ? <LuChevronFirst /> : <LuChevronLast />}
+              {expanded ? (
+                <LuChevronFirst className="rtl:rotate-180" />
+              ) : (
+                <LuChevronLast className="rtl:rotate-180" />
+              )}
             </button>
           </div>
           <SidebarContext.Provider value={{ expanded, setExpanded }}>
@@ -105,14 +109,18 @@ export function SidebarItem({ icon, text, active, alert }) {
     >
       <button
         type="button"
-        className={`max-md:mr-1 ${text === "SignOut" ? "text-red-500" : ""}`}
+        className={`max-md:mr-1 ${
+          text === "SignOut" || text === "دەرچوون" ? "text-red-500" : ""
+        }`}
       >
         {icon}
       </button>
       <span
         className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-3 max-sm:w-36 max-sm:ml-1" : "w-0"
-        } ${text === "SignOut" ? "text-red-500" : ""}`}
+          expanded
+            ? "w-52 max-sm:w-36 rtl:mr-3 rtl:max-sm:mr-1 ltr:ml-3 ltr:max-sm:ml-1"
+            : "w-0"
+        } ${text === "SignOut" || text === "دەرچوون" ? "text-red-500" : ""}`}
       >
         {text}
       </span>
@@ -127,11 +135,11 @@ export function SidebarItem({ icon, text, active, alert }) {
       {!expanded && (
         <div
           className={`
-          absolute left-full rounded-md px-2 py-1 ml-6
+          absolute ltr:left-full rtl:right-full rounded-md px-2 py-1 ltr:ml-6 rtl:mr-6
           bg-indigo-100 text-indigo-800 text-sm
           invisible opacity-20 -translate-x-3 transition-all
           group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-          ${text === "SignOut" ? "text-red-500" : ""}`}
+          ${text === "SignOut" || text === "دەرچوون" ? "text-red-500" : ""}`}
         >
           {text}
         </div>

@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import Spinner from "../../common/Spinner";
 import ListingItem from "../../common/ListingItem";
 import Error from "../../common/Error";
+import { useTranslation } from "react-i18next";
 
 // Fetch the favorite IDs from local storage
 const fetchFavoriteIds = async () => {
@@ -13,6 +14,7 @@ const fetchFavoriteIds = async () => {
 };
 
 const Fav = () => {
+  const { t, i18n } = useTranslation("settings");
   const { expanded } = useContext(ExpandedContext);
 
   const { isLoading, mutate } = useMutation({
@@ -56,8 +58,10 @@ const Fav = () => {
 
   return (
     <div
-      className={`max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7  ${
-        expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
+      className={`max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7 ${
+        expanded
+          ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
+          : `${i18n.language === "ku" ? "md:mr-[5.3rem]" : "md:ml-[5.3rem]"}`
       }`}
     >
       {favoriteIds.length > 0 ? (

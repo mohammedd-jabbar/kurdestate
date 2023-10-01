@@ -19,8 +19,10 @@ import DashboardItem from "../settings/DashboardItem";
 import Spinner from "../../common/Spinner";
 import { UserInfoContext } from "../../../store/UserInfoProvider";
 import { ExpandedContext } from "../../../store/SidebarProvider";
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
+  const { t, i18n } = useTranslation("settings");
   const { data } = useContext(UserInfoContext);
   const { expanded } = useContext(ExpandedContext);
 
@@ -121,11 +123,16 @@ const Dashboard = () => {
     }
   };
 
-  if (isLoading) <Spinner />;
+  if (isLoading) {
+    <Spinner />;
+  }
   return (
     <div
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
       className={`max-w-6xl mt-7 z-0 px-3 transition-all duration-200 ease-in-out mr-0 ${
-        expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
+        expanded
+          ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
+          : `${i18n.language === "ku" ? "md:mr-[5.3rem]" : "md:ml-[5.3rem]"}`
       }`}
     >
       <h2 className="text-2xl text-center font-semibold my-6">My Listing</h2>

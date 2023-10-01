@@ -98,8 +98,10 @@ const SettingsContent = () => {
 
   return (
     <div
-      className={`max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7  ${
-        expanded ? "md:ml-[13.5rem]" : "md:ml-[5.3rem]"
+      className={`max-w-6xl max-md:max-w-[95%] mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7 ${
+        expanded
+          ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
+          : `${i18n.language === "ku" ? "md:mr-[5.3rem]" : "md:ml-[5.3rem]"}`
       }`}
     >
       <DeleteModal
