@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import DeleteModal from "../../common/DeleteModal";
 
 const SettingsContent = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation("settings");
   const navigateTo = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false); // State to handle open module
@@ -98,6 +98,7 @@ const SettingsContent = () => {
 
   return (
     <div
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
       className={`max-md:max-w-[95%] max-md:text-center transition-all duration-200 ease-in-out mt-7 ${
         expanded
           ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
@@ -108,12 +109,12 @@ const SettingsContent = () => {
         open={isOpen}
         childern={
           <>
-            <div className="mx-auto my-4 w-72 z-50">
+            <div className="mx-auto my-4 w-72 max-sm:w-38 z-50">
               <h3 className="text-lg font-black text-gray-800">
-                Confirm Delete Account
+                {t("Confirm Delete Account")}
               </h3>
               <p className="text-sm text-gray-500 pt-2">
-                Are you sure you want to delete your account?
+                {t("Are you sure you want to delete your account?")}
               </p>
             </div>
             <div className="flex mt-8 gap-6">
@@ -121,31 +122,31 @@ const SettingsContent = () => {
                 onClick={() => setIsOpen(false)}
                 className="w-full font-inter bg-white border border-border text-black rounded-md py-1.5 px-3 "
               >
-                Cancel
+                {t("Cancel")}
               </button>
               <button
                 onClick={handleDeleteUser}
                 className="w-full font-inter bg-red-600 text-white rounded-md py-1.5 px-3 hover:bg-red-700 active:bg-red-800 transition-all duration-150 ease-in-out"
               >
-                Delete
+                {t("Delete")}
               </button>
             </div>
           </>
         }
         onClose={() => setIsOpen(false)}
       />
-      <div>
+      <div dir={i18n.language === "ku" ? "rtl" : "ltr"}>
         <h1 className="text-2xl font-bold pb-4 border-b border-border">
-          Settings
+          {t("Settings")}
         </h1>
         {/* Dark mode changer */}
         <div className="flex justify-between max-xs:flex-col max-sm:space-y-4 items-center mt-6 mb-4 px-4">
           <div>
             <h1 className="text-xl font-semibold pb-1 xs:text-start max-sm:text-base">
-              Dark Mode
+              {t("Dark Mode")}
             </h1>
             <p className="text-sm font-medium max-sm:text-xs">
-              Lorem ipsum dolor sit.
+              {t("Switch to dark mode for easier reading.")}
             </p>
           </div>
           <div>
@@ -164,7 +165,9 @@ const SettingsContent = () => {
               >
                 <span
                   className={`dot h-5 w-5 rounded-full bg-white duration-200 ${
-                    isChecked1 ? "translate-x-[28px]" : ""
+                    isChecked1
+                      ? "rtl:-translate-x-[28px] ltr:translate-x-[28px]"
+                      : ""
                   }`}
                 ></span>
               </span>
@@ -175,10 +178,10 @@ const SettingsContent = () => {
         <div className="flex justify-between max-xs:flex-col max-sm:space-y-4 items-center mt-6 mb-4 px-4">
           <div>
             <h1 className="text-xl font-semibold pb-1 xs:text-start max-sm:text-base">
-              Change Language
+              {t("Change Language")}
             </h1>
             <p className="text-sm font-medium max-sm:text-xs">
-              Lorem ipsum dolor sit.
+              {t("Select your preferred language for a seamless experience.")}
             </p>
           </div>
           <div>
@@ -189,22 +192,21 @@ const SettingsContent = () => {
                 onChange={handleCheckboxChange2}
                 className="sr-only"
               />
-              <span className="label flex items-center max-sm:text-xs text-sm font-medium text-black">
-                En
-              </span>
+
               <span
                 className={`slider mx-4 flex h-7 w-[55px] items-center rounded-full p-1 duration-200 ${
                   isChecked2 ? "bg-[#212b36]" : "bg-[#CCCCCE]"
                 }`}
               >
                 <span
-                  className={`dot h-5 w-5 rounded-full bg-white duration-200 ${
-                    isChecked2 ? "translate-x-[28px]" : ""
+                  className={`dot flex items-center text-xs justify-center h-5 w-5 rounded-full bg-white duration-200 ${
+                    isChecked2
+                      ? "rtl:-translate-x-[28px] ltr:translate-x-[28px]"
+                      : ""
                   }`}
-                ></span>
-              </span>
-              <span className="label flex items-center max-sm:text-xs text-sm font-medium text-black">
-                Ku
+                >
+                  {i18n.language === "ku" ? "Ku" : "En"}
+                </span>
               </span>
             </label>
           </div>
@@ -213,10 +215,10 @@ const SettingsContent = () => {
         <div className="flex justify-between max-xs:flex-col max-sm:space-y-4 items-center mt-6 mb-4 px-4">
           <div>
             <h1 className="text-xl font-semibold pb-1 xs:text-start max-sm:text-base">
-              Delete Account
+              {t("Delete Account")}
             </h1>
             <p className="text-sm font-medium max-sm:text-xs">
-              Do you want to delete your account?
+              {t("Do you want to delete your account?")}
             </p>
           </div>
           <div>

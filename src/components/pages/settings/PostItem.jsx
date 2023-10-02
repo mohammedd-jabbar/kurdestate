@@ -15,6 +15,13 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
   const { t, i18n } = useTranslation("settings");
   const [isOpen, setIsOpen] = useState(false); // State to handle open module
 
+  String.prototype.toIndiaDigits = function () {
+    var id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+    return this.replace(/[0-9]/g, function (w) {
+      return id[+w];
+    });
+  };
+
   return (
     <>
       <DeleteModal
@@ -22,7 +29,7 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
         childern={
           <>
             <div
-              className="mx-auto my-4 w-72 z-50"
+              className="mx-auto my-4 w-72 max-sm:w-38 z-50"
               dir={i18n.language === "ku" ? "rtl" : "ltr"}
             >
               <h3 className="text-lg font-black text-gray-800">

@@ -31,6 +31,7 @@ import ListingIdProvider from "./store/ListingIdProvider";
 import "./i18n.js";
 import { Toaster } from "react-hot-toast";
 import Error from "./components/common/Error";
+import Spinner from "./components/common/Spinner";
 
 const queryClient = new QueryClient();
 
@@ -142,7 +143,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Suspense fallback="Loading...">
+    <Suspense fallback={<Spinner />}>
       <QueryClientProvider client={queryClient}>
         <ListingIdProvider>
           <ListingsInfoProvider>

@@ -77,9 +77,9 @@ const Setting = () => {
           open={isOpen}
           childern={
             <>
-              <div className="mx-auto my-4 w-72 z-50">
+              <div className="mx-auto my-4 w-72 max-sm:w-38 z-50">
                 <h3 className="text-lg font-black text-gray-800">
-                  {t("Confirm Delete")}
+                  {t("Confirm Logout")}
                 </h3>
                 <p className="text-sm text-gray-500 pt-2">
                   {t("Are you sure you want to delete this listing?")}
@@ -96,7 +96,7 @@ const Setting = () => {
                   onClick={() => handleLogout()}
                   className="w-full font-inter bg-red-600 text-white rounded-md py-1.5 px-3 hover:bg-red-700 active:bg-red-800 transition-all duration-150 ease-in-out"
                 >
-                  {t("Delete")}
+                  {t("Logout")}
                 </button>
               </div>
             </>

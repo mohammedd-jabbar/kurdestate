@@ -46,6 +46,7 @@ const Fav = () => {
       const fetchListings = async () => {
         await Promise.all(favoriteIds.map((id) => mutate(id)));
       };
+
       fetchListings();
     } else {
       setFavoriteListings([]); // Reset the favorite listings if there are no favorites
@@ -58,6 +59,7 @@ const Fav = () => {
 
   return (
     <div
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
       className={`max-md:max-w-[95%] max-md:text-center transition-all duration-200 ease-in-out mt-7 ${
         expanded
           ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
@@ -76,7 +78,7 @@ const Fav = () => {
           ))}
         </ul>
       ) : (
-        <Error text={"There is no favorite listings"} />
+        <Error text={t("There is no favorite listings")} />
       )}
     </div>
   );

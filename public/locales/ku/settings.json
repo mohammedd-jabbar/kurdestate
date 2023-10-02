@@ -1,8 +1,13 @@
 {
   "Confirm Delete": "پشتڕاستکردنەوەی سڕینەوە",
+  "Confirm Logout": "پشتڕاستکردنەوەی دەرچوون",
+  "Confirm Delete Account": "پشتڕاستکردنەوەی ئەکاونتی سڕینەوە",
   "Are you sure you want to delete this listing?": "ئایا دڵنیای کە دەتەوێت ئەم لیستە بسڕیتەوە؟",
+  "Are you sure you want to delete your account?": "دڵنیای کە دەتەوێت ئەکاونتەکەت بسڕیتەوە؟",
+  "Are you sure you want to logout?": "دڵنیای کە دەتەوێت بچیتە دەرەوە؟",
   "Cancel": "ڕەتکردنەوە",
   "Delete": "سڕینەوە",
+  "Logout": "دەرچوون",
   "Profile": "هەژمار",
   "Dashboard": "داشبۆرد",
   "Posts": "پۆستەکان",
@@ -15,5 +20,12 @@
   "Change your name": "ناوی خۆت بگۆڕە",
   "Apply changes": "گۆڕانکارییەکان جێبەجێ بکە",
   "Edit": "دەستکاری بکە",
-  "Sell or rent your home": "ماڵەکەت بفرۆشە یان بەکرێ بدە"
+  "Sell or rent your home": "ماڵەکەت بفرۆشە یان بەکرێ بدە",
+  "There is no favorite listings": "هیچ لیستێکی دڵخواز نییە",
+  "Dark Mode": "دۆخی تاریک",
+  "Change Language": "گۆرینی زمان",
+  "Delete Account": "سڕینەوەی هەژمار",
+  "Do you want to delete your account?": "دەتەوێت ئەکاونتەکەت بسڕیتەوە؟",
+  "Select your preferred language for a seamless experience.": "زمانی دڵخوازت هەڵبژێرە بۆ ئەزموونێکی بێ کێشە",
+  "Switch to dark mode for easier reading.": "بۆ خوێندنەوەی ئاسانتر دۆخەکە بگۆڕە بۆ دۆخی تاریک"
 }
