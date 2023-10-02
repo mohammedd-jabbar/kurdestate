@@ -87,16 +87,22 @@ const PostsContent = () => {
 
   return (
     <div
-      className={`max-w-6xl mr-0 z-0 px-3 mt-7 transition-all duration-200 ease-in-out ${
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
+      className={`mr-0 z-0 px-3 mt-7 transition-all duration-200 ease-in-out ${
         expanded
           ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
           : `${i18n.language === "ku" ? "md:mr-[5.3rem]" : "md:ml-[5.3rem]"}`
       }`}
     >
-      <h2 className="text-2xl text-center font-semibold my-6">My Listing</h2>
+      <h2 className="text-2xl text-center font-semibold my-6">
+        {t("My Properties")}
+      </h2>
       {!isLoading && listings.length > 0 ? (
         <>
-          <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 my-6">
+          <ul
+            dir={i18n.language === "ku" ? "rtl" : "ltr"}
+            className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 my-6"
+          >
             {listings.map((listing) => (
               <PostItem
                 key={listing.id}

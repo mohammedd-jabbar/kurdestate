@@ -70,7 +70,7 @@ const ProfileContent = () => {
   return (
     <div
       dir={i18n.language === "ku" ? "rtl" : "ltr"}
-      className={`max-w-6xl max-md:max-w-[95%] h-screen mx-auto max-md:text-center transition-all duration-200 ease-in-out mt-7 ${
+      className={`max-md:max-w-[95%] h-screen max-md:text-center transition-all duration-200 ease-in-out mt-7 ${
         expanded
           ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
           : `${i18n.language === "ku" ? "md:mr-[5.3rem]" : "md:ml-[5.3rem]"}`
@@ -78,7 +78,7 @@ const ProfileContent = () => {
     >
       <div>
         <h1 className="text-2xl max-xs:mt-12 font-bold pb-4 border-b border-border">
-          General Information
+          {t("General Information")}
         </h1>
 
         <div className="mt-8 w-full md:w-[50%] px-4 ">
@@ -93,7 +93,9 @@ const ProfileContent = () => {
               />
             )}
           </div>
-          <h3 className="text-xl font-semibold pb-4">Change your name</h3>
+          <h3 className="text-xl font-semibold pb-4">
+            {t("Change your name")}
+          </h3>
           <form className="border-b border-border">
             {/* name input */}
             <input
@@ -125,7 +127,7 @@ const ProfileContent = () => {
                   className="text-white text-center bg-primary-500 hover:bg-primary-600 active:bg-primary-700 focus:bg-primary-700 rounded-md px-3 py-0.5 transition duration-200 ease-in-out cursor-pointer ml-1.5 "
                 >
                   {/* If the state is true, the text will be "Apply changes", if it's false, the text will be "Edit" */}
-                  {isEditingName ? "Apply changes" : "Edit"}
+                  {isEditingName ? t("Apply changes") : t("Edit")}
                 </span>
               </p>
             </div>
@@ -136,8 +138,8 @@ const ProfileContent = () => {
             className="w-full max-xs:mt-16 mt-4 bg-primary-500 text-white uppercase px-7 py-3 text-sm font-bold rounded-md hover:bg-primary-600 transition duration-200 ease-in-out shadow-md hover:shadow-lg active:bg-primary-700  "
           >
             <Link to="/create" className="flex justify-center items-center">
-              <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
-              Sell or rent your home
+              <FcHome className="ltr:mr-2 rtl:ml-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
+              {t("Sell or rent your home")}
             </Link>
           </button>
         </div>

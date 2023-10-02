@@ -180,7 +180,7 @@ const Profile = () => {
         {!isLoading && listings.length > 0 && (
           <>
             <h2 className="text-2xl text-center font-semibold my-6">
-              My Listing
+              My Properties
             </h2>
             <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 my-6">
               {listings.map((listing) => (
