@@ -15,7 +15,7 @@ const LanguageDropDown = ({
     >
       {/* Avatar */}
       <button
-        className="flex mx-3 transition duration-150 ease-in-out text-sm focus:outline-none bg-transparent rounded-full md:mr-0 "
+        className="flex transition duration-150 ease-in-out text-sm focus:outline-none bg-transparent rounded-full md:mr-0 "
         type="button"
         onClick={toggleLanguageDropdown}
       >

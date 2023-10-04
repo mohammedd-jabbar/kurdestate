@@ -194,7 +194,7 @@ const Header = () => {
                 }`}
               >
                 <li
-                  className={`flex items-center justify-between relative cursor-pointer text-lg font-semibold px-8 max-md:px-4 max-md:hover:rounded-md text-gray-500 dark:text-white max-md:hover:bg-slate-100 ${getActiveRouteStyles(
+                  className={`flex items-center justify-between relative cursor-pointer text-lg font-semibold px-8 max-md:px-4 max-md:hover:rounded-md text-gray-500 dark:text-white max-md:dark:hover:bg-slate-700 max-md:hover:bg-slate-100 ${getActiveRouteStyles(
                     "/category/sell"
                   )}  ${isContentDropDown && `max-md:py-4 max-md:my-2`}`}
                   onClick={toggleCategoryDropDown}
@@ -272,16 +272,18 @@ const Header = () => {
               isLanguageDropDown={isLanguageDropDown}
               handleLanguageChange={handleLanguageChange}
             />
-            <DarkModeSwitch
-              checked={darkSide}
-              onChange={toggleDarkMode}
-              size={27}
-            />
+            <div>
+              <DarkModeSwitch
+                checked={darkSide}
+                onChange={toggleDarkMode}
+                size={27}
+              />
+            </div>
             {userAuth ? (
               <div className="flex justify-center items-center">
                 <div className="md:hidden">
                   <button className="relative" onClick={toggleContentDropDown}>
-                    <div className="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all ring-0    ring-opacity-30 duration-200">
+                    <div className="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all ring-0 ring-opacity-30 duration-200">
                       <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
                         {!isContentDropDown && (
                           <>
@@ -344,37 +346,93 @@ const Header = () => {
                 />
               </div>
             ) : (
-              <div className="space-x-5 rtl:space-x-reverse py-2">
-                <Link to="/login">
-                  <button
-                    // Login Button: white background with an outline. Sign Up Button: Blue background without an outline.
+              <>
+                <div className="md:hidden">
+                  <button className="relative" onClick={toggleContentDropDown}>
+                    <div className="relative flex overflow-hidden items-center justify-center rounded-full h-[50px] transform transition-all ring-0 ring-opacity-30 duration-200">
+                      <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
+                        {!isContentDropDown && (
+                          <>
+                            <div
+                              className={`bg-gray-950 ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "!bg-primary-500 dark:bg-white"
+                              } h-[2px] w-7 transform dark:bg-white transition-all duration-300 origin-left focus:translate-x-10`}
+                            ></div>
+                            <div
+                              className={`bg-gray-950 ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "!bg-primary-500 dark:bg-white"
+                              } h-[2px] w-7 rounded  dark:bg-white transform transition-all duration-300 focus:translate-x-10 delay-75`}
+                            ></div>
+                            <div
+                              className={`bg-gray-950 ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "!bg-primary-500 dark:bg-white"
+                              } h-[2px] w-7 transform dark:bg-white transition-all duration-300 origin-left focus:translate-x-10 delay-150`}
+                            ></div>
+                          </>
+                        )}
 
-                    // When the Login button is clicked, the Sign Up button outline becomes visible to differentiate between the two buttons. This approach ensures clarity when both buttons have a blue background.
-                    className={`shadow-sm  ${
-                      // If on the "/login" page, style as active Login button.
-                      location.pathname === "/login"
-                        ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out border-2 px-4 py-[5px] rounded-lg bg-primary-500 border-primary-500 !text-white hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
-                        : // If not on "/login", style as inactive Login button.
-                          `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
-                    } `}
-                  >
-                    {t("Login")}
+                        {isContentDropDown && (
+                          <div
+                            className={`absolute items-center justify-between transform transition-all duration-500 top-2.5  translate-x-0 flex w-12`}
+                          >
+                            <div
+                              className={`absolute ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "bg-primary-500 dark:bg-white"
+                              } bg-gray-950 h-[2px] dark:bg-white w-5 transform transition-all duration-500  delay-300 rotate-45`}
+                            ></div>
+                            <div
+                              className={`absolute ${
+                                location.pathname === "/" &&
+                                !isNavbarScroll &&
+                                "bg-primary-500 dark:bg-white"
+                              } bg-gray-950 h-[2px] dark:bg-white w-5 transform transition-all duration-500  delay-300 -rotate-45`}
+                            ></div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </button>
-                </Link>
-                <Link to="/sign-up">
-                  <button
-                    className={`shadow-sm ${
-                      // If on the "/login" page, style as inactive Sign Up button.
-                      location.pathname === "/login"
-                        ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
-                        : // If not on "/login", style as active Sign Up button.
-                          `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-white bg-primary-500 border-2 border-primary-500 px-4 py-[5px] rounded-lg hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
-                    }`}
-                  >
-                    {t("Sign In")}
-                  </button>
-                </Link>
-              </div>
+                </div>
+                <div className="hidden md:block space-x-5 rtl:space-x-reverse py-2">
+                  <Link to="/login">
+                    <button
+                      // Login Button: white background with an outline. Sign Up Button: Blue background without an outline.
+
+                      // When the Login button is clicked, the Sign Up button outline becomes visible to differentiate between the two buttons. This approach ensures clarity when both buttons have a blue background.
+                      className={`shadow-sm  ${
+                        // If on the "/login" page, style as active Login button.
+                        location.pathname === "/login"
+                          ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out border-2 px-4 py-[5px] rounded-lg bg-primary-500 border-primary-500 dark:bg-indigo-900 dark:border-indigo-900 !text-white hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
+                          : // If not on "/login", style as inactive Login button.
+                            `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 dark:text-white border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
+                      } `}
+                    >
+                      {t("Login")}
+                    </button>
+                  </Link>
+                  <Link to="/sign-up">
+                    <button
+                      className={`shadow-sm ${
+                        // If on the "/login" page, style as inactive Sign Up button.
+                        location.pathname === "/login"
+                          ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 dark:text-white border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
+                          : // If not on "/login", style as active Sign Up button.
+                            `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-white bg-primary-500 border-2 border-primary-500 dark:bg-indigo-900 dark:border-indigo-900 px-4 py-[5px] rounded-lg hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
+                      }`}
+                    >
+                      {t("Sign In")}
+                    </button>
+                  </Link>
+                </div>
+              </>
             )}
           </div>
         </header>
