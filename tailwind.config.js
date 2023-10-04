@@ -40,6 +40,7 @@ export default {
           700: "#4e46a8",
           800: "#433c90",
         },
+        darkBackground: "#1e293b",
         headerBackground: "#ffff",
         background: "#f5f7fb",
         border: "#e9e7f9",

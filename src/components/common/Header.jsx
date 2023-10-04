@@ -6,10 +6,11 @@ import NavbarDropDown from "./NavbarDropDown";
 import { UserInfoContext } from "../../store/UserInfoProvider";
 import Spinner from "../common/Spinner";
 import { FiChevronDown } from "react-icons/fi";
-
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { useTranslation } from "react-i18next";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 import LanguageDropDown from "./LanguageDropDown";
+import useDarkSide from "./darkmode/useDarkSide";
 
 const Header = () => {
   // users url location
@@ -22,6 +23,8 @@ const Header = () => {
   // show and hide the dropdown
   const [isDropDown, setIsDropDown] = useState(false);
   // show and hide the dropdown
+  const [isLanguageDropDown, setIsLanguageDropDown] = useState(false);
+  // show and hide the dropdown
   const [isCategoryDropDown, setIsCategoryDropDown] = useState(false);
 
   const [isContentDropDown, setIsContentDropDown] = useState(false);
@@ -33,14 +36,21 @@ const Header = () => {
   // get the dark mode
   const [themeColor, setThemeColor] = useState("light");
 
-  useEffect(() => {
+  // fix header logout and add change language and change dark mode in header and add kurdish language to sign in page
+
+  // dark mode stuff:
+  const [colorTheme, setTheme] = useDarkSide();
+
+  const [darkSide, setDarkSide] = useState(
+    colorTheme === "light" ? true : false
+  );
+
+  const toggleDarkMode = (checked) => {
     const color = localStorage.getItem("theme");
     setThemeColor(color);
-  }, []);
-
-  console.log(themeColor);
-
-  // fix header logout and add change language and change dark mode in header and add kurdish language to sign in page
+    setTheme(colorTheme);
+    setDarkSide(checked);
+  };
 
   // navbar animation
   useEffect(() => {
@@ -124,6 +134,9 @@ const Header = () => {
   const toggleDropdown = () => {
     setIsDropDown(!isDropDown);
   };
+  const toggleLanguageDropdown = () => {
+    setIsLanguageDropDown(!isLanguageDropDown);
+  };
   const toggleCategoryDropDown = () => {
     setIsCategoryDropDown(!isCategoryDropDown);
   };
@@ -157,13 +170,13 @@ const Header = () => {
         theme={themeColor === "dark" ? "dark" : "light"}
       />
       <div
-        className={`transition-all duration-200 ease-in-out border-b py-1 shadow-md bg-headerBackground  ${
-          isNavbarScroll && "bg-headerBackground py-2"
+        className={`transition-all duration-200 ease-in-out border-b py-1 shadow-md bg-headerBackground dark:bg-darkBackground  ${
+          isNavbarScroll && "py-2"
         } sticky w-full top-0 z-40`}
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
       >
         <header
-          className={`flex text-black justify-between px-3 max-w-6xl mx-auto`}
+          className={`flex text-black dark:text-white justify-between px-3 max-w-6xl mx-auto`}
         >
           <div className="flex items-center justify-normal font-bold space-x-4 rtl:space-x-0">
             <h1 className="cursor-pointer text-2xl">
@@ -174,14 +187,14 @@ const Header = () => {
             </h1>
             <nav className="font-semibold text-lg">
               <ul
-                className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static md:z-auto z-[-1] left-0 w-full ltr:md:mr-[65px]  md:w-auto md:pl-0 max-md:transition-all max-md:duration-300 max-md:ease-in-out bg-white ${
+                className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static md:z-auto z-[-1] left-0 w-full ltr:md:mr-[65px]  md:w-auto md:pl-0 max-md:transition-all max-md:duration-300 max-md:ease-in-out bg-white dark:bg-darkBackground ${
                   isContentDropDown
                     ? "max-md:top-12 max-md:pt-4 max-md:shadow-md"
                     : "-top-[44rem] max-md:opacity-0"
                 }`}
               >
                 <li
-                  className={`flex items-center justify-between relative cursor-pointer text-lg font-semibold px-8 max-md:px-4 max-md:hover:rounded-md text-gray-500 max-md:hover:bg-slate-100 ${getActiveRouteStyles(
+                  className={`flex items-center justify-between relative cursor-pointer text-lg font-semibold px-8 max-md:px-4 max-md:hover:rounded-md text-gray-500 dark:text-white max-md:hover:bg-slate-100 ${getActiveRouteStyles(
                     "/category/sell"
                   )}  ${isContentDropDown && `max-md:py-4 max-md:my-2`}`}
                   onClick={toggleCategoryDropDown}
@@ -253,11 +266,16 @@ const Header = () => {
             </nav>
           </div>
 
-          <div className="flex space-x-4 rtl:space-x-reverse">
+          <div className="flex items-center justify-center space-x-6 rtl:space-x-reverse">
             <LanguageDropDown
-              toggleDropdown={toggleDropdown}
-              isDropDown={isDropDown}
+              toggleLanguageDropdown={toggleLanguageDropdown}
+              isLanguageDropDown={isLanguageDropDown}
               handleLanguageChange={handleLanguageChange}
+            />
+            <DarkModeSwitch
+              checked={darkSide}
+              onChange={toggleDarkMode}
+              size={27}
             />
             {userAuth ? (
               <div className="flex justify-center items-center">
@@ -324,9 +342,6 @@ const Header = () => {
                   name={name}
                   email={email}
                 />
-                <button onClick={() => toast.error("My first toast")}>
-                  Notifications
-                </button>
               </div>
             ) : (
               <div className="space-x-5 rtl:space-x-reverse py-2">

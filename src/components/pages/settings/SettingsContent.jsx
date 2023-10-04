@@ -37,6 +37,7 @@ const SettingsContent = () => {
   const { expanded } = useContext(ExpandedContext);
 
   const [colorTheme, setTheme] = useDarkSide();
+
   const [darkSide, setDarkSide] = useState(
     colorTheme === "light" ? true : false
   );
