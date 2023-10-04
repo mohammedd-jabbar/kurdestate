@@ -5,12 +5,12 @@ import { notifications } from "./Notifications";
 import NavbarDropDown from "./NavbarDropDown";
 import { UserInfoContext } from "../../store/UserInfoProvider";
 import Spinner from "../common/Spinner";
-import { FiChevronDown } from "react-icons/fi";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { useTranslation } from "react-i18next";
 import { Toaster } from "sonner";
 import LanguageDropDown from "./LanguageDropDown";
 import useDarkSide from "./darkmode/useDarkSide";
+import DropdownButton from "./DropdownButton";
 
 const Header = () => {
   // users url location
@@ -24,8 +24,6 @@ const Header = () => {
   const [isDropDown, setIsDropDown] = useState(false);
   // show and hide the dropdown
   const [isLanguageDropDown, setIsLanguageDropDown] = useState(false);
-  // show and hide the dropdown
-  const [isCategoryDropDown, setIsCategoryDropDown] = useState(false);
 
   const [isContentDropDown, setIsContentDropDown] = useState(false);
   // navbar scroll animation
@@ -137,9 +135,6 @@ const Header = () => {
   const toggleLanguageDropdown = () => {
     setIsLanguageDropDown(!isLanguageDropDown);
   };
-  const toggleCategoryDropDown = () => {
-    setIsCategoryDropDown(!isCategoryDropDown);
-  };
 
   const toggleContentDropDown = () => {
     setIsContentDropDown(!isContentDropDown);
@@ -154,11 +149,6 @@ const Header = () => {
     } catch (error) {
       notifications("You can't logout", true);
     }
-  };
-
-  // this function is used to check if the current route is the same as the route passed as an argument and return some different styles
-  const getActiveRouteStyles = (route, style = "!text-black") => {
-    return location.pathname === route ? style : "";
   };
 
   return (
@@ -185,83 +175,101 @@ const Header = () => {
                 <span className={`text-primary-500`}>{t("Estate")}</span>
               </a>
             </h1>
-            <nav className="font-semibold text-lg">
+            <nav className="font-semibold text-lg ">
               <ul
-                className={`md:flex md:items-center md:pb-0 pb-4 absolute md:static md:z-auto z-[-1] left-0 w-full ltr:md:mr-[65px]  md:w-auto md:pl-0 max-md:transition-all max-md:duration-300 max-md:ease-in-out bg-white dark:bg-darkBackground ${
+                className={`lg:flex rtl:lg:mr-4 ltr:lg:ml-4 lg:items-center lg:pb-0 pb-4 absolute lg:static lg:z-auto z-[-1] left-0 w-full ltr:lg:mr-[65px] lg:w-auto lg:pl-0 max-lg:transition-all max-lg:duration-300 max-lg:ease-in-out max-lg:bg-white max-lg:dark:bg-darkBackground ${
                   isContentDropDown
-                    ? "max-md:top-12 max-md:pt-4 max-md:shadow-md"
-                    : "-top-[44rem] max-md:opacity-0"
+                    ? "max-lg:top-[3.6rem] max-lg:shadow-lg"
+                    : "-top-[44rem] max-lg:opacity-0"
                 }`}
               >
-                <li
-                  className={`flex items-center justify-between relative cursor-pointer text-lg font-semibold px-8 max-md:px-4 max-md:hover:rounded-md text-gray-500 dark:text-white max-md:dark:hover:bg-slate-700 max-md:hover:bg-slate-100 ${getActiveRouteStyles(
-                    "/category/sell"
-                  )}  ${isContentDropDown && `max-md:py-4 max-md:my-2`}`}
-                  onClick={toggleCategoryDropDown}
-                >
-                  {t("Category")}
-                  <FiChevronDown
-                    className={`ml-1 transition-all duration-300 ease-in-out ${
-                      isCategoryDropDown && "rotate-180"
-                    }`}
-                  />
-                  <div
-                    className={`absolute mt-1 p-2 right-4 top-11 md:right-0 md:top-7 min-w-max shadow rounded  ${
-                      isCategoryDropDown ? "block" : "hidden"
-                    } bg-white border border-border transition delay-75 ease-in-out z-10`}
+                {!userAuth && (
+                  <li
+                    className={`md:hidden flex items-center justify-center relative cursor-pointer text-lg font-semibold px-8 max-lg:px-4 max-lg:hover:rounded-lg `}
                   >
-                    <ul className="block text-right text-gray-900">
-                      <li>
-                        <a
-                          href="/category/rent"
-                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
+                    <div className="text-center space-x-5 rtl:space-x-reverse py-2">
+                      <Link to="/login">
+                        <button
+                          onClick={toggleContentDropDown}
+                          className={`shadow-sm  ${
+                            // If on the "/login" page, style as active Login button.
+                            location.pathname === "/login"
+                              ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out border-2 px-4 py-[5px] rounded-lg bg-primary-500 border-primary-500 dark:bg-indigo-900 dark:border-indigo-900 !text-white hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
+                              : // If not on "/login", style as inactive Login button.
+                                `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 dark:text-white border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
+                          } `}
                         >
-                          {t("Rent")}
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/category/sell"
-                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
+                          {t("Login")}
+                        </button>
+                      </Link>
+                      <Link to="/sign-up">
+                        <button
+                          onClick={toggleContentDropDown}
+                          className={`shadow-sm ${
+                            // If on the "/login" page, style as inactive Sign Up button.
+                            location.pathname === "/login"
+                              ? `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 dark:text-white border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
+                              : // If not on "/login", style as active Sign Up button.
+                                `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-white bg-primary-500 border-2 border-primary-500 dark:bg-indigo-900 dark:border-indigo-900 px-4 py-[5px] rounded-lg hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
+                          }`}
                         >
-                          {t("Sell")}
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/category/house"
-                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
-                        >
-                          {t("Houses")}
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/category/apartment"
-                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
-                        >
-                          {t("Apartments")}
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/category/land"
-                          className="block px-3 text-gray-500 border-b py-2 hover:bg-slate-100"
-                        >
-                          {t("Lands")}
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="category/shop"
-                          className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
-                        >
-                          {t("Shops")}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                          {t("Sign In")}
+                        </button>
+                      </Link>
+                    </div>
+                  </li>
+                )}
+
+                <li>
+                  <a
+                    href="/category/rent"
+                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                  >
+                    {t("Rent")}
+                  </a>
                 </li>
+                <li>
+                  <a
+                    href="/category/sell"
+                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                  >
+                    {t("Sell")}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/category/house"
+                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                  >
+                    {t("Houses")}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/category/apartment"
+                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                  >
+                    {t("Apartments")}
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/category/land"
+                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                  >
+                    {t("Lands")}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="category/shop"
+                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                  >
+                    {t("Shops")}
+                  </a>
+                </li>
+                {/* fix header category */}
               </ul>
             </nav>
           </div>
@@ -280,60 +288,13 @@ const Header = () => {
               />
             </div>
             {userAuth ? (
-              <div className="flex justify-center items-center">
-                <div className="md:hidden">
-                  <button className="relative" onClick={toggleContentDropDown}>
-                    <div className="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all ring-0 ring-opacity-30 duration-200">
-                      <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
-                        {!isContentDropDown && (
-                          <>
-                            <div
-                              className={`bg-gray-950 ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "!bg-primary-500"
-                              } h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10`}
-                            ></div>
-                            <div
-                              className={`bg-gray-950 ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "!bg-primary-500"
-                              } h-[2px] w-7 rounded transform transition-all duration-300 focus:translate-x-10 delay-75`}
-                            ></div>
-                            <div
-                              className={`bg-gray-950 ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "!bg-primary-500"
-                              } h-[2px] w-7 transform transition-all duration-300 origin-left focus:translate-x-10 delay-150`}
-                            ></div>
-                          </>
-                        )}
-
-                        {isContentDropDown && (
-                          <div
-                            className={`absolute items-center justify-between transform transition-all duration-500 top-2.5  translate-x-0 flex w-12`}
-                          >
-                            <div
-                              className={`absolute ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "bg-primary-500"
-                              } bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 rotate-45`}
-                            ></div>
-                            <div
-                              className={`absolute ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "bg-primary-500"
-                              } bg-gray-950 h-[2px] w-5 transform transition-all duration-500  delay-300 -rotate-45`}
-                            ></div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </button>
+              <div className="flex justify-between items-center max-lg:space-x-6 rtl:space-x-reverse">
+                <div className="lg:hidden">
+                  <DropdownButton
+                    toggleContentDropDown={toggleContentDropDown}
+                    isContentDropDown={isContentDropDown}
+                    isNavbarScroll={isNavbarScroll}
+                  />
                 </div>
                 <NavbarDropDown
                   handleLogout={handleLogout}
@@ -347,66 +308,13 @@ const Header = () => {
               </div>
             ) : (
               <>
-                <div className="md:hidden">
-                  <button className="relative" onClick={toggleContentDropDown}>
-                    <div className="relative flex overflow-hidden items-center justify-center rounded-full h-[50px] transform transition-all ring-0 ring-opacity-30 duration-200">
-                      <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
-                        {!isContentDropDown && (
-                          <>
-                            <div
-                              className={`bg-gray-950 ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "!bg-primary-500 dark:bg-white"
-                              } h-[2px] w-7 transform dark:bg-white transition-all duration-300 origin-left focus:translate-x-10`}
-                            ></div>
-                            <div
-                              className={`bg-gray-950 ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "!bg-primary-500 dark:bg-white"
-                              } h-[2px] w-7 rounded  dark:bg-white transform transition-all duration-300 focus:translate-x-10 delay-75`}
-                            ></div>
-                            <div
-                              className={`bg-gray-950 ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "!bg-primary-500 dark:bg-white"
-                              } h-[2px] w-7 transform dark:bg-white transition-all duration-300 origin-left focus:translate-x-10 delay-150`}
-                            ></div>
-                          </>
-                        )}
-
-                        {isContentDropDown && (
-                          <div
-                            className={`absolute items-center justify-between transform transition-all duration-500 top-2.5  translate-x-0 flex w-12`}
-                          >
-                            <div
-                              className={`absolute ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "bg-primary-500 dark:bg-white"
-                              } bg-gray-950 h-[2px] dark:bg-white w-5 transform transition-all duration-500  delay-300 rotate-45`}
-                            ></div>
-                            <div
-                              className={`absolute ${
-                                location.pathname === "/" &&
-                                !isNavbarScroll &&
-                                "bg-primary-500 dark:bg-white"
-                              } bg-gray-950 h-[2px] dark:bg-white w-5 transform transition-all duration-500  delay-300 -rotate-45`}
-                            ></div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </button>
-                </div>
-                <div className="hidden md:block space-x-5 rtl:space-x-reverse py-2">
+                <div className="hidden md:block space-x-6 rtl:space-x-reverse py-2">
                   <Link to="/login">
                     <button
                       // Login Button: white background with an outline. Sign Up Button: Blue background without an outline.
 
                       // When the Login button is clicked, the Sign Up button outline becomes visible to differentiate between the two buttons. This approach ensures clarity when both buttons have a blue background.
+
                       className={`shadow-sm  ${
                         // If on the "/login" page, style as active Login button.
                         location.pathname === "/login"
@@ -431,6 +339,13 @@ const Header = () => {
                       {t("Sign In")}
                     </button>
                   </Link>
+                </div>
+                <div className="lg:hidden">
+                  <DropdownButton
+                    toggleContentDropDown={toggleContentDropDown}
+                    isContentDropDown={isContentDropDown}
+                    isNavbarScroll={isNavbarScroll}
+                  />
                 </div>
               </>
             )}

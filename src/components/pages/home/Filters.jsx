@@ -100,7 +100,7 @@ const Filters = () => {
         >
           <div className="flex flex-col space-y-2">
             <label className="text-base font-medium text-gray-900 flex items-center justify-start">
-              <BiBuildings className="lrt:mr-2 rtl:ml-2" /> {t("Property type")}
+              <BiBuildings className="ltr:mr-2 rtl:ml-2" /> {t("Property type")}
             </label>
             <select
               onChange={handleChange}
@@ -120,7 +120,7 @@ const Filters = () => {
           </div>
           <div className="flex flex-col space-y-2">
             <label className="text-base font-medium text-gray-900 flex items-center justify-start">
-              <BiMap className="lrt:mr-2 rtl:ml-2" /> {t("Locations")}
+              <BiMap className="ltr:mr-2 rtl:ml-2" /> {t("Locations")}
             </label>
             <select
               id="location"
@@ -158,7 +158,7 @@ const Filters = () => {
               htmlFor="price"
               className="text-base font-medium text-gray-900 flex items-center justify-start"
             >
-              <BiMoney className="lrt:mr-2 rtl:ml-2" /> {t("Max Price")}
+              <BiMoney className="ltr:mr-2 rtl:ml-2" /> {t("Max Price")}
             </label>
             <input
               onChange={handleChange}
