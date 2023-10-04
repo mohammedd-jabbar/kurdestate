@@ -109,11 +109,12 @@ const SettingsContent = () => {
         open={isOpen}
         childern={
           <>
-            <div className="mx-auto my-4 w-72 max-sm:w-38 z-50">
-              <h3 className="text-lg font-black text-gray-800">
+            {/* fix the module center when small size */}
+            <div className="mx-auto my-4 max-md:text-start w-72 max-md:w-56 z-50">
+              <h3 className="max-md:text-sm text-lg font-black text-gray-800">
                 {t("Confirm Delete Account")}
               </h3>
-              <p className="text-sm text-gray-500 pt-2">
+              <p className="max-md:text-xs text-sm text-gray-500 pt-2">
                 {t("Are you sure you want to delete your account?")}
               </p>
             </div>
@@ -140,12 +141,12 @@ const SettingsContent = () => {
           {t("Settings")}
         </h1>
         {/* Dark mode changer */}
-        <div className="flex justify-between max-xs:flex-col max-sm:space-y-4 items-center mt-6 mb-4 px-4">
+        <div className="flex justify-between items-center mt-6 mb-4 px-4">
           <div>
-            <h1 className="text-xl font-semibold pb-1 xs:text-start max-sm:text-base">
+            <h1 className="text-xl font-semibold pb-1 text-start max-sm:text-base">
               {t("Dark Mode")}
             </h1>
-            <p className="text-sm font-medium max-sm:text-xs">
+            <p className="text-sm font-medium max-sm:text-[9px]">
               {t("Switch to dark mode for easier reading.")}
             </p>
           </div>
@@ -159,12 +160,12 @@ const SettingsContent = () => {
                 className="sr-only"
               />
               <span
-                className={`slider mx-4 flex h-7 w-[55px] items-center rounded-full p-1 duration-200 ${
+                className={`slider mx-4 flex h-6 sm:h-7 w-[55px] items-center rounded-full p-1 duration-200 ${
                   isChecked1 ? "bg-[#212b36]" : "bg-[#CCCCCE]"
                 }`}
               >
                 <span
-                  className={`dot h-5 w-5 rounded-full bg-white duration-200 ${
+                  className={`dot h-4 sm:h-5 w-4 sm:w-5 rounded-full bg-white duration-200 ${
                     isChecked1
                       ? "rtl:-translate-x-[28px] ltr:translate-x-[28px]"
                       : ""
@@ -175,12 +176,12 @@ const SettingsContent = () => {
           </div>
         </div>
         {/* Change language */}
-        <div className="flex justify-between max-xs:flex-col max-sm:space-y-4 items-center mt-6 mb-4 px-4">
+        <div className="flex justify-between items-center mt-6 mb-4 px-4">
           <div>
-            <h1 className="text-xl font-semibold pb-1 xs:text-start max-sm:text-base">
+            <h1 className="text-xl font-semibold pb-1 text-start max-sm:text-base">
               {t("Change Language")}
             </h1>
-            <p className="text-sm font-medium max-sm:text-xs">
+            <p className="text-sm font-medium max-sm:text-[9px] truncate">
               {t("Select your preferred language for a seamless experience.")}
             </p>
           </div>
@@ -194,12 +195,12 @@ const SettingsContent = () => {
               />
 
               <span
-                className={`slider mx-4 flex h-7 w-[55px] items-center rounded-full p-1 duration-200 ${
+                className={`slider mx-4 flex h-6 sm:h-7 w-[55px] items-center rounded-full p-1 duration-200 ${
                   isChecked2 ? "bg-[#212b36]" : "bg-[#CCCCCE]"
                 }`}
               >
                 <span
-                  className={`dot flex items-center text-xs justify-center h-5 w-5 rounded-full bg-white duration-200 ${
+                  className={`dot flex items-center text-xs justify-center h-4 sm:h-5 w-4 sm:w-5 rounded-full bg-white duration-200 ${
                     isChecked2
                       ? "rtl:-translate-x-[28px] ltr:translate-x-[28px]"
                       : ""
@@ -212,19 +213,19 @@ const SettingsContent = () => {
           </div>
         </div>
         {/* Delete account */}
-        <div className="flex justify-between max-xs:flex-col max-sm:space-y-4 items-center mt-6 mb-4 px-4">
+        <div className="flex justify-between items-center mt-6 mb-4 px-4">
           <div>
             <h1 className="text-xl font-semibold pb-1 xs:text-start max-sm:text-base">
               {t("Delete Account")}
             </h1>
-            <p className="text-sm font-medium max-sm:text-xs">
+            <p className="text-sm font-medium max-sm:text-[9px]">
               {t("Do you want to delete your account?")}
             </p>
           </div>
           <div>
             <button
               onClick={() => setIsOpen(true)}
-              className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 sm:px-5 py-2 sm:py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >
               {t("Delete")}
             </button>

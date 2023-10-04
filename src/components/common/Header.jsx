@@ -6,7 +6,10 @@ import NavbarDropDown from "./NavbarDropDown";
 import { UserInfoContext } from "../../store/UserInfoProvider";
 import Spinner from "../common/Spinner";
 import { FiChevronDown } from "react-icons/fi";
+
 import { useTranslation } from "react-i18next";
+import { Toaster, toast } from "sonner";
+import LanguageDropDown from "./LanguageDropDown";
 
 const Header = () => {
   // users url location
@@ -21,13 +24,23 @@ const Header = () => {
   // show and hide the dropdown
   const [isCategoryDropDown, setIsCategoryDropDown] = useState(false);
 
-  // dropdown for language inside the dropdown
-  const [isLanguage, setIsLanguage] = useState(false);
-
   const [isContentDropDown, setIsContentDropDown] = useState(false);
   // navbar scroll animation
   const [isNavbarScroll, setIsNavbarScroll] = useState(false);
+
   const [userAuth, setUserAuth] = useState(false);
+
+  // get the dark mode
+  const [themeColor, setThemeColor] = useState("light");
+
+  useEffect(() => {
+    const color = localStorage.getItem("theme");
+    setThemeColor(color);
+  }, []);
+
+  console.log(themeColor);
+
+  // fix header logout and add change language and change dark mode in header and add kurdish language to sign in page
 
   // navbar animation
   useEffect(() => {
@@ -114,9 +127,7 @@ const Header = () => {
   const toggleCategoryDropDown = () => {
     setIsCategoryDropDown(!isCategoryDropDown);
   };
-  const toggleLanguageDropdown = () => {
-    setIsLanguage(!isLanguage);
-  };
+
   const toggleContentDropDown = () => {
     setIsContentDropDown(!isContentDropDown);
   };
@@ -139,6 +150,12 @@ const Header = () => {
 
   return (
     <>
+      <Toaster
+        richColors
+        position="top-center"
+        invert="true"
+        theme={themeColor === "dark" ? "dark" : "light"}
+      />
       <div
         className={`transition-all duration-200 ease-in-out border-b py-1 shadow-md bg-headerBackground  ${
           isNavbarScroll && "bg-headerBackground py-2"
@@ -236,7 +253,12 @@ const Header = () => {
             </nav>
           </div>
 
-          <div>
+          <div className="flex space-x-4 rtl:space-x-reverse">
+            <LanguageDropDown
+              toggleDropdown={toggleDropdown}
+              isDropDown={isDropDown}
+              handleLanguageChange={handleLanguageChange}
+            />
             {userAuth ? (
               <div className="flex justify-center items-center">
                 <div className="md:hidden">
@@ -296,18 +318,18 @@ const Header = () => {
                 <NavbarDropDown
                   handleLogout={handleLogout}
                   toggleDropdown={toggleDropdown}
-                  toggleLanguageDropdown={toggleLanguageDropdown}
-                  handleLanguageChange={handleLanguageChange}
-                  isLanguage={isLanguage}
                   isDropDown={isDropDown}
                   firstLetter={firstLetter}
                   profilePhoto={profilePhoto}
                   name={name}
                   email={email}
                 />
+                <button onClick={() => toast.error("My first toast")}>
+                  Notifications
+                </button>
               </div>
             ) : (
-              <div className="space-x-5 py-2">
+              <div className="space-x-5 rtl:space-x-reverse py-2">
                 <Link to="/login">
                   <button
                     // Login Button: white background with an outline. Sign Up Button: Blue background without an outline.
@@ -321,7 +343,7 @@ const Header = () => {
                           `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-gray-500 border-2 px-4 py-[5px] rounded-lg border-border hover:shadow focus:outline-none`
                     } `}
                   >
-                    Login
+                    {t("Login")}
                   </button>
                 </Link>
                 <Link to="/sign-up">
@@ -334,7 +356,7 @@ const Header = () => {
                           `cursor-pointer text-base font-semibold transition duration-200 ease-in-out text-white bg-primary-500 border-2 border-primary-500 px-4 py-[5px] rounded-lg hover:bg-primary-600 hover:border-primary-600 hover:shadow focus:outline-none active:bg-primary-700 active:border-primary-700`
                     }`}
                   >
-                    Sign In
+                    {t("Sign In")}
                   </button>
                 </Link>
               </div>

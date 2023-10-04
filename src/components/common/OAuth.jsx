@@ -4,9 +4,11 @@ import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
 import { notifications } from "./Notifications";
+import { useTranslation } from "react-i18next";
 
 const OAuth = () => {
   const navigateTo = useNavigate();
+  const { t } = useTranslation("login");
 
   const handleGoogleClick = async () => {
     try {
@@ -43,8 +45,8 @@ const OAuth = () => {
       onClick={handleGoogleClick}
       className="w-full flex justify-center items-center bg-transparent text-gray-600 px-7 py-3 text-sm font-medium uppercase rounded-md border-2 border-border hover:bg-primary-500 transition duration-200 ease-in-out hover:shadow-lg active:shadow-lg active:bg-primary-600 hover:border-primary-500 hover:text-white"
     >
-      <FcGoogle className="mr-2 text-2xl bg-white rounded-full" />
-      Continue with Google
+      <FcGoogle className="rtl:order-1 mr-2 text-2xl bg-white rounded-full" />
+      {t("Continue with Google")}
     </button>
   );
 };

@@ -5,13 +5,10 @@ import { BiConfused } from "react-icons/bi";
 const NavbarDropDown = ({
   handleLogout,
   toggleDropdown,
-  toggleLanguageDropdown,
   profilePhoto,
   name,
   email,
-  isLanguage,
   isDropDown,
-  handleLanguageChange,
 }) => {
   const { t, i18n } = useTranslation("header");
 
@@ -66,57 +63,6 @@ const NavbarDropDown = ({
           className="py-2 text-sm text-gray-700"
           dir={i18n.language === "ku" ? "rtl" : "ltr"}
         >
-          {/* Language drop down */}
-          <li>
-            <button
-              dir={i18n.language === "ku" ? "rtl" : "ltr"}
-              onClick={toggleLanguageDropdown}
-              type="button"
-              className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
-            >
-              {t("Languages")}
-              <svg
-                className="w-2.5 h-2.5 ml-2.5 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 9 4-4-4-4"
-                />
-              </svg>
-            </button>
-            <div
-              className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44  ${
-                isLanguage ? "" : "hidden"
-              }`}
-            >
-              <ul className="py-2 text-sm text-gray-700 ">
-                <li>
-                  <a
-                    onClick={() => handleLanguageChange("ku")}
-                    className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  >
-                    {t("Kurdish")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    onClick={() => handleLanguageChange("en")}
-                    className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  >
-                    {t("English")}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-
           <li>
             <a href="/settings" className="block px-4 py-2 hover:bg-gray-100 ">
               {t("Settings")}

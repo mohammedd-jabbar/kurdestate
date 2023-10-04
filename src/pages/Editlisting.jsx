@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import Spinner from "../components/common/Spinner"; // for the loading state
 import { notifications } from "../components/common/Notifications"; // for the notifications
 import { getAuth } from "firebase/auth"; // for the auth to get the current user
-import { v4 as uuid } from "uuid"; // for the unique id to store the images
 import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { editListing } from "../data/queries";
 import { useMutation } from "@tanstack/react-query";
+import { doc, getDoc } from "firebase/firestore";
 
 const EditListing = () => {
   const currentYear = new Date().getFullYear();

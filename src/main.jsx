@@ -2,15 +2,13 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-// import { ToastContainer } from "react-toastify";
+// import { Toaster } from "sonner";
 
 // style
 import "./index.css";
-import "react-toastify/dist/ReactToastify.css";
 
 // pages
 import Home from "./pages/Home.jsx";
-import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -29,7 +27,6 @@ import ListingsInfoProvider from "./store/ListingsInfoProvider";
 import SearchResultProvider from "./store/SearchResultProvider";
 import ListingIdProvider from "./store/ListingIdProvider";
 import "./i18n.js";
-import { Toaster } from "react-hot-toast";
 import Error from "./components/common/Error";
 import Spinner from "./components/common/Spinner";
 
@@ -45,17 +42,6 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
         errorElement: <Error />,
-      },
-      {
-        path: "profile",
-        element: <PrivateRoute />,
-        children: [
-          {
-            index: true,
-            element: <Profile />,
-            errorElement: <Error />,
-          },
-        ],
       },
       {
         path: "settings",
@@ -150,7 +136,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <UserInfoProvider>
               <SearchResultProvider>
                 <SidebarProvider>
-                  <Toaster position="top-center" reverseOrder={true} />
                   {/* this is provider for react router */}
                   <RouterProvider router={router} />
                 </SidebarProvider>

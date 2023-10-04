@@ -66,6 +66,9 @@ const Fav = () => {
           : `${i18n.language === "ku" ? "md:mr-[5.3rem]" : "md:ml-[5.3rem]"}`
       }`}
     >
+      <h2 className="text-2xl text-center font-semibold my-6">
+        {t("My Favorites")}
+      </h2>
       {favoriteIds.length > 0 ? (
         <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3">
           {favoriteListings.map((property, index) => (

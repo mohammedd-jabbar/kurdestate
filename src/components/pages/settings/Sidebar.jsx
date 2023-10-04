@@ -20,7 +20,7 @@ export default function Sidebar({ children }) {
         <button
           onClick={() => setExpanded((curr) => !curr)}
           className={`p-1.5 rounded-lg bg-gray-300 hover:bg-gray-400 ${
-            !expanded && "absolute left-3 top-4"
+            !expanded && "absolute rtl:-left-2 ltr:left-3 top-4"
           }`}
         >
           <LuChevronLast />
