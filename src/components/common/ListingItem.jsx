@@ -27,6 +27,8 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
     });
   }
 
+  // fix fav
+
   const handleFav = (e) => {
     e.preventDefault();
     if (isFavId) {

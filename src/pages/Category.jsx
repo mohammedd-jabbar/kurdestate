@@ -165,6 +165,14 @@ const Category = () => {
           ? "Places for Rent"
           : categoryName === "sell"
           ? "Places for Sell"
+          : categoryName === "house"
+          ? "Houses"
+          : categoryName === "apartment"
+          ? "Apartments"
+          : categoryName === "land"
+          ? "Lands"
+          : categoryName === "shop"
+          ? "Shops"
           : "There is no place for that name"}
       </h1>
       {listings && listings.length > 0 ? (

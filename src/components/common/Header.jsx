@@ -261,7 +261,7 @@ const Header = () => {
                 </li>
                 <li>
                   <a
-                    href="category/shop"
+                    href="/category/shop"
                     className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
                   >
                     {t("Shops")}
