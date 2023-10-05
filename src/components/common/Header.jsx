@@ -34,8 +34,6 @@ const Header = () => {
   // get the dark mode
   const [themeColor, setThemeColor] = useState("light");
 
-  // fix header logout and add change language and change dark mode in header and add kurdish language to sign in page
-
   // dark mode stuff:
   const [colorTheme, setTheme] = useDarkSide();
 
@@ -269,7 +267,6 @@ const Header = () => {
                     {t("Shops")}
                   </a>
                 </li>
-                {/* fix header category */}
               </ul>
             </nav>
           </div>
