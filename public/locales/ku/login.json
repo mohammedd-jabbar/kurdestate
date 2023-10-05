@@ -2,11 +2,20 @@
   "Login": "چوونە ژوورەوە",
   "Welcome back": "بەخێر بێیتەوە",
   "Listing your property in seconds. Don’t have an account?": "فرۆشتنی موڵکەکەت لە چەند چرکەیەکدا. ئەکاونتت نییە؟",
+  "Don’t have an account?": "ئەکاونتت نییە؟",
   "Sign up.": "خۆت تۆمار بکە.",
   "Email": "ئیمەیڵ",
   "Password": "وشەی نهێنی",
   "OR": "یان",
-  "Forgot Password?": "پاسۆردت لەبیر کردووە؟",
+  "Forgot Password?": "وشەی نهێنی لەبیر کردووە؟",
+  "Forgot Password": "لەبیرکردنی وشەی نهێنی",
   "Login to your account": "بچۆرە ناو هەژمارەكەت",
-  "Continue with Google": "بەردەوام بە لەگەڵ گووگڵ"
+  "Continue with Google": "بەردەوام بە لەگەڵ گووگڵ",
+  "Sign Up": "خۆتۆمار کردن",
+  "Listing your property in seconds. have an account?": "فرۆشتنی موڵکەکەت لە چەند چرکەیەکدا. ئەکاونتت هەیە؟",
+  "Login.": "چونه‌ ژووره‌وه‌.",
+  "Name": "ناو",
+  "Sign up to your account": "ناوت تۆمار بکە بۆ هەژمارەكەت",
+  "Send Reset Email": "ئیمەیڵی لەبیرکردن بنێرە",
+  "Login Instead": "یان برۆرە ژووره‌وه‌وە"
 }

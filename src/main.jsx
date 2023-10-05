@@ -2,7 +2,6 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-// import { Toaster } from "sonner";
 
 // style
 import "./index.css";

@@ -50,7 +50,7 @@ const Login = () => {
   };
   return (
     <div dir={i18n.language === "ku" ? "rtl" : "ltr"} className="">
-      <h1 className="text-3xl text-center mt-8 font-bold">{t("Login")}</h1>
+      <h1 className="text-3xl text-center mt-8 mb-4 font-bold">{t("Login")}</h1>
       <div className="flex justify-center items-center flex-wrap px-6 max-lg:mt-8 pb-12 mx-auto max-w-6xl">
         <div className="bg-headerBackground w-full shadow-lg md:w-[50%] p-8 rounded-lg">
           <form onSubmit={handleFormSubmit}>
@@ -120,7 +120,7 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              className="w-full ltr:font-inter bg-primary-500 text-white px-7 py-3 text-sm font-semibold uppercase rounded-md shadow-md hover:bg-primary-600 transition duration-200 ease-in-out hover:shadow-lg active:bg-primary-700 active:shadow-lg"
+              className="w-full max-xs:text-[11px] ltr:font-inter bg-primary-500 text-white px-7 py-3 text-sm font-semibold uppercase rounded-md shadow-md hover:bg-primary-600 transition duration-200 ease-in-out hover:shadow-lg active:bg-primary-700 active:shadow-lg"
             >
               {t("Login to your account")}
             </button>
