@@ -10,16 +10,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { editListing } from "../data/queries";
 import { useMutation } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 const EditListing = () => {
   const currentYear = new Date().getFullYear();
 
   const navigateTo = useNavigate();
 
+  const { t, i18n } = useTranslation("create");
+
   const auth = getAuth();
 
   const [loading, setLoading] = useState(false); // for the loading state
-  const [listing, setListing] = useState(null); // for the listing state
 
   const { isLoading, isSuccess, error, mutate } = useMutation({
     mutationKey: "editlisting",
@@ -103,37 +105,37 @@ const EditListing = () => {
   }
 
   useEffect(() => {
-    if (
-      (listing && listing?.userRef !== auth?.currentUser?.uid) ||
-      auth?.currentUser?.uid !== "TvddowUjyETNVQbDiwhoFekvj0J3"
-    ) {
-      navigateTo("/");
-      notifications("You don't have permission to edit this listing", true);
-    } else {
-      setLoading(true); // set the loading to true
-      const fetchListing = async () => {
-        const docRef = doc(db, "listings", listId); // get the listing id from the url
-        const docSnap = await getDoc(docRef); // get the listing data from the firestore
+    setLoading(true); // set the loading to true
+    const fetchListing = async () => {
+      const docRef = doc(db, "listings", listId); // get the listing id from the url
+      const docSnap = await getDoc(docRef); // get the listing data from the firestore
 
-        if (docSnap.exists()) {
-          // if the listing exists
-          setListing(docSnap.data()); // set the listing data in the state
-          setFormDataEn({ ...docSnap.data() });
-          const filteredObject = filterFieldsEndingWithKu({
-            ...docSnap.data(),
-          });
-          setFormDataKu(filteredObject);
-
-          setLoading(false);
-        } else {
-          // if the listing doesn't exists
-          setLoading(false);
-          navigateTo("/"); // navigate to the home page
-          notifications("Listing dose not exist", true); // show the error notification
+      if (docSnap.exists()) {
+        // if the listing exists
+        setFormDataEn({ ...docSnap.data() });
+        const filteredObject = filterFieldsEndingWithKu({
+          ...docSnap.data(),
+        });
+        setFormDataKu(filteredObject);
+        setLoading(false);
+        console.log(docSnap.data()?.userRef, auth?.currentUser?.uid);
+        if (auth?.currentUser?.uid !== "TvddowUjyETNVQbDiwhoFekvj0J3") {
+          if (docSnap.data()?.userRef !== auth?.currentUser?.uid) {
+            navigateTo("/");
+            notifications(
+              "You don't have permission to edit this listing",
+              true
+            );
+          }
         }
-      };
-      fetchListing();
-    }
+      } else {
+        // if the listing doesn't exists
+        setLoading(false);
+        navigateTo("/"); // navigate to the home page
+        notifications("Listing dose not exist", true); // show the error notification
+      }
+    };
+    fetchListing();
   }, [listId, auth.currentUser.uid]); // err
 
   const onFormChange = (e) => {
@@ -226,9 +228,12 @@ const EditListing = () => {
 
   return (
     <>
-      <main className="md:max-w-3xl max-w-md px-2 mx-auto">
+      <main
+        className="md:max-w-3xl max-w-md px-2 mx-auto"
+        dir={i18n.language === "ku" ? "rtl" : "ltr"}
+      >
         <h1 className="text-3xl font-bold text-center mt-6 border-b pb-6">
-          Edit Listing
+          {t("Edit Listing")}
         </h1>
 
         <div
@@ -408,7 +413,7 @@ const EditListing = () => {
               <div className="flex items-center mb-6">
                 <div className="w-full">
                   <p className="text-lg font-semibold">نرخ</p>
-                  <div className="flex w-full justify-center items-center space-x-6">
+                  <div className="flex w-full justify-center items-center space-x-6 rtl:space-x-reverse">
                     <input
                       type="number"
                       id="priceKu"
@@ -439,37 +444,37 @@ const EditListing = () => {
               </h1>
             )}
             {/* Sell and Rent */}
-            <p className="text-lg mt-6 font-semibold">Sell / Rent</p>
+            <p className="text-lg mt-6 font-semibold">{t("Sell / Rent")}</p>
             <div className="flex">
               <button
                 type="button"
                 id="type"
                 value="sell"
                 onClick={onFormChange}
-                className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                className={`ltr:mr-3 rtl:ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
                   type === "rent"
                     ? "bg-white text-black"
                     : "bg-slate-600 text-white"
                 }`}
               >
-                Sell
+                {t("Sell")}
               </button>
               <button
                 type="button"
                 id="type"
                 value="rent"
                 onClick={onFormChange}
-                className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                className={`ltr:ml-3 rtl:mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
                   type === "sell"
                     ? "bg-white text-black"
                     : "bg-slate-600 text-white"
                 }`}
               >
-                Rent
+                {t("Rent")}
               </button>
             </div>
             {/* Category */}
-            <p className="text-lg mt-6 font-semibold">Category</p>
+            <p className="text-lg mt-6 font-semibold">{t("Category")}</p>
             <select
               id="category"
               value={category}
@@ -477,14 +482,14 @@ const EditListing = () => {
               required
               className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
             >
-              <option value="">Category Property</option>
-              <option value="house">House</option>
-              <option value="apartment">Apartment</option>
-              <option value="land">Land</option>
-              <option value="shop">Shop</option>
+              <option value="">{t("Category Property")}</option>
+              <option value="house">{t("House")}</option>
+              <option value="apartment">{t("Apartment")}</option>
+              <option value="land">{t("Land")}</option>
+              <option value="shop">{t("Shop")}</option>
             </select>
             {/* Name */}
-            <p className="text-lg mt-6 font-semibold">Name</p>
+            <p className="text-lg mt-6 font-semibold">{t("Name")}</p>
             <input
               type="text"
               id="name"
@@ -497,9 +502,9 @@ const EditListing = () => {
               className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
             />
             {/* Beds and Baths */}
-            <div className="flex space-x-6">
+            <div className="flex space-x-6 rtl:space-x-reverse">
               <div className="w-full">
-                <p className="text-lg font-semibold">Beds</p>
+                <p className="text-lg font-semibold">{t("Beds")}</p>
                 <input
                   type="number"
                   name="beds"
@@ -513,7 +518,7 @@ const EditListing = () => {
                 />
               </div>
               <div className="w-full">
-                <p className="text-lg font-semibold">Baths</p>
+                <p className="text-lg font-semibold">{t("Baths")}</p>
                 <input
                   type="number"
                   name="baths"
@@ -528,7 +533,7 @@ const EditListing = () => {
               </div>
             </div>
             {/* Parking */}
-            <p className="text-lg mt-6 font-semibold">Parking Spot</p>
+            <p className="text-lg mt-6 font-semibold">{t("Parking Spot")}</p>
             <div className="flex">
               <input
                 type="number"
@@ -545,7 +550,9 @@ const EditListing = () => {
             {/* Sq Ft */}
             <div className="flex items-center my-6">
               <div className="w-full">
-                <p className="text-lg font-semibold">Area (Square Meters)</p>
+                <p className="text-lg font-semibold">
+                  {t("Area (Square Meters)")}
+                </p>
                 <input
                   type="number"
                   id="area"
@@ -560,7 +567,7 @@ const EditListing = () => {
             {/* Year Built */}
             <div className="flex items-center mb-6">
               <div className="w-full">
-                <p className="text-lg font-semibold">Year Built</p>
+                <p className="text-lg font-semibold">{t("Year Built")}</p>
                 <input
                   type="number"
                   id="yearBuilt"
@@ -575,7 +582,7 @@ const EditListing = () => {
             </div>
 
             {/* Address */}
-            <p className="text-lg mt-6 font-semibold">Address</p>
+            <p className="text-lg mt-6 font-semibold">{t("Address")}</p>
             <textarea
               type="text"
               id="address"
@@ -587,7 +594,7 @@ const EditListing = () => {
             />
 
             {/* Description */}
-            <p className="text-lg font-semibold">Description</p>
+            <p className="text-lg font-semibold">{t("Description")}</p>
             <textarea
               type="text"
               id="description"
@@ -600,8 +607,8 @@ const EditListing = () => {
             {/* Price */}
             <div className="flex items-center mb-6">
               <div className="w-full">
-                <p className="text-lg font-semibold">Price</p>
-                <div className="flex w-full justify-center items-center space-x-6">
+                <p className="text-lg font-semibold">{t("Price")}</p>
+                <div className="flex w-full justify-center items-center space-x-6 rtl:space-x-reverse">
                   <input
                     type="number"
                     id="price"
@@ -615,7 +622,7 @@ const EditListing = () => {
                   {type === "rent" && (
                     <div className="">
                       <p className="text-md w-full whitespace-nowrap">
-                        $ / Months
+                        {t("$ / Months")}
                       </p>
                     </div>
                   )}
@@ -625,8 +632,8 @@ const EditListing = () => {
             {auth.currentUser.uid === "TvddowUjyETNVQbDiwhoFekvj0J3" && (
               <div className="flex items-center mb-6">
                 <div className="w-full">
-                  <p className="text-lg font-semibold">City</p>
-                  <div className="flex w-full justify-center items-center space-x-6">
+                  <p className="text-lg font-semibold">{t("City")}</p>
+                  <div className="flex w-full justify-center items-center space-x-6 rtl:space-x-reverse">
                     <input
                       type="text"
                       id="city"
@@ -643,9 +650,9 @@ const EditListing = () => {
 
             {/* Images */}
             <div className="mb-6">
-              <p className="text-lg mt-6 font-semibold">Images</p>
+              <p className="text-lg mt-6 font-semibold">{t("Images")}</p>
               <p className="text-gray-600">
-                The first image will be the cover (max 6)
+                {t("The first image will be the cover (max images 6)")}
               </p>
               <input
                 type="file"
@@ -660,7 +667,7 @@ const EditListing = () => {
               type="submit"
               className="mb-6 w-full px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:bg-blue-700 active:bg-blue-700 active:shadow-lg transition duration-200 ease-in-out"
             >
-              Edit Listing
+              {t("Edit Listing")}
             </button>
           </form>
         </div>

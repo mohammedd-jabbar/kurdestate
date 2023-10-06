@@ -116,7 +116,7 @@ const Dashboard = () => {
             notifications("Listing not found", true);
           }
         } catch (error) {
-          console.error("Error updating status:", error);
+          console.error("Error updating status:", error.message);
           notifications("An error occurred while changing the status", true);
         }
       }

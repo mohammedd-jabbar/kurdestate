@@ -115,7 +115,7 @@ const PostsContent = () => {
           </ul>
         </>
       ) : (
-        <p>There are no current listings </p>
+        <p>{t("There are no current listings")}</p>
       )}
     </div>
   );
