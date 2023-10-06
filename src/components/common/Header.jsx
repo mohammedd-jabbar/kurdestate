@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState, useContext } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";

@@ -28,6 +28,7 @@ import ListingIdProvider from "./store/ListingIdProvider";
 import "./i18n.js";
 import Error from "./components/common/Error";
 import Spinner from "./components/common/Spinner";
+import { Offline, Online } from "react-detect-offline";
 
 const queryClient = new QueryClient();
 
@@ -135,8 +136,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <UserInfoProvider>
               <SearchResultProvider>
                 <SidebarProvider>
-                  {/* this is provider for react router */}
-                  <RouterProvider router={router} />
+                  <Offline>
+                    <Error text="Sorry You are offline" />;
+                  </Offline>
+                  <Online>
+                    {/* this is provider for react router */}
+                    <RouterProvider router={router} />
+                  </Online>
                 </SidebarProvider>
               </SearchResultProvider>
             </UserInfoProvider>

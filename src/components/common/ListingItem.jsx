@@ -17,34 +17,34 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
-  const [isFavId, setIsFavId] = useState(false);
+  // const [isFavId, setIsFavId] = useState(false);
 
   const { t, i18n } = useTranslation("settings");
 
   if (!onRemove) {
-    getFavItem().then((favIds) => {
-      setIsFavId(favIds.some((favId) => favId === id));
-    });
+    // getFavItem().then((favIds) => {
+    //   setIsFavId(favIds.some((favId) => favId === id));
+    // });
   }
 
   // fix fav
 
-  const handleFav = (e) => {
-    e.preventDefault();
-    if (isFavId) {
-      removeFavItem(id);
-      location.reload();
-    } else {
-      setFavItem(id);
-      location.reload();
-    }
-  };
+  // const handleFav = (e) => {
+  //   e.preventDefault();
+  //   if (isFavId) {
+  //     removeFavItem(id);
+  //     location.reload();
+  //   } else {
+  //     setFavItem(id);
+  //     location.reload();
+  //   }
+  // };
 
-  const handleRemoveFav = (e) => {
-    e.preventDefault();
-    removeFavItem(id);
-    location.reload();
-  };
+  // const handleRemoveFav = (e) => {
+  //   e.preventDefault();
+  //   removeFavItem(id);
+  //   location.reload();
+  // };
 
   String.prototype.toIndiaDigits = function () {
     var id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
@@ -93,18 +93,21 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
         <a className="block w-full relative p-3 sm:p-4">
           {onRemove ? (
             <p
-              onClick={handleRemoveFav}
+              // onClick={handleRemoveFav}
               className={`absolute group shadow end-4 bottom-30 border-2 border-border text-primary-500 z-10 rounded-full bg-white p-2 transition duration-200 hover:text-white focus:text-white active:text-white hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 `}
             >
               <MdDeleteForever className="h-8 w-8" />
             </p>
           ) : (
             <button
-              onClick={handleFav}
+              // onClick={handleFav}
               className={`absolute group shadow end-4 bottom-30 border-2 border-border z-10 rounded-full bg-white p-2 transition duration-200 hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 
-            ${isFavId ? "!border-primary-500 !bg-primary-500" : ""}`}
+              `}
             >
-              <Heart isFav={isFavId} />
+              {/* ${isFavId ? "!border-primary-500 !bg-primary-500" : ""} */}
+              <Heart
+              // isFav={isFavId}
+              />
             </button>
           )}
 

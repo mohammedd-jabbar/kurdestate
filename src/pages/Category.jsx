@@ -14,12 +14,14 @@ import {
 import { db } from "../../firebase";
 import ListingItem from "../components/common/ListingItem";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Category = () => {
   const [listings, setListings] = useState(null);
   const [lastFetchListings, setLastFetchListings] = useState(null);
   const [loading, setLoading] = useState(false);
   const { categoryName } = useParams();
+  const { t, i18n } = useTranslation("category");
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -159,21 +161,24 @@ const Category = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-3">
+    <div
+      className="max-w-6xl mx-auto px-3"
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
+    >
       <h1 className="text-3xl text-center my-6 font-bold">
         {categoryName === "rent"
-          ? "Places for Rent"
+          ? t("Places for Rent")
           : categoryName === "sell"
-          ? "Places for Sell"
+          ? t("Places for Sell")
           : categoryName === "house"
-          ? "Houses"
+          ? t("Houses")
           : categoryName === "apartment"
-          ? "Apartments"
+          ? t("Apartments")
           : categoryName === "land"
-          ? "Lands"
+          ? t("Lands")
           : categoryName === "shop"
-          ? "Shops"
-          : "There is no place for that name"}
+          ? t("Shops")
+          : t("There is no place for that name")}
       </h1>
       {listings && listings.length > 0 ? (
         <>
@@ -194,13 +199,13 @@ const Category = () => {
                 onClick={handleFetchMoreListings}
                 className="bg-white px-3 py-1.5 text-gray-700 border border-gray-300 my-6 hover:border-slate-600 rounded transition duration-150 ease-in-out"
               >
-                Load More
+                {t("Load More")}
               </button>
             </div>
           )}
         </>
       ) : (
-        <p>There are no current {categoryName}</p>
+        <p>{t("There are no current place for this category")}</p>
       )}
     </div>
   );
