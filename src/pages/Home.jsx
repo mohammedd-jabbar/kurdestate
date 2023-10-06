@@ -157,7 +157,7 @@ const Home = () => {
           {search && search.length > 0 && (
             <div className="my-16">
               <h2 className="px-3 font-semibold text-3xl text-center">
-                Browse Our Exclusive Listings
+                {t("Search results")}
               </h2>
               <div>
                 <Swiper
@@ -203,7 +203,7 @@ const Home = () => {
           {listings && listings.length > 0 && (
             <div className="my-20">
               <h2 className="px-3 font-semibold text-3xl text-center">
-                Discover Our Listings
+                {t("Discover Our Listings")}
               </h2>
               <div>
                 <Swiper
