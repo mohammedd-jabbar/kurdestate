@@ -333,7 +333,7 @@ export const editListing = async (form) => {
       status: listingStatus,
       location, // and manually latitude and longitude
       timeStamp: serverTimestamp(), // add the timestamp when the listing was created
-      userRef: auth.currentUser.uid, // add the user id to the listing
+      userRef: form.formDataEn.userRef, // add the user id to the listing
     };
 
     // delete the things that we don't need
@@ -350,7 +350,7 @@ export const editListing = async (form) => {
       status: listingStatus,
       location, // and manually latitude and longitude
       timeStamp: serverTimestamp(), // add the timestamp when the listing was created
-      userRef: auth.currentUser.uid, // add the user id to the listing
+      userRef: form.formDataEn.userRef, // add the user id to the listing
     };
 
     // delete the things that we don't need

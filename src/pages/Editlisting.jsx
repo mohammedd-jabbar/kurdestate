@@ -47,6 +47,7 @@ const EditListing = () => {
     city: "",
     area: 0,
     yearBuilt: 1800,
+    userRef: "",
   });
   // kurdish form
   const [formDataKu, setFormDataKu] = useState({
@@ -77,6 +78,7 @@ const EditListing = () => {
     area,
     city,
     yearBuilt,
+    userRef,
   } = formDataEn; // destructure the form data
 
   const {
@@ -104,6 +106,8 @@ const EditListing = () => {
     }, {});
   }
 
+  console.log(formDataEn.userRef);
+
   useEffect(() => {
     setLoading(true); // set the loading to true
     const fetchListing = async () => {
@@ -118,7 +122,7 @@ const EditListing = () => {
         });
         setFormDataKu(filteredObject);
         setLoading(false);
-        console.log(docSnap.data()?.userRef, auth?.currentUser?.uid);
+
         if (auth?.currentUser?.uid !== "TvddowUjyETNVQbDiwhoFekvj0J3") {
           if (docSnap.data()?.userRef !== auth?.currentUser?.uid) {
             navigateTo("/");

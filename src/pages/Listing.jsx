@@ -14,6 +14,7 @@ import Overview from "../components/pages/listingDetails/Overview";
 import { notifications } from "../components/common/Notifications";
 import UserInfo from "../components/pages/listingDetails/UserInfo";
 import Spinner from "../components/common/Spinner";
+import { useTranslation } from "react-i18next";
 
 const Listing = () => {
   const location = useLocation();
@@ -22,6 +23,8 @@ const Listing = () => {
   const { categoryName, listingId } = useParams();
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { t, i18n } = useTranslation("listing");
 
   const [landLord, setLandLord] = useState(null);
   const [message, setMessage] = useState("");
@@ -82,8 +85,18 @@ const Listing = () => {
     setActiveTab(tabId);
   };
 
+  String.prototype.toIndiaDigits = function () {
+    var id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+    return this.replace(/[0-9]/g, function (w) {
+      return id[+w];
+    });
+  };
+
   return (
-    <div className="flex flex-col max-w-6xl max-xl:max-w-[94%] mt-6 mx-auto">
+    <div
+      className="flex flex-col max-w-6xl max-xl:max-w-[94%] mt-6 mx-auto"
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
+    >
       {/* Basic Info Section */}
       <div className="order-1 max-sm:order-2 max-sm:mt-16 flex w-full max-sm:flex-col max-sm:items-start max-sm:justify-start max-sm:mb-6 justify-between items-center">
         {/* Left Info */}
@@ -94,18 +107,24 @@ const Listing = () => {
               className="text-3xl max-xs:text-2xl font-normal"
               style={{ WebkitTextStrokeWidth: ".5px" }}
             >
-              {listing.name}
+              {i18n.language === "ku" ? listing.nameKu : listing.name}
             </h1>
             {/* Listing Type */}
-            <p className="ml-4 bg-primary-500 py-1 px-2 mt-1 text-white rounded-full text-sm font-semibold h-full">
-              {listing.type === "rent" ? "For Rent" : "For Sale"}
+            <p className="ltr:ml-4 rtl:mr-4 bg-primary-500 py-1 px-2 mt-1 text-white rounded-full text-sm font-semibold h-full">
+              {i18n.language === "ku"
+                ? listing.typeKu === "کرێ"
+                  ? "بۆ کرێ"
+                  : "بۆ فرۆشتن"
+                : listing.type === "rent"
+                ? "For Rent"
+                : "For Sell"}
             </p>
           </div>
           {/* Listing Address */}
           <div className="flex mb-6 items-center flex-start">
-            <FaMapMarkerAlt className="text-primary-500 mr-1 h-3 w-3" />
+            <FaMapMarkerAlt className="text-primary-500 rtl:ml-1 ltr:mr-1 h-3 w-3" />
             <p className="truncate font-semibold text-sm text-gray-500">
-              {listing.address}
+              {i18n.language === "ku" ? listing.addressKu : listing.address}
             </p>
           </div>
           {/* Tabs */}
@@ -117,7 +136,13 @@ const Listing = () => {
             <div className=""></div>
             {/* Listing Price */}
             <h1 className="font-extrabold mb-3 text-xl text-primary-600">
-              ${listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              $
+              {i18n.language === "ku"
+                ? listing.price.toIndiaDigits()
+                : listing.price &&
+                  listing.price
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </h1>
 
             {/* Parking Info
@@ -129,10 +154,10 @@ const Listing = () => {
       </div>
       {/* left info */}
       <div className="order-2 max-sm:order-1 flex flex-col md:flex-row">
-        <div className="md:w-2/3 md:pr-6">
+        <div className="md:w-2/3 md:pr-6 md:rtl:pl-6">
           <div className="flex flex-col">
             {/* buttons */}
-            <div className="flex order-3 space-x-5 max-sm:order-4 max-sm:justify-center justify-end items-center -mb-14">
+            <div className="flex order-3 space-x-5 ltr:mr-3 rtl:ml-3 rtl:space-x-reverse max-sm:order-4 max-sm:justify-center justify-end items-center -mb-14">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
