@@ -2,10 +2,26 @@
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { useTranslation } from "react-i18next";
 
 const ListingHome = ({ listing, id }) => {
+  const { t, i18n } = useTranslation("listing");
+
+  String.prototype.toIndiaDigits = function () {
+    var id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+    return this.replace(/[0-9]/g, function (w) {
+      return id[+w];
+    });
+  };
+
+  const yearBuiltKu = listing.yearBuiltKu;
+  const yearBuilt = listing.yearBuilt;
+
   return (
-    <div className="bg-white group rounded-none flex flex-col justify-between items-center shadow-md hover:shadow-xl transition-shadow w-full duration-300 overflow-hidden">
+    <div
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
+      className="bg-white group rounded-none flex flex-col justify-between items-center shadow-md hover:shadow-xl transition-shadow w-full duration-300 overflow-hidden"
+    >
       <div className="p-0 m-0 inline-block w-full relative">
         <div className="relative shadow-md hover:shadow-lg group h-[26rem] w-full">
           <LazyLoadImage
@@ -22,24 +38,43 @@ const ListingHome = ({ listing, id }) => {
           />
 
           {/* transition the transform and when group mean parent hover then translate the text with duration 300ms */}
-          <div className="absolute bottom-3 left-1 px-2 sm:px-4 transform transition-transform group-hover:-translate-y-8 duration-[.5s] ease-in-out ">
+          <div className="absolute bottom-3 ltr:left-1 px-2 sm:px-4 transform transition-transform group-hover:-translate-y-8 duration-[.5s] ease-in-out ">
             <h1 className="text-white truncate text-2xl font-semibold">
-              {listing.name}
+              {i18n.language === "ku" ? listing.nameKu : listing.name}
             </h1>
             <h3 className="text-white truncate py-2 text-lg font-semibold">
               $
-              {listing.price &&
-                listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              {i18n.language === "ku"
+                ? listing.price.toIndiaDigits()
+                : listing.price &&
+                  listing.price
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </h3>
-            <div className="flex justify-start space-x-3 text-white items-center">
+            <div className="flex justify-start space-x-3 rtl:space-x-reverse text-white items-center">
               <p className="font-medium max-sm:text-sm">
-                {listing.beds > 1 ? `${listing.beds} Beds | ` : "1 Bed | "}
+                {}
+                {i18n.language === "ku"
+                  ? listing.beds > 1
+                    ? `${listing.beds} ژوور`
+                    : "1 ژوور"
+                  : listing.beds > 1
+                  ? `${listing.beds} Beds | `
+                  : "1 Bed | "}
               </p>
               <p className="font-medium max-sm:text-sm">
-                {listing.bath > 1 ? `${listing.bath} Baths | ` : "1 Bath | "}
+                {i18n.language === "ku"
+                  ? listing.bath > 1
+                    ? `${listing.bath} حەمام`
+                    : "1 حەمام"
+                  : listing.bath > 1
+                  ? `${listing.bath} Baths | `
+                  : "1 Bath | "}
               </p>
               <p className="max-sm:text-sm font-medium">
-                Built in {listing.yearBuilt}
+                {i18n.language === "ku"
+                  ? `دروستکراوە لە ${yearBuiltKu}`
+                  : `Built in ${yearBuilt}`}
               </p>
             </div>
           </div>
@@ -47,7 +82,7 @@ const ListingHome = ({ listing, id }) => {
           <div className="absolute bottom-0 w-full left-1 transform translate-y-full group-hover:translate-y-0 duration-[.5s] ease-in-out">
             <Link to={`/category/${listing.type}/${id}`}>
               <p className="text-start text-white text-sm px-4 pb-2 font-medium">
-                View Details
+                {t("View Details")}
               </p>
             </Link>
           </div>

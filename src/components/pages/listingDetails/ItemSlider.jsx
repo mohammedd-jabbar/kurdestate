@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper/modules";
-// import { LazyLoadImage } from "react-lazy-load-image-component";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTranslation } from "react-i18next";
 
 const ItemSlider = ({ listingData }) => {
@@ -53,11 +53,10 @@ const ItemSlider = ({ listingData }) => {
         >
           {listing.map((url, index) => (
             <SwiperSlide key={index}>
-              <img
+              <LazyLoadImage
                 className="w-full overflow-hidden object-cover h-[89vh] max-sm:h-[60vh]"
                 src={url}
-                loading="lazy"
-                // effect="blur"
+                effect="blur"
                 style={{
                   background: `center no-repeat`,
                   backgroundSize: "cover",
