@@ -273,11 +273,6 @@ const Header = () => {
           </div>
 
           <div className="flex items-center justify-center space-x-6 rtl:space-x-reverse">
-            <LanguageDropDown
-              toggleLanguageDropdown={toggleLanguageDropdown}
-              isLanguageDropDown={isLanguageDropDown}
-              handleLanguageChange={handleLanguageChange}
-            />
             <div>
               <DarkModeSwitch
                 checked={darkSide}
@@ -285,6 +280,11 @@ const Header = () => {
                 size={27}
               />
             </div>
+            <LanguageDropDown
+              toggleLanguageDropdown={toggleLanguageDropdown}
+              isLanguageDropDown={isLanguageDropDown}
+              handleLanguageChange={handleLanguageChange}
+            />
             {userAuth ? (
               <div className="flex justify-between items-center max-lg:space-x-6 rtl:space-x-reverse">
                 <div className="lg:hidden">

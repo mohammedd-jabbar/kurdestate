@@ -24,21 +24,16 @@ const UserInfo = ({ landLord, screen, listing }) => {
           {t("Property owner information")}
         </h2>
         <div className="flex items-center mt-4 pb-6 border-b border-border">
-          <img
-            className="w-16 h-16 rounded-full "
-            src={
-              landLord?.photoURL ? (
-                landLord?.photoURL
-              ) : (
-                <span
-                  className={`rounded-[50%] font-bold text-center border-opacity-50 text-xl`}
-                >
-                  <BiConfused className="w-9 h-9" />
-                </span>
-              )
-            }
-            alt="User"
-          />
+          {landLord?.photoURL ? (
+            <img className="w-16 h-16 rounded-full " src={landLord?.photoURL} />
+          ) : (
+            <span
+              className={`rounded-[50%] rtl:ml-3 font-bold text-center border-opacity-50 text-xl`}
+            >
+              <BiConfused className="w-16 h-16" />
+            </span>
+          )}
+
           <div className="ml-4">
             {landLord ? (
               <div className="flex flex-col justify-center items-start">

@@ -106,8 +106,6 @@ const EditListing = () => {
     }, {});
   }
 
-  console.log(formDataEn.userRef);
-
   useEffect(() => {
     setLoading(true); // set the loading to true
     const fetchListing = async () => {
