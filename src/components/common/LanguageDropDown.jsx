@@ -19,7 +19,7 @@ const LanguageDropDown = ({
         type="button"
         onClick={toggleLanguageDropdown}
       >
-        <MdLanguage className="transition duration-200 ease-in-out text-black hover:text-slate-500 dark:hover:text-slate-400 dark:text-white  h-8 w-8" />
+        <MdLanguage className="transition duration-200 ease-in-out text-black hover:text-slate-500 dark:hover:text-slate-400 dark:text-white w-6 h-6 xs:w-[32px] xs:h-[32px]" />
       </button>
       {/* Drop down */}
       <div

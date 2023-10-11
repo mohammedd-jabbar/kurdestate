@@ -174,7 +174,7 @@ const Header = () => {
                 <span className={`text-primary-500`}>{t("Estate")}</span>
               </a>
             </h1>
-            <nav className="font-semibold text-lg ">
+            <nav className="font-semibold text-lg">
               <ul
                 className={`lg:flex rtl:lg:mr-4 ltr:lg:ml-4 lg:items-center lg:pb-0 pb-4 absolute lg:static lg:z-auto z-[-1] left-0 w-full ltr:lg:mr-[65px] lg:w-auto lg:pl-0 max-lg:transition-all max-lg:duration-300 max-lg:ease-in-out max-lg:bg-white max-lg:dark:bg-darkBackground ${
                   isContentDropDown
@@ -222,7 +222,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/rent"
-                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Rent")}
                   </a>
@@ -230,7 +230,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/sell"
-                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Sell")}
                   </a>
@@ -238,7 +238,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/house"
-                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Houses")}
                   </a>
@@ -246,7 +246,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/apartment"
-                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Apartments")}
                   </a>
@@ -255,7 +255,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/land"
-                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Lands")}
                   </a>
@@ -263,7 +263,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/shop"
-                    className="block px-3 text-gray-500 py-2 hover:bg-slate-100"
+                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Shops")}
                   </a>
@@ -272,12 +272,12 @@ const Header = () => {
             </nav>
           </div>
 
-          <div className="flex items-center justify-center space-x-6 rtl:space-x-reverse">
+          <div className="flex items-center justify-center space-x-3 xs:space-x-6 rtl:space-x-reverse">
             <div>
               <DarkModeSwitch
                 checked={darkSide}
                 onChange={toggleDarkMode}
-                size={27}
+                className="w-5 h-5 xs:w-[27px] xs:h-[27px]"
               />
             </div>
             <LanguageDropDown
@@ -286,7 +286,7 @@ const Header = () => {
               handleLanguageChange={handleLanguageChange}
             />
             {userAuth ? (
-              <div className="flex justify-between items-center max-lg:space-x-6 rtl:space-x-reverse">
+              <div className="flex justify-between items-center max-xs:space-x-3 max-lg:space-x-6 rtl:space-x-reverse">
                 <div className="lg:hidden">
                   <DropdownButton
                     toggleContentDropDown={toggleContentDropDown}
