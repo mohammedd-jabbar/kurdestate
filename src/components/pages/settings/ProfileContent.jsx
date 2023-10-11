@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { getAuth, updateProfile } from "firebase/auth";
 import { notifications } from "../../common/Notifications";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import Spinner from "../../common/Spinner";
 import { UserInfoContext } from "../../../store/UserInfoProvider";
 import { ExpandedContext } from "../../../store/SidebarProvider";
 import { BiConfused } from "react-icons/bi";
+import { AiOutlineEdit } from "react-icons/ai";
 import { FcHome } from "react-icons/fc";
 import { useTranslation } from "react-i18next";
 
@@ -21,7 +22,8 @@ const ProfileContent = () => {
   const { data, isLoading, isFetching } = useContext(UserInfoContext);
   const { expanded } = useContext(ExpandedContext);
 
-  const navigateTo = useNavigate();
+  const fileInputRef = useRef(null);
+
   const [isEditingName, setIsEditingName] = useState(false); // State to handle the name editing, default is false, so the name input is disabled by default and the user can't edit it, when the user click on the edit button, the state will be true and the name input will be enabled
 
   if (isLoading || isFetching) {
@@ -65,8 +67,6 @@ const ProfileContent = () => {
     }
   };
 
-  const handleCheckCurrentPassword = async () => {};
-
   return (
     <div
       dir={i18n.language === "ku" ? "rtl" : "ltr"}
@@ -84,13 +84,17 @@ const ProfileContent = () => {
         <div className="mt-8 w-full md:w-[50%] px-4 ">
           <div>
             {data.emailVerified === false ? (
-              <BiConfused className="w-24 h-24 my-6 border-primary-500 rounded-full" />
+              <div className="">
+                <BiConfused className="w-24 h-24 my-6 border-primary-500 rounded-full" />
+              </div>
             ) : (
-              <img
-                src={data.photoURL}
-                alt="user"
-                className="w-24 h-24 my-6 border border-primary-500 rounded-full "
-              />
+              <div className="">
+                <img
+                  src={data.photoURL}
+                  alt="user"
+                  className="w-24 h-24 my-6 border border-primary-500 rounded-full "
+                />
+              </div>
             )}
           </div>
           <h3 className="text-xl font-semibold pb-4">

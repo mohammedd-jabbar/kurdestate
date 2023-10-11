@@ -119,7 +119,7 @@ const SignUp = () => {
                 />
               </div>
             </div>
-            <div className="my-4">
+            <div className="my-4 relative">
               <label className="mb-2">{t("Password")}</label>
               <input
                 min="6"
@@ -132,12 +132,12 @@ const SignUp = () => {
               />
               {showPassword ? ( // if showPassword is true, show AiFillEyeInvisible icon
                 <AiFillEyeInvisible
-                  className="absolute right-3 top-[.9rem] cursor-pointer"
+                  className="absolute right-3 top-[2.4rem] cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 />
               ) : (
                 <AiFillEye
-                  className="absolute right-3 top-[.9rem] cursor-pointer"
+                  className="absolute right-3 top-[2.4rem] cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 />
               )}

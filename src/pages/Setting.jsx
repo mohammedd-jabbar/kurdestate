@@ -59,7 +59,6 @@ const Setting = () => {
     try {
       auth.signOut(auth); // Sign out the current user and update the state
       navigateTo("/");
-      window.location.reload();
     } catch (error) {
       notifications("You can't logout", true);
     }

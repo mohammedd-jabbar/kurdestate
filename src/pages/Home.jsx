@@ -151,7 +151,7 @@ const Home = () => {
 
       <Filters />
 
-      <div>
+      <div dir={i18n.language === "ku" ? "rtl" : "ltr"}>
         <div className="max-w-6xl max-xl:w-[95%] mx-auto pt-4 ">
           {/* offer */}
           {search && search.length > 0 && (
@@ -252,7 +252,7 @@ const Home = () => {
           )}
 
           {/* Images */}
-          <div className="my-16 bg-background w-full h-full text-center">
+          <div dir={i18n.language === "ku" ? "rtl" : "ltr"} className="my-16 bg-background w-full h-full text-center">
             <h1 className="font-semibold text-3xl ">
               {t("Explore Our Properties")}
             </h1>

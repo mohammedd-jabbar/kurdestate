@@ -138,7 +138,7 @@ const EditListing = () => {
       }
     };
     fetchListing();
-  }, [listId, auth.currentUser.uid]); // err
+  }, [auth.currentUser.uid]); // err
 
   const onFormChange = (e) => {
     // handle the form change for each input or button

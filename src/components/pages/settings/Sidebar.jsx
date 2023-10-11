@@ -61,12 +61,12 @@ export default function Sidebar({ children }) {
             }`}
           >
             {data.emailVerified === false ? (
-              <BiConfused className="w-10 h-10 max-sm:hidden" />
+              <BiConfused className="w-10 h-10 max-sm:hidden rtl:ml-1" />
             ) : (
               <img
                 src={data.photoURL}
                 alt=""
-                className="w-10 h-10 rounded-md max-sm:hidden"
+                className="w-10 h-10 rounded-md max-sm:hidden rtl:ml-1"
               />
             )}
 

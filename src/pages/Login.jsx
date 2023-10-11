@@ -79,7 +79,7 @@ const Login = () => {
                   className="w-full px-4 py-2  text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
                 />
               </div>
-              <div>
+              <div className="relative">
                 <label className="mb-2">{t("Password")}</label>
                 <input
                   min="6"
@@ -92,12 +92,12 @@ const Login = () => {
                 />
                 {showPassword ? ( // if showPassword is true, show AiFillEyeInvisible icon
                   <AiFillEyeInvisible
-                    className="absolute right-3 top-[.9rem] cursor-pointer"
+                    className="absolute rtl:left-3 ltr:right-3 rtl:top-[2.6rem] ltr:top-[2.4rem] cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   />
                 ) : (
                   <AiFillEye
-                    className="absolute right-3 top-[.9rem] cursor-pointer"
+                    className="absolute rtl:left-3 ltr:right-3 rtl:top-[2.6rem] ltr:top-[2.4rem] cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   />
                 )}

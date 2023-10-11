@@ -25,7 +25,10 @@ const UserInfo = ({ landLord, screen, listing }) => {
         </h2>
         <div className="flex items-center mt-4 pb-6 border-b border-border">
           {landLord?.photoURL ? (
-            <img className="w-16 h-16 rounded-full " src={landLord?.photoURL} />
+            <img
+              className="w-16 rtl:ml-3 h-16 rounded-full "
+              src={landLord?.photoURL}
+            />
           ) : (
             <span
               className={`rounded-[50%] rtl:ml-3 font-bold text-center border-opacity-50 text-xl`}
