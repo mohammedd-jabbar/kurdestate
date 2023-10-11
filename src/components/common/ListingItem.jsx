@@ -12,39 +12,88 @@ import { FaBath, FaMapMarkerAlt } from "react-icons/fa";
 import { BiSolidCarGarage } from "react-icons/bi";
 import { LuBedDouble } from "react-icons/lu";
 import Heart from "../../assets/svg/Heart.jsx";
-import { getFavItem, removeFavItem, setFavItem } from "../../data/queries.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
-  // const [isFavId, setIsFavId] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const { t, i18n } = useTranslation("settings");
 
-  if (!onRemove) {
-    // getFavItem().then((favIds) => {
-    //   setIsFavId(favIds.some((favId) => favId === id));
-    // });
-  }
+  useEffect(() => {
+    // Check if the "favorites" value is valid JSON data
+    const favoritesFromLocalStorage = JSON.parse(
+      localStorage.getItem("favorites")
+    );
+    if (
+      !favoritesFromLocalStorage ||
+      !Array.isArray(favoritesFromLocalStorage)
+    ) {
+      localStorage.setItem("favorites", JSON.stringify([]));
+      return;
+    } else {
+      // Set the favorite status of the listing
 
-  // fix fav
+      setIsFavorite(favoritesFromLocalStorage.includes(id));
+    }
+  }, [id]);
 
-  // const handleFav = (e) => {
-  //   e.preventDefault();
-  //   if (isFavId) {
-  //     removeFavItem(id);
-  //     location.reload();
-  //   } else {
-  //     setFavItem(id);
-  //     location.reload();
-  //   }
-  // };
+  const handleAddToFavorites = async (e) => {
+    e.preventDefault();
+    // Retrieve the existing array from local storage
+    const existingArrayJSON = localStorage.getItem("favorites");
 
-  // const handleRemoveFav = (e) => {
-  //   e.preventDefault();
-  //   removeFavItem(id);
-  //   location.reload();
-  // };
+    // Parse the existing JSON string into an array or create an empty array if it doesn't exist
+    const existingArray = existingArrayJSON
+      ? JSON.parse(existingArrayJSON)
+      : [];
+
+    existingArray.push(id);
+
+    // Check if the component is already in favorites
+    if (!existingArrayJSON.includes(id)) {
+      // Add the component to favorites
+
+      // Update the local storage with the modified array
+      const updatedArrayJSON = JSON.stringify(existingArray);
+      localStorage.setItem("favorites", updatedArrayJSON);
+      setIsFavorite(true);
+    } else {
+      // Parse the existing JSON string into an array or create an empty array if it doesn't exist
+      const existingArray = existingArrayJSON
+        ? JSON.parse(existingArrayJSON)
+        : [];
+
+      // Filter out the specific ID you want to remove (even if it's duplicated)
+      const updatedArray = existingArray.filter((itemId) => itemId !== id);
+
+      // Update the local storage with the filtered array
+      const updatedArrayJSON = JSON.stringify(updatedArray);
+      localStorage.setItem("favorites", updatedArrayJSON);
+      setIsFavorite(false);
+    }
+  };
+
+  const handleRemoveFromFavorites = async (e) => {
+    e.preventDefault();
+
+    // Retrieve the existing array from local storage
+    const existingArrayJSON = localStorage.getItem("favorites");
+
+    // Parse the existing JSON string into an array or create an empty array if it doesn't exist
+    const existingArray = existingArrayJSON
+      ? JSON.parse(existingArrayJSON)
+      : [];
+
+    // Filter out the specific ID you want to remove (even if it's duplicated)
+    const updatedArray = existingArray.filter((itemId) => itemId !== id);
+
+    // Update the local storage with the filtered array
+    const updatedArrayJSON = JSON.stringify(updatedArray);
+    localStorage.setItem("favorites", updatedArrayJSON);
+    setIsFavorite(false);
+    window.location.reload();
+  };
 
   String.prototype.toIndiaDigits = function () {
     var id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
@@ -92,22 +141,19 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
         {/* Heart wishList */}
         <a className="block w-full relative p-3 sm:p-4">
           {onRemove ? (
-            <p
-              // onClick={handleRemoveFav}
+            <button
+              onClick={handleRemoveFromFavorites}
               className={`absolute group shadow end-4 bottom-30 border-2 border-border text-primary-500 z-10 rounded-full bg-white p-2 transition duration-200 hover:text-white focus:text-white active:text-white hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 `}
             >
               <MdDeleteForever className="h-8 w-8" />
-            </p>
+            </button>
           ) : (
             <button
-              // onClick={handleFav}
+              onClick={handleAddToFavorites}
               className={`absolute group shadow end-4 bottom-30 border-2 border-border z-10 rounded-full bg-white p-2 transition duration-200 hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 
-              `}
+               ${isFavorite ? "!border-primary-500 !bg-primary-500" : ""}`}
             >
-              {/* ${isFavId ? "!border-primary-500 !bg-primary-500" : ""} */}
-              <Heart
-              // isFav={isFavId}
-              />
+              <Heart isFav={isFavorite} />
             </button>
           )}
 

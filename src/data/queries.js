@@ -124,39 +124,12 @@ export const getPropertyIds = async () => {
 
 export const getFavItem = async () => {
   // Retrieve the existing array from local storage
-  const existingArrayJSON = localStorage.getItem("fav");
+  const existingArrayJSON = localStorage.getItem("favorites");
 
   // Parse the existing JSON string into an array or return an empty array if it doesn't exist
   const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
 
   return existingArray;
-};
-
-export const setFavItem = async (id) => {
-  // Retrieve the existing array from local storage
-  const existingArrayJSON = localStorage.getItem("fav");
-
-  // Parse the existing JSON string into an array or create an empty array if it doesn't exist
-  const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
-
-  existingArray.push(id);
-  // Update the local storage with the modified array
-  const updatedArrayJSON = JSON.stringify(existingArray);
-  localStorage.setItem("fav", updatedArrayJSON);
-};
-export const removeFavItem = async (id) => {
-  // Retrieve the existing array from local storage
-  const existingArrayJSON = localStorage.getItem("fav");
-
-  // Parse the existing JSON string into an array or create an empty array if it doesn't exist
-  const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
-
-  // Filter out the specific ID you want to remove (even if it's duplicated)
-  const updatedArray = existingArray.filter((itemId) => itemId !== id);
-
-  // Update the local storage with the filtered array
-  const updatedArrayJSON = JSON.stringify(updatedArray);
-  localStorage.setItem("fav", updatedArrayJSON);
 };
 
 export const addListing = async (form) => {
