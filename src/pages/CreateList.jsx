@@ -48,6 +48,10 @@ const CreateList = () => {
     city: "",
     area: 0,
     yearBuilt: 1800,
+    visibilityStreet: "",
+    usage: "",
+    topography: "",
+    potentialUse: "",
   });
   // kurdish form
   const [formDataKu, setFormDataKu] = useState({
@@ -62,6 +66,10 @@ const CreateList = () => {
     priceKu: 0,
     areaKu: 0,
     yearBuiltKu: 1800,
+    visibilityStreetKu: "",
+    usageKu: "",
+    topographyKu: "",
+    potentialUseKu: "",
   });
 
   const {
@@ -78,6 +86,10 @@ const CreateList = () => {
     area,
     city,
     yearBuilt,
+    visibilityStreet,
+    usage,
+    topography,
+    potentialUse,
   } = formDataEn; // destructure the form data
 
   const {
@@ -92,6 +104,10 @@ const CreateList = () => {
     priceKu,
     areaKu,
     yearBuiltKu,
+    visibilityStreetKu,
+    usageKu,
+    topographyKu,
+    potentialUseKu,
   } = formDataKu; // destructure the form data
 
   const onFormChange = (e) => {
@@ -176,6 +192,8 @@ const CreateList = () => {
     return <Spinner />;
   }
 
+  console.log(formDataKu);
+
   return (
     <>
       <main
@@ -198,36 +216,6 @@ const CreateList = () => {
               <h1 className="md:block text-3xl font-bold text-center mt-6 ">
                 Kurdish form
               </h1>
-              {/* Sell and Rent */}
-              <p className="text-lg mt-6 font-semibold">کرێ / فرۆشتن</p>
-              <div className="flex">
-                <button
-                  type="button"
-                  id="typeKu"
-                  value="فرۆشتن"
-                  onClick={onFormChangeKu}
-                  className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-                    typeKu === "کرێ"
-                      ? "bg-white text-black"
-                      : "bg-slate-600 text-white"
-                  }`}
-                >
-                  فرۆشتن
-                </button>
-                <button
-                  type="button"
-                  id="typeKu"
-                  value="کرێ"
-                  onClick={onFormChangeKu}
-                  className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-                    typeKu === "فرۆشتن"
-                      ? "bg-white text-black"
-                      : "bg-slate-600 text-white"
-                  }`}
-                >
-                  کرێ
-                </button>
-              </div>
               {/* Category */}
               <p className="text-lg mt-6 font-semibold">جۆر</p>
               <select
@@ -243,6 +231,44 @@ const CreateList = () => {
                 <option value="زەوی">زەوی</option>
                 <option value="دووکان">دووکان</option>
               </select>
+              {/* Sell and Rent */}
+              {(categoryKu === "خانوو" ||
+                categoryKu === "شوقە" ||
+                categoryKu === "دووکان" ||
+                categoryKu === "") && (
+                <>
+                  <p className="text-lg mt-6 font-semibold">کرێ / فرۆشتن</p>
+                  <div className="flex">
+                    <button
+                      type="button"
+                      id="typeKu"
+                      value="فرۆشتن"
+                      onClick={onFormChangeKu}
+                      className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                        typeKu === "کرێ"
+                          ? "bg-white text-black"
+                          : "bg-slate-600 text-white"
+                      }`}
+                    >
+                      فرۆشتن
+                    </button>
+                    <button
+                      type="button"
+                      id="typeKu"
+                      value="کرێ"
+                      onClick={onFormChangeKu}
+                      className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                        typeKu === "فرۆشتن"
+                          ? "bg-white text-black"
+                          : "bg-slate-600 text-white"
+                      }`}
+                    >
+                      کرێ
+                    </button>
+                  </div>
+                </>
+              )}
+
               {/* Name */}
               <p className="text-lg mt-6 font-semibold">ناو</p>
               <input
@@ -257,52 +283,139 @@ const CreateList = () => {
                 className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
               />
               {/* Beds and Baths */}
-              <div className="flex space-x-6 rtl:space-x-reverse">
-                <div className="w-full">
-                  <p className="text-lg font-semibold">ژووری خەوتن</p>
-                  <input
-                    type="number"
-                    name="bedsKu"
-                    id="bedsKu"
-                    value={bedsKu}
-                    onChange={onFormChangeKu}
-                    min="1"
-                    max="50"
-                    required
-                    className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-                  />
+              {(categoryKu === "" ||
+                categoryKu === "خانوو" ||
+                categoryKu === "شوقە") && (
+                <div className="flex space-x-6 rtl:space-x-reverse">
+                  <div className="w-full">
+                    <p className="text-lg font-semibold">ژووری خەوتن</p>
+                    <input
+                      type="number"
+                      name="bedsKu"
+                      id="bedsKu"
+                      value={bedsKu}
+                      onChange={onFormChangeKu}
+                      min="1"
+                      max="50"
+                      required
+                      className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+                    />
+                  </div>
+                  <div className="w-full">
+                    <p className="text-lg font-semibold">حەمامەکان</p>
+                    <input
+                      type="number"
+                      name="bathsKu"
+                      id="bathsKu"
+                      value={bathsKu}
+                      onChange={onFormChangeKu}
+                      min="1"
+                      max="50"
+                      required
+                      className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+                    />
+                  </div>
                 </div>
-                <div className="w-full">
-                  <p className="text-lg font-semibold">حەمامەکان</p>
-                  <input
-                    type="number"
-                    name="bathsKu"
-                    id="bathsKu"
-                    value={bathsKu}
+              )}
+              {/* visibility */}
+              {(categoryKu === "" || categoryKu === "دووکان") && (
+                <>
+                  {/* Category */}
+                  <p className="text-lg mt-6 font-semibold">
+                    بینین لە شەقامەوە
+                  </p>
+                  <select
+                    id="visibilityStreetKu"
+                    value={visibilityStreetKu}
                     onChange={onFormChangeKu}
-                    min="1"
-                    max="50"
                     required
-                    className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-                  />
-                </div>
-              </div>
+                    className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+                  >
+                    <option value="">ڕێژەی بینین لە شەقامەوە</option>
+                    <option value="کەم">کەم</option>
+                    <option value="ناوەند">ناوەند</option>
+                    <option value="زۆر">زۆر</option>
+                  </select>
+                </>
+              )}
+              {/* usage */}
+              {(categoryKu === "" || categoryKu === "دووکان") && (
+                <>
+                  <p className="text-lg mt-6 font-semibold">بەکارهێنان</p>
+                  <select
+                    id="usageKu"
+                    value={usageKu}
+                    onChange={onFormChangeKu}
+                    required
+                    className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+                  >
+                    <option value="">بۆچی بەکاردێت</option>
+                    <option value="تاکفرۆشی">تاکفرۆشی</option>
+                    <option value="چێشتخانە">چێشتخانە</option>
+                    <option value="نووسينگە">نووسينگە</option>
+                  </select>
+                </>
+              )}
+              {/* topographyKu */}
+              {(categoryKu === "" || categoryKu === "زەوی") && (
+                <>
+                  <p className="text-lg mt-6 font-semibold">تۆپۆگرافی</p>
+                  <select
+                    id="topographyKu"
+                    value={topographyKu}
+                    onChange={onFormChangeKu}
+                    required
+                    className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+                  >
+                    <option value="">شێوازی زەویەکە</option>
+                    <option value="تەخت">تەخت</option>
+                    <option value="کەمێک بەرز و نزمی">کەمێک بەرز و نزمی</option>
+                    <option value="گرداوی">گرداوی</option>
+                  </select>
+                </>
+              )}
+              {/* potential Use */}
+              {(categoryKu === "" || categoryKu === "زەوی") && (
+                <>
+                  <p className="text-lg mt-6 font-semibold">بەکارهێنان</p>
+                  <select
+                    id="potentialUseKu"
+                    value={potentialUseKu}
+                    onChange={onFormChangeKu}
+                    required
+                    className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+                  >
+                    <option value="">بۆچی بەکاردێت</option>
+                    <option value="نیشتەجێبوون">نیشتەجێبوون</option>
+                    <option value="بازرگانی">بازرگانی</option>
+                    <option value="کشتوکاڵ">کشتوکاڵ</option>
+                  </select>
+                </>
+              )}
               {/* Parking */}
-              <p className="text-lg mt-6 font-semibold">گەراج</p>
-              <div className="flex">
-                <input
-                  type="number"
-                  name="parkingKu"
-                  id="parkingKu"
-                  value={parkingKu}
-                  onChange={onFormChangeKu}
-                  min="0"
-                  max="50"
-                  required
-                  className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-                />
-              </div>
+              {(categoryKu === "" ||
+                categoryKu === "خانوو" ||
+                categoryKu === "شوقە" ||
+                categoryKu === "دووکان") && (
+                <>
+                  <p className="text-lg mt-6 font-semibold">گەراج</p>
+                  <div className="flex">
+                    <input
+                      type="number"
+                      name="parkingKu"
+                      id="parkingKu"
+                      value={parkingKu}
+                      onChange={onFormChangeKu}
+                      min="0"
+                      max="50"
+                      required
+                      className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+                    />
+                  </div>
+                </>
+              )}
               {/* Sq Ft */}
+
               <div className="flex items-center my-6">
                 <div className="w-full">
                   <p className="text-lg font-semibold">
@@ -319,6 +432,7 @@ const CreateList = () => {
                   />
                 </div>
               </div>
+
               {/* Year Built */}
               <div className="flex items-center mb-6">
                 <div className="w-full">
@@ -374,13 +488,16 @@ const CreateList = () => {
                       required
                       className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
                     />
-                    {type === "rent" && (
-                      <div className="">
-                        <p className="text-md w-full whitespace-nowrap">
-                          مانگی \ $
-                        </p>
-                      </div>
-                    )}
+                    {typeKu === "کرێ" &&
+                      (categoryKu === "خانوو" ||
+                        categoryKu === "شوقە" ||
+                        categoryKu === "دووکان") && (
+                        <div className="">
+                          <p className="text-md w-full whitespace-nowrap">
+                            مانگی \ $
+                          </p>
+                        </div>
+                      )}
                   </div>
                 </div>
               </div>
@@ -393,36 +510,6 @@ const CreateList = () => {
                 English form
               </h1>
             )}
-            {/* Sell and Rent */}
-            <p className="text-lg mt-6 font-semibold">{t("Sell / Rent")}</p>
-            <div className="flex">
-              <button
-                type="button"
-                id="type"
-                value="sell"
-                onClick={onFormChange}
-                className={`ltr:mr-3 rtl:ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-                  type === "rent"
-                    ? "bg-white text-black"
-                    : "bg-slate-600 text-white"
-                }`}
-              >
-                {t("Sell")}
-              </button>
-              <button
-                type="button"
-                id="type"
-                value="rent"
-                onClick={onFormChange}
-                className={`ltr:ml-3 rtl:mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
-                  type === "sell"
-                    ? "bg-white text-black"
-                    : "bg-slate-600 text-white"
-                }`}
-              >
-                {t("Rent")}
-              </button>
-            </div>
             {/* Category */}
             <p className="text-lg mt-6 font-semibold">{t("Category")}</p>
             <select
@@ -438,6 +525,43 @@ const CreateList = () => {
               <option value="land">{t("Land")}</option>
               <option value="shop">{t("Shop")}</option>
             </select>
+            {/* Sell and Rent */}
+            {(category === "house" ||
+              category === "apartment" ||
+              category === "shop" ||
+              category === "") && (
+              <>
+                <p className="text-lg mt-6 font-semibold">{t("Sell / Rent")}</p>
+                <div className="flex">
+                  <button
+                    type="button"
+                    id="type"
+                    value="sell"
+                    onClick={onFormChange}
+                    className={`ltr:mr-3 rtl:ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                      type === "rent"
+                        ? "bg-white text-black"
+                        : "bg-slate-600 text-white"
+                    }`}
+                  >
+                    {t("Sell")}
+                  </button>
+                  <button
+                    type="button"
+                    id="type"
+                    value="rent"
+                    onClick={onFormChange}
+                    className={`ltr:ml-3 rtl:mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-200 ease-in-out w-full ${
+                      type === "sell"
+                        ? "bg-white text-black"
+                        : "bg-slate-600 text-white"
+                    }`}
+                  >
+                    {t("Rent")}
+                  </button>
+                </div>
+              </>
+            )}
             {/* Name */}
             <p className="text-lg mt-6 font-semibold">{t("Name")}</p>
             <input
@@ -452,51 +576,137 @@ const CreateList = () => {
               className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
             />
             {/* Beds and Baths */}
-            <div className="flex space-x-6 rtl:space-x-reverse">
-              <div className="w-full">
-                <p className="text-lg font-semibold">{t("Beds")}</p>
-                <input
-                  type="number"
-                  name="beds"
-                  id="beds"
-                  value={beds}
-                  onChange={onFormChange}
-                  min="1"
-                  max="50"
-                  required
-                  className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-                />
+            {(category === "" ||
+              category === "house" ||
+              category === "apartment") && (
+              <div className="flex space-x-6 rtl:space-x-reverse">
+                <div className="w-full">
+                  <p className="text-lg font-semibold">{t("Beds")}</p>
+                  <input
+                    type="number"
+                    name="beds"
+                    id="beds"
+                    value={beds}
+                    onChange={onFormChange}
+                    min="1"
+                    max="50"
+                    required
+                    className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+                  />
+                </div>
+                <div className="w-full">
+                  <p className="text-lg font-semibold">{t("Baths")}</p>
+                  <input
+                    type="number"
+                    name="baths"
+                    id="baths"
+                    value={baths}
+                    onChange={onFormChange}
+                    min="1"
+                    max="50"
+                    required
+                    className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+                  />
+                </div>
               </div>
-              <div className="w-full">
-                <p className="text-lg font-semibold">{t("Baths")}</p>
-                <input
-                  type="number"
-                  name="baths"
-                  id="baths"
-                  value={baths}
+            )}
+            {/* visibility */}
+            {(category === "" || category === "shop") && (
+              <>
+                {/* Category */}
+                <p className="text-lg mt-6 font-semibold">Visibility</p>
+                <select
+                  id="visibilityStreet"
+                  value={visibilityStreet}
                   onChange={onFormChange}
-                  min="1"
-                  max="50"
                   required
-                  className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-                />
-              </div>
-            </div>
+                  className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+                >
+                  <option value="">View from the street</option>
+                  <option value="lowe">Lowe</option>
+                  <option value="medium">mMedium</option>
+                  <option value="high">High</option>
+                </select>
+              </>
+            )}
+            {/* usage */}
+            {(category === "" || category === "shop") && (
+              <>
+                <p className="text-lg mt-6 font-semibold">Usage</p>
+                <select
+                  id="usageKu"
+                  value={usage}
+                  onChange={onFormChange}
+                  required
+                  className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+                >
+                  <option value="">What is it used for?</option>
+                  <option value="retail">Retail</option>
+                  <option value="restaurant"> Restaurant</option>
+                  <option value="office">Office</option>
+                </select>
+              </>
+            )}
+            {/* topographyKu */}
+            {(category === "" || category === "land") && (
+              <>
+                <p className="text-lg mt-6 font-semibold">Topography</p>
+                <select
+                  id="topography"
+                  value={topography}
+                  onChange={onFormChange}
+                  required
+                  className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+                >
+                  <option value="">Topographical shape</option>
+                  <option value="flat">Flat</option>
+                  <option value="sloped">Sloped</option>
+                  <option value="hilly">Hilly</option>
+                </select>
+              </>
+            )}
+            {/* potential Use */}
+            {(category === "" || category === "land") && (
+              <>
+                <p className="text-lg mt-6 font-semibold">Potential</p>
+                <select
+                  id="potentialUse"
+                  value={potentialUse}
+                  onChange={onFormChange}
+                  required
+                  className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
+                >
+                  <option value="">What is it used for?</option>
+                  <option value="residential">Residential</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="farming">Farming</option>
+                </select>
+              </>
+            )}
             {/* Parking */}
-            <p className="text-lg mt-6 font-semibold">{t("Parking Spot")}</p>
-            <div className="flex">
-              <input
-                type="number"
-                name="parking"
-                id="parking"
-                value={parking}
-                onChange={onFormChange}
-                min="0"
-                max="50"
-                required
-                className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
-              />
-            </div>
+            {(categoryKu === "" ||
+              categoryKu === "خانوو" ||
+              categoryKu === "شوقە" ||
+              categoryKu === "دووکان") && (
+              <>
+                <p className="text-lg mt-6 font-semibold">
+                  {t("Parking Spot")}
+                </p>
+                <div className="flex">
+                  <input
+                    type="number"
+                    name="parking"
+                    id="parking"
+                    value={parking}
+                    onChange={onFormChange}
+                    min="0"
+                    max="50"
+                    required
+                    className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none mb-6"
+                  />
+                </div>
+              </>
+            )}
             {/* Sq Ft */}
             <div className="flex items-center my-6">
               <div className="w-full">
@@ -569,13 +779,16 @@ const CreateList = () => {
                     required
                     className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
                   />
-                  {type === "rent" && (
-                    <div className="">
-                      <p className="text-md w-full whitespace-nowrap">
-                        {t("$ / Months")}
-                      </p>
-                    </div>
-                  )}
+                  {type === "rent" &&
+                    (categoryKu === "خانوو" ||
+                      categoryKu === "شوقە" ||
+                      categoryKu === "دووکان") && (
+                      <div className="">
+                        <p className="text-md w-full whitespace-nowrap">
+                          {t("$ / Months")}
+                        </p>
+                      </div>
+                    )}
                 </div>
               </div>
             </div>

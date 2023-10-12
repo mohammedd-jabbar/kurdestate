@@ -251,7 +251,6 @@ const Header = () => {
                     {t("Apartments")}
                   </a>
                 </li>
-
                 <li>
                   <a
                     href="/category/land"
