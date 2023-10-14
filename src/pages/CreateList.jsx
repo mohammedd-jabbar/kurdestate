@@ -434,21 +434,27 @@ const CreateList = () => {
               </div>
 
               {/* Year Built */}
-              <div className="flex items-center mb-6">
-                <div className="w-full">
-                  <p className="text-lg font-semibold">ساڵی دروست کردن</p>
-                  <input
-                    type="number"
-                    id="yearBuiltKu"
-                    value={yearBuiltKu}
-                    onChange={onFormChangeKu}
-                    min="1800"
-                    max={currentYear}
-                    required
-                    className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-                  />
+              {(categoryKu === "" ||
+                categoryKu === "خانوو" ||
+                categoryKu === "شوقە" ||
+                categoryKu === "دووکان") && (
+                <div className="flex items-center mb-6">
+                  <div className="w-full">
+                    <p className="text-lg font-semibold">ساڵی دروست کردن</p>
+                    <input
+                      type="number"
+                      id="yearBuiltKu"
+                      value={yearBuiltKu}
+                      onChange={onFormChangeKu}
+                      min="=\ "
+                      max={currentYear}
+                      required
+                      className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
+
               {/* Address */}
               <p className="text-lg mt-6 font-semibold">ناونیشان</p>
               <textarea
@@ -614,7 +620,7 @@ const CreateList = () => {
             {(category === "" || category === "shop") && (
               <>
                 {/* Category */}
-                <p className="text-lg mt-6 font-semibold">Visibility</p>
+                <p className="text-lg mt-6 font-semibold">{t("Visibility")}</p>
                 <select
                   id="visibilityStreet"
                   value={visibilityStreet}
@@ -622,35 +628,35 @@ const CreateList = () => {
                   required
                   className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
                 >
-                  <option value="">View from the street</option>
-                  <option value="lowe">Lowe</option>
-                  <option value="medium">mMedium</option>
-                  <option value="high">High</option>
+                  <option value="">{t("View from the street")}</option>
+                  <option value="lowe">{t("Lowe")}</option>
+                  <option value="medium">{t("Medium")}</option>
+                  <option value="high">{t("High")}</option>
                 </select>
               </>
             )}
             {/* usage */}
             {(category === "" || category === "shop") && (
               <>
-                <p className="text-lg mt-6 font-semibold">Usage</p>
+                <p className="text-lg mt-6 font-semibold">{t("Usage")}</p>
                 <select
-                  id="usageKu"
+                  id="usage"
                   value={usage}
                   onChange={onFormChange}
                   required
                   className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
                 >
-                  <option value="">What is it used for?</option>
-                  <option value="retail">Retail</option>
-                  <option value="restaurant"> Restaurant</option>
-                  <option value="office">Office</option>
+                  <option value="">{t("What is it used for?")}</option>
+                  <option value="retail">{t("Retail")}</option>
+                  <option value="restaurant">{t("Restaurant")}</option>
+                  <option value="office">{t("Office")}</option>
                 </select>
               </>
             )}
             {/* topographyKu */}
             {(category === "" || category === "land") && (
               <>
-                <p className="text-lg mt-6 font-semibold">Topography</p>
+                <p className="text-lg mt-6 font-semibold">{t("Topography")}</p>
                 <select
                   id="topography"
                   value={topography}
@@ -658,17 +664,17 @@ const CreateList = () => {
                   required
                   className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
                 >
-                  <option value="">Topographical shape</option>
-                  <option value="flat">Flat</option>
-                  <option value="sloped">Sloped</option>
-                  <option value="hilly">Hilly</option>
+                  <option value="">{t("Topographical shape")}</option>
+                  <option value="flat">{t("Flat")}</option>
+                  <option value="sloped">{t("Sloped")}</option>
+                  <option value="hilly">{t("Hilly")}</option>
                 </select>
               </>
             )}
             {/* potential Use */}
             {(category === "" || category === "land") && (
               <>
-                <p className="text-lg mt-6 font-semibold">Potential</p>
+                <p className="text-lg mt-6 font-semibold">{t("Potential")}</p>
                 <select
                   id="potentialUse"
                   value={potentialUse}
@@ -676,18 +682,18 @@ const CreateList = () => {
                   required
                   className="w-full border border-gray-300 rounded-md outline-none text-gray-700 text-xl focus:outline-none focus:ring-0 focus:text-gray-700 focus:border-slate-600 focus:bg-white"
                 >
-                  <option value="">What is it used for?</option>
-                  <option value="residential">Residential</option>
-                  <option value="commercial">Commercial</option>
-                  <option value="farming">Farming</option>
+                  <option value="">{t("What is it used for?")}</option>
+                  <option value="residential">{t("Residential")}</option>
+                  <option value="commercial">{t("Commercial")}</option>
+                  <option value="farming">{t("Farming")}</option>
                 </select>
               </>
             )}
             {/* Parking */}
-            {(categoryKu === "" ||
-              categoryKu === "خانوو" ||
-              categoryKu === "شوقە" ||
-              categoryKu === "دووکان") && (
+            {(category === "" ||
+              category === "house" ||
+              category === "apartment" ||
+              category === "shop") && (
               <>
                 <p className="text-lg mt-6 font-semibold">
                   {t("Parking Spot")}
@@ -725,21 +731,26 @@ const CreateList = () => {
               </div>
             </div>
             {/* Year Built */}
-            <div className="flex items-center mb-6">
-              <div className="w-full">
-                <p className="text-lg font-semibold">{t("Year Built")}</p>
-                <input
-                  type="number"
-                  id="yearBuilt"
-                  value={yearBuilt}
-                  onChange={onFormChange}
-                  min="1800"
-                  max={currentYear}
-                  required
-                  className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
-                />
+            {(category === "" ||
+              category === "house" ||
+              category === "apartment" ||
+              category === "shop") && (
+              <div className="flex items-center mb-6">
+                <div className="w-full">
+                  <p className="text-lg font-semibold">{t("Year Built")}</p>
+                  <input
+                    type="number"
+                    id="yearBuilt"
+                    value={yearBuilt}
+                    onChange={onFormChange}
+                    min="1900"
+                    max={currentYear}
+                    required
+                    className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Address */}
             <p className="text-lg mt-6 font-semibold">{t("Address")}</p>
@@ -780,9 +791,9 @@ const CreateList = () => {
                     className="w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition duration-150 ease-in-out focus:border-slate-600 focus:ring-0 focus:text-gray-700 focus:bg-white focus:outline-none"
                   />
                   {type === "rent" &&
-                    (categoryKu === "خانوو" ||
-                      categoryKu === "شوقە" ||
-                      categoryKu === "دووکان") && (
+                    (category === "house" ||
+                      category === "apartment" ||
+                      category === "shop") && (
                       <div className="">
                         <p className="text-md w-full whitespace-nowrap">
                           {t("$ / Months")}

@@ -9,8 +9,10 @@ import {
   MdOutlineCalendarMonth,
 } from "react-icons/md";
 import { FaBath, FaMapMarkerAlt } from "react-icons/fa";
-import { BiSolidCarGarage } from "react-icons/bi";
+import { GiEarthAfricaEurope } from "react-icons/gi";
+import { BiSolidCarGarage, BiStreetView } from "react-icons/bi";
 import { LuBedDouble } from "react-icons/lu";
+import { BsHouseGearFill } from "react-icons/bs";
 import Heart from "../../assets/svg/Heart.jsx";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -108,21 +110,26 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
       className="bg-white relative flex flex-col justify-between items-center rounded shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]"
     >
       {/* the top animation for rent or sell */}
-      <div
-        className={`absolute z-10 top-2 rounded ${
-          i18n.language === "ku" ? "right-2" : "left-2"
-        } duration-200 group group-hover:scale-105 w-24 h-8 bg-primary-500`}
-      >
-        <p className="text-center pt-1.5 text-gray-100 font-semibold text-sm">
-          {i18n.language === "ku"
-            ? listing.typeKu === "کرێ"
-              ? "کرێ"
-              : "فرۆشتن"
-            : listing.type === "rent"
-            ? "Rent"
-            : "Sell"}
-        </p>
-      </div>
+      {(listing.category === "house" ||
+        listing.category === "apartment" ||
+        listing.category === "shop") && (
+        <div
+          className={`absolute z-10 top-2 rounded ${
+            i18n.language === "ku" ? "right-2" : "left-2"
+          } duration-200 group group-hover:scale-105 w-24 h-8 bg-primary-500`}
+        >
+          <p className="text-center pt-1.5 text-gray-100 font-semibold text-sm">
+            {i18n.language === "ku"
+              ? listing.typeKu === "کرێ"
+                ? "کرێ"
+                : "فرۆشتن"
+              : listing.type === "rent"
+              ? "Rent"
+              : "Sell"}
+          </p>
+        </div>
+      )}
+
       <Link
         to={`/category/${listing.type}/${id}`}
         className="p-0 m-0 inline-block w-full"
@@ -171,11 +178,15 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
                         .toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
-                <span className="text-sm font-semibold text-gray-500">
-                  {i18n.language === "ku"
-                    ? listing.typeKu === "کرێ" && " / کرێ"
-                    : listing.type === "rent" && " / month"}
-                </span>
+                {(listing.category === "house" ||
+                  listing.category === "apartment" ||
+                  listing.category === "shop") && (
+                  <span className="text-sm font-semibold text-gray-500">
+                    {i18n.language === "ku"
+                      ? listing.typeKu === "کرێ" && " / کرێ"
+                      : listing.type === "rent" && " / month"}
+                  </span>
+                )}
               </div>
 
               <div className="flex justify-start items-center">
@@ -193,40 +204,107 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
 
             <div className="mt-4 flex items-center justify-center gap-4 xs:gap-10 text-xs">
               <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center">
-                <LuBedDouble className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
-
+                {listing.category === "house" ? (
+                  <LuBedDouble className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                ) : listing.category === "apartment" ? (
+                  <LuBedDouble className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                ) : listing.category === "land" ? (
+                  <GiEarthAfricaEurope className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                ) : listing.category === "shop" ? (
+                  <BiStreetView className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                ) : (
+                  ""
+                )}
                 <div className="ltr:mt-1.5">
                   <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
                     {i18n.language === "ku"
-                      ? listing.bedsKu > 1
-                        ? `${listing.beds} ژوور`
-                        : !listing.beds
-                        ? "هیچ ژوورێک نییە"
-                        : "1 ژوور"
-                      : listing.beds > 1
-                      ? `${listing.beds} Rooms`
-                      : !listing.beds
-                      ? "No Rooms"
-                      : "1 Rooms"}
+                      ? listing.category === "apartment"
+                        ? listing.beds > 1
+                          ? `${listing.beds} ژوور`
+                          : listing.beds < 1
+                          ? "ژوور نیە"
+                          : "1 ژوور"
+                        : listing.category === "house"
+                        ? listing.beds > 1
+                          ? `${listing.beds} ژوور`
+                          : listing.beds < 1
+                          ? "ژوور نیە"
+                          : "1 ژوور"
+                        : listing.category === "land"
+                        ? listing.topographyKu
+                        : listing.category === "shop"
+                        ? listing.visibilityStreetKu
+                        : ""
+                      : listing.category === "apartment"
+                      ? listing.beds > 1
+                        ? `${listing.beds} Beds`
+                        : listing.beds < 1
+                        ? "No Beds"
+                        : "1 Bed"
+                      : listing.category === "house"
+                      ? listing.beds > 1
+                        ? `${listing.beds} Beds`
+                        : listing.beds < 1
+                        ? "No Beds"
+                        : "1 Bed"
+                      : listing.category === "land"
+                      ? listing.topography
+                      : listing.category === "shop"
+                      ? listing.visibilityStreet
+                      : ""}
                   </p>
                 </div>
               </div>
               <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center gap-1">
-                <FaBath className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                {listing.category === "house" ? (
+                  <FaBath className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                ) : listing.category === "apartment" ? (
+                  <FaBath className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                ) : listing.category === "land" ? (
+                  <BsHouseGearFill className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                ) : listing.category === "shop" ? (
+                  <BsHouseGearFill className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+                ) : (
+                  ""
+                )}
 
                 <div className="ltr:mt-1.5">
                   <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
                     {i18n.language === "ku"
-                      ? listing.bathKu > 1
-                        ? `${listing.bath} حەمام`
-                        : !listing.bath
-                        ? "هیچ حەمامێک"
-                        : "1 حەمام"
-                      : listing.bath > 1
-                      ? `${listing.bath} Baths`
-                      : !listing.bath
-                      ? "No Baths"
-                      : "1 Bath"}
+                      ? listing.category === "apartment"
+                        ? listing.baths > 1
+                          ? `${listing.baths} حەمام`
+                          : listing.baths < 1
+                          ? "حەمام نیە"
+                          : "1 حەمام"
+                        : listing.category === "house"
+                        ? listing.baths > 1
+                          ? `${listing.baths} حەمام`
+                          : listing.baths < 1
+                          ? "حەمام نیە"
+                          : "1 حەمام"
+                        : listing.category === "land"
+                        ? listing.potentialUseKu
+                        : listing.category === "shop"
+                        ? listing.usageKu
+                        : ""
+                      : listing.category === "apartment"
+                      ? listing.baths > 1
+                        ? `${listing.baths} Baths`
+                        : listing.baths < 1
+                        ? "No Baths"
+                        : "1 Bath"
+                      : listing.category === "house"
+                      ? listing.baths > 1
+                        ? `${listing.baths} Baths`
+                        : listing.baths < 1
+                        ? "No Baths"
+                        : "1 Bath"
+                      : listing.category === "land"
+                      ? listing.potentialUse
+                      : listing.category === "shop"
+                      ? listing.usage
+                      : ""}
                   </p>
                 </div>
               </div>
