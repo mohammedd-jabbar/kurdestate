@@ -41,6 +41,7 @@ export default {
           800: "#433c90",
         },
         darkBackground: "#1e293b",
+        darkBackgroundDarker: "#121923",
         headerBackground: "#ffff",
         background: "#f5f7fb",
         border: "#e9e7f9",

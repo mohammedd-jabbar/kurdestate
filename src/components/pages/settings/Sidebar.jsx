@@ -19,11 +19,11 @@ export default function Sidebar({ children }) {
       >
         <button
           onClick={() => setExpanded((curr) => !curr)}
-          className={`p-1.5 rounded-lg bg-gray-300 hover:bg-gray-400 ${
+          className={`p-1.5 rounded-lg bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-800 ${
             !expanded && "absolute rtl:-left-2 ltr:left-3 top-4"
           }`}
         >
-          <LuChevronLast />
+          <LuChevronLast className="dark:text-white" />
         </button>
       </div>
       <aside
@@ -31,7 +31,7 @@ export default function Sidebar({ children }) {
           expanded ? "ltr:md:mr-12 rtl:md:ml-12 w-52" : "max-md:hidden"
         }`}
       >
-        <nav className="h-full flex flex-col bg-white border-r shadow-sm">
+        <nav className="h-full flex flex-col bg-white dark:bg-darkBackground border-r shadow-sm">
           <div className="p-4 pb-2 flex justify-between items-center">
             <div
               className={`h-5 text-xl flex items-center justify-center font-bold overflow-hidden transition-all ${
@@ -40,14 +40,14 @@ export default function Sidebar({ children }) {
             ></div>
             <button
               onClick={() => setExpanded((curr) => !curr)}
-              className={`p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100 ${
+              className={`p-1.5 rounded-lg bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700 ${
                 !expanded && "max-md:absolute left-8"
               }`}
             >
               {expanded ? (
-                <LuChevronFirst className="rtl:rotate-180" />
+                <LuChevronFirst className="rtl:rotate-180 dark:text-white" />
               ) : (
-                <LuChevronLast className="rtl:rotate-180" />
+                <LuChevronLast className="rtl:rotate-180 dark:text-white" />
               )}
             </button>
           </div>
@@ -79,8 +79,12 @@ export default function Sidebar({ children }) {
           `}
             >
               <div className="leading-4">
-                <h4 className="font-semibold">{data.displayName}</h4>
-                <span className="text-xs text-gray-600">{data.email}</span>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-400">
+                  {data.displayName}
+                </h4>
+                <span className="text-xs text-gray-600 dark:text-gray-500">
+                  {data.email}
+                </span>
               </div>
             </div>
           </div>
@@ -102,15 +106,17 @@ export function SidebarItem({ icon, text, active, alert }) {
         transition-colors group
         ${
           active
-            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-            : "hover:bg-indigo-50 text-gray-600"
+            ? "bg-gradient-to-tr from-indigo-200 dark:from-slate-900 dark:to-slate-800from-indigo-200 to-indigo-100 text-indigo-800"
+            : "hover:bg-indigo-50 dark:hover:bg-slate-600 text-gray-600"
         }
     `}
     >
       <button
         type="button"
         className={`max-md:mr-1 ${
-          text === "SignOut" || text === "دەرچوون" ? "text-red-500" : ""
+          text === "SignOut" || text === "دەرچوون"
+            ? "text-red-500"
+            : "dark:text-slate-400"
         }`}
       >
         {icon}
@@ -118,7 +124,7 @@ export function SidebarItem({ icon, text, active, alert }) {
       <span
         className={`overflow-hidden transition-all ${
           expanded
-            ? "w-52 max-sm:w-36 rtl:mr-3 rtl:max-sm:mr-1 ltr:ml-3 ltr:max-sm:ml-1"
+            ? "w-52 max-sm:w-36 rtl:mr-3 rtl:max-sm:mr-1 dark:text-indigo-50 ltr:ml-3 ltr:max-sm:ml-1"
             : "w-0"
         } ${text === "SignOut" || text === "دەرچوون" ? "text-red-500" : ""}`}
       >

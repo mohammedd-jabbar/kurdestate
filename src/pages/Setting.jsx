@@ -77,17 +77,17 @@ const Setting = () => {
           childern={
             <>
               <div className="mx-auto my-4 w-72 max-sm:w-38 z-50">
-                <h3 className="text-lg font-black text-gray-800">
+                <h3 className="text-lg font-black text-gray-800 dark:text-slate-200">
                   {t("Confirm Logout")}
                 </h3>
-                <p className="text-sm text-gray-500 pt-2">
+                <p className="text-sm text-gray-500 dark:text-slate-400 pt-2">
                   {t("Are you sure you want to delete this listing?")}
                 </p>
               </div>
               <div className="flex mt-8 gap-6">
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-full font-inter bg-white border border-border text-black rounded-md py-1.5 px-3 "
+                  className="w-full font-inter bg-white dark:bg-slate-700 border dark:border-darkBackground border-border text-black dark:text-white rounded-md py-1.5 px-3 "
                 >
                   {t("Cancel")}
                 </button>

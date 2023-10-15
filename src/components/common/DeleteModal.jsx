@@ -11,7 +11,7 @@ const DeleteModal = ({ open, onClose, childern }) => {
       {/* modal */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-white rounded-xl shadow pt-2 pb-6 px-6  transition-all ${
+        className={`bg-white dark:bg-darkBackground rounded-xl shadow pt-2 pb-6 px-6  transition-all ${
           open ? "scale-100 opacity-100" : "scale-125 opacity-0"
         }`}
       >
