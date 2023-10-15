@@ -15,7 +15,7 @@ const LanguageDropDown = ({
     >
       {/* Avatar */}
       <button
-        className="flex transition duration-150 ease-in-out text-sm focus:outline-none bg-transparent rounded-full md:mr-0 "
+        className="flex transition duration-150 ease-in-out text-sm focus:outline-none bg-transparent rounded-full md:mr-0"
         type="button"
         onClick={toggleLanguageDropdown}
       >
@@ -23,7 +23,7 @@ const LanguageDropDown = ({
       </button>
       {/* Drop down */}
       <div
-        className={`absolute rtl:-left-16 ltr:-right-16 top-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ${
+        className={`absolute rtl:-left-16 ltr:-right-16 top-12 bg-white dark:bg-darkBackground divide-y  rounded-lg shadow w-44 ${
           isLanguageDropDown
             ? "duration-300 transition-opacity ease-in-out opacity-100"
             : "hidden opacity-0 pointer-events-none"
@@ -33,16 +33,16 @@ const LanguageDropDown = ({
           {/* Language drop down */}
           <li>
             <div
-              className={`z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44`}
+              className={`z-10 bg-white dark:bg-darkBackground divide-y rounded-lg shadow w-44`}
             >
-              <ul className="py-2 text-sm text-gray-700 ">
+              <ul className="py-2 text-sm dark:text-slate-200 text-gray-700 ">
                 <li>
                   <a
                     onClick={() => {
                       toggleLanguageDropdown();
                       handleLanguageChange("ku");
                     }}
-                    className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-700 cursor-pointer"
                   >
                     {t("Kurdish")}
                   </a>
@@ -53,7 +53,7 @@ const LanguageDropDown = ({
                       toggleLanguageDropdown();
                       handleLanguageChange("en");
                     }}
-                    className="block px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-700 cursor-pointer"
                   >
                     {t("English")}
                   </a>

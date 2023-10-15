@@ -92,38 +92,6 @@ const Home = () => {
     fetchListings();
   }, []);
 
-  // // sale
-  // const [saleListing, setSaleListing] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchListings = async () => {
-  //     try {
-  //       const listingRef = collection(db, "listings");
-  //       // create the query
-  //       const q = query(
-  //         listingRef,
-  //         where("type", "==", "sell"),
-  //         where("status", "==", "accepted"),
-  //         orderBy("timeStamp", "desc"),
-  //         limit(6)
-  //       );
-
-  //       const snapShotQuery = await getDocs(q);
-  //       let listings = [];
-  //       snapShotQuery.forEach((doc) => {
-  //         return listings.push({
-  //           id: doc.id,
-  //           data: doc.data(),
-  //         });
-  //       });
-  //       setSaleListing(listings);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchListings();
-  // }, []);
-
   return (
     <>
       <div
@@ -161,7 +129,7 @@ const Home = () => {
               </h2>
               <div>
                 <Swiper
-                  className=""
+                  className="my-6"
                   breakpoints={{
                     100: {
                       slidesPerView: 1.4,
@@ -242,17 +210,15 @@ const Home = () => {
                     </SwiperSlide>
                   ))}
                 </Swiper>
-                {/* <Link to="/category/rent" className="text-center">
-                  <p className="text-white bg-primary-500 inline font-bold text-center p-3 rounded text-sm hover:bg-primary-600 transition duration-150 ease-in-out">
-                    Show more places for sale
-                  </p>
-                </Link> */}
               </div>
             </div>
           )}
 
           {/* Images */}
-          <div dir={i18n.language === "ku" ? "rtl" : "ltr"} className="my-16 bg-background w-full h-full text-center">
+          <div
+            dir={i18n.language === "ku" ? "rtl" : "ltr"}
+            className="my-16 bg-background w-full h-full text-center"
+          >
             <h1 className="font-semibold text-3xl ">
               {t("Explore Our Properties")}
             </h1>

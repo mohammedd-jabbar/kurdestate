@@ -25,7 +25,7 @@ const NavbarDropDown = ({
       >
         {profilePhoto ? (
           <img
-            className={`w-10 border-2 border-primary-500 border-opacity-50 h-10 rounded-full`}
+            className={`w-10 border-2 border-primary-500 dark:border-gray-600 border-opacity-50 h-10 rounded-full`}
             src={profilePhoto}
             alt=""
           />
@@ -40,7 +40,7 @@ const NavbarDropDown = ({
       {/* Drop down */}
       <div
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
-        className={`absolute rtl:left-1 ltr:right-1 top-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ${
+        className={`absolute rtl:left-1 ltr:right-1 top-12 bg-white dark:bg-darkBackground divide-y divide-gray-100 rounded-lg shadow w-44 ${
           isDropDown
             ? "duration-300 transition-opacity ease-in-out opacity-100"
             : "hidden opacity-0 pointer-events-none"
@@ -48,7 +48,7 @@ const NavbarDropDown = ({
       >
         <div
           dir={i18n.language === "ku" ? "rtl" : "ltr"}
-          className="px-4 py-3 truncate text-sm text-gray-900"
+          className="px-4 py-3 truncate text-sm text-gray-900 dark:text-white"
         >
           <div
             className="font-bold text-sm"
@@ -60,22 +60,28 @@ const NavbarDropDown = ({
         </div>
 
         <ul
-          className="py-2 text-sm text-gray-700"
+          className="py-2 text-sm text-gray-700 dark:text-gray-300"
           dir={i18n.language === "ku" ? "rtl" : "ltr"}
         >
           <li>
-            <a href="/settings" className="block px-4 py-2 hover:bg-gray-100 ">
+            <a
+              href="/settings"
+              className="block px-4 py-2 dark:hover:bg-gray-900 hover:bg-gray-100 "
+            >
               {t("Settings")}
             </a>
           </li>
           <li>
-            <a href="/create" className="block px-4 py-2 hover:bg-gray-100 ">
+            <a
+              href="/create"
+              className="block px-4 py-2 dark:hover:bg-gray-900 hover:bg-gray-100 "
+            >
               {t("Listing Your Property")}
             </a>
           </li>
         </ul>
         <div className="py-2" onClick={handleLogout}>
-          <a className="block px-4 py-2 text-sm text-gray-700 cursor-pointer  hover:bg-gray-100 ">
+          <a className="block px-4 py-2 text-sm text-gray-700 cursor-pointer dark:text-gray-300 dark:hover:bg-gray-900 hover:bg-gray-100 ">
             {t("Sign Out")}
           </a>
         </div>

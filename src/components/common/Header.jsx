@@ -222,7 +222,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/rent"
-                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
+                    className="block px-3 text-gray-500 dark:text-gray-300 dark:hover:bg-slate-600 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Rent")}
                   </a>
@@ -230,7 +230,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/sell"
-                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
+                    className="block px-3 text-gray-500 dark:text-gray-300 dark:hover:bg-slate-600 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Sell")}
                   </a>
@@ -238,7 +238,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/house"
-                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
+                    className="block px-3 text-gray-500 dark:text-gray-300 dark:hover:bg-slate-600 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Houses")}
                   </a>
@@ -246,7 +246,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/apartment"
-                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
+                    className="block px-3 text-gray-500 dark:text-gray-300 dark:hover:bg-slate-600 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Apartments")}
                   </a>
@@ -254,7 +254,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/land"
-                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
+                    className="block px-3 text-gray-500 dark:text-gray-300 dark:hover:bg-slate-600 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Lands")}
                   </a>
@@ -262,7 +262,7 @@ const Header = () => {
                 <li>
                   <a
                     href="/category/shop"
-                    className="block px-3 text-gray-500 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
+                    className="block px-3 text-gray-500 dark:text-gray-300 dark:hover:bg-slate-600 py-2 transition-all duration-200 ease-in-out rounded-md hover:bg-slate-100"
                   >
                     {t("Shops")}
                   </a>
