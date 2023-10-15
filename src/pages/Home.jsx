@@ -96,20 +96,20 @@ const Home = () => {
     <>
       <div
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
-        className="h-[103vh] bg-background"
+        className="h-[103vh] bg-background dark:bg-darkBackground"
       >
         <div className="">
           <div className="absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
             <h1
               ref={el}
-              className="font-inter rtl:!font-rabar text-4xl md:text-6xl font-bold text-black"
+              className="font-inter rtl:!font-rabar text-4xl md:text-6xl font-bold text-black dark:text-white"
             ></h1>
-            <p className="font-inter rtl:!font-rabar text-base sm:text-lg md:text-xl font-medium mt-6 text-black">
+            <p className="font-inter rtl:!font-rabar text-base sm:text-lg md:text-xl font-medium mt-6 text-black dark:text-white">
               {t("Discover Your Dream Property with Us")}
             </p>
             <button
               onClick={() => navigateTo("login")}
-              className="mt-4 transition-all duration-200 ease-in-out bg-primary-500 py-1.5 px-5 text-lg font-inter font-semibold rounded text-white shadow-md hover:bg-primary-600 rtl:!font-rabar hover:shadow-xl focus:bg-primary-700 active:bg-primary-800"
+              className="mt-4 transition-all duration-200 ease-in-out bg-primary-500 dark:bg-primary-800 py-1.5 px-5 text-lg font-inter font-semibold rounded text-white shadow-md hover:bg-primary-600 dark:hover:bg-primary-700 rtl:!font-rabar hover:shadow-xl focus:bg-primary-700 dark:focus:bg-primary-600 active:bg-primary-500 dark:active:bg-primary-500"
             >
               {t("Start Searching")}
             </button>
@@ -119,12 +119,15 @@ const Home = () => {
 
       <Filters />
 
-      <div dir={i18n.language === "ku" ? "rtl" : "ltr"}>
+      <div
+        dir={i18n.language === "ku" ? "rtl" : "ltr"}
+        className="bg-background dark:bg-darkBackground"
+      >
         <div className="max-w-6xl max-xl:w-[95%] mx-auto pt-4 ">
           {/* offer */}
           {search && search.length > 0 && (
             <div className="my-16">
-              <h2 className="px-3 font-semibold text-3xl text-center">
+              <h2 className="px-3 font-semibold text-3xl text-center text-black dark:text-white">
                 {t("Search results")}
               </h2>
               <div>
@@ -170,7 +173,7 @@ const Home = () => {
           {/* listings */}
           {listings && listings.length > 0 && (
             <div className="my-20">
-              <h2 className="px-3 font-semibold text-3xl text-center">
+              <h2 className="px-3 font-semibold text-3xl text-center text-black dark:text-white">
                 {t("Discover Our Listings")}
               </h2>
               <div>
@@ -217,12 +220,12 @@ const Home = () => {
           {/* Images */}
           <div
             dir={i18n.language === "ku" ? "rtl" : "ltr"}
-            className="my-16 bg-background w-full h-full text-center"
+            className="my-16 bg-background dark:bg-darkBackground w-full h-full text-center"
           >
-            <h1 className="font-semibold text-3xl ">
+            <h1 className="font-semibold text-3xl text-black dark:text-slate-100">
               {t("Explore Our Properties")}
             </h1>
-            <p className="text-gray-500 text-sm font-medium">
+            <p className="text-gray-500 dark:text-slate-100 text-sm font-medium mt-1">
               {t("Discover Your Ideal Home with Us")}
             </p>
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
@@ -300,67 +303,69 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <div className="py-16 mt-12 bg-background w-full h-full text-center">
-            <h1 className="font-semibold text-3xl ">{t("Why Choose Us")}</h1>
-            <p className="text-gray-500 text-sm font-medium">
+          <div className="py-16 mt-12 bg-background dark:bg-darkBackground w-full h-full text-center">
+            <h1 className="font-semibold text-3xl dark:text-white">
+              {t("Why Choose Us")}
+            </h1>
+            <p className="text-gray-500 dark:text-slate-200 text-sm font-medium">
               {t("At Our Company, We Prioritize Your Satisfaction")}
             </p>
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
-              <div className="p-6 bg-white pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-md">
+              <div className="p-6 bg-white dark:bg-[#18212f] pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-md">
                 <p className="text-center">
                   <FaRegFaceLaughWink className="w-16 h-16 text-center mx-auto mb-6 text-white bg-primary-500 p-4 rounded-[50%]" />
                 </p>
 
-                <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
+                <h2 className="font-semibold text-lg text-center text-gray-800 dark:text-gray-200 mt-2">
                   {t("Trusted By Thousands")}
                 </h2>
 
-                <p className="mt-2 text-gray-800 text-center">
+                <p className="mt-2 text-gray-800 dark:text-gray-200 text-center">
                   {t(
                     "Our platform is trusted by thousands of satisfied customers who have found their dream homes with us. We prioritize your trust and satisfaction above all else."
                   )}
                 </p>
               </div>
-              <div className="p-6 bg-white pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
+              <div className="p-6 bg-white dark:bg-[#18212f] pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
                 <p className="text-center">
                   <BsSearchHeart className="w-16 h-16 text-center mx-auto mb-6 p-2 text-primary-500 " />
                 </p>
 
-                <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
+                <h2 className="font-semibold text-lg text-center text-gray-800 dark:text-gray-200 mt-2">
                   {t("Easy Searching")}
                 </h2>
 
-                <p className="mt-2 text-gray-800 text-center">
+                <p className="mt-2 text-gray-800 dark:text-gray-200 text-center">
                   {t(
                     "Finding your perfect property has never been easier. Our intuitive search tools allow you to effortlessly browse through a wide range of listings, tailored to your specific preferences."
                   )}
                 </p>
               </div>
-              <div className="p-6 bg-white pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
+              <div className="p-6 bg-white dark:bg-[#18212f] pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
                 <p className="text-center">
                   <RiMoneyDollarCircleLine className="w-16 h-16 text-center mx-auto mb-6 text-white bg-primary-500 p-4 rounded-[50%]" />
                 </p>
 
-                <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
+                <h2 className="font-semibold text-lg text-center text-gray-800 dark:text-gray-200 mt-2">
                   {t("Financing Made Easy")}
                 </h2>
 
-                <p className="mt-2 text-gray-800 text-center">
+                <p className="mt-2 text-gray-800 dark:text-gray-200 text-center">
                   {t(
                     "Navigating the financial aspect of buying a home can be daunting. We simplify the process by providing expert guidance and resources, ensuring your home financing journey is smooth and stress-free."
                   )}
                 </p>
               </div>
-              <div className="p-6 bg-white pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
+              <div className="p-6 bg-white dark:bg-[#18212f] pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-lg">
                 <p className="text-center">
                   <FaPeopleCarry className="w-16 h-16 text-center mx-auto mb-6 p-2 text-primary-500 " />
                 </p>
 
-                <h2 className="font-semibold text-lg text-center text-gray-800 mt-2">
+                <h2 className="font-semibold text-lg text-center text-gray-800 dark:text-gray-200 mt-2">
                   {t("See Neighborhoods")}
                 </h2>
 
-                <p className="mt-2 text-gray-800 text-center">
+                <p className="mt-2 text-gray-800 dark:text-gray-200 text-center">
                   {t(
                     "Discover more than just a property; explore vibrant neighborhoods that match your lifestyle. From bustling city centers to serene suburban communities, find the ideal location for your new home."
                   )}
@@ -369,7 +374,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <footer className="bg-background border-t-2 border-border shadow-2xl py-4 dark:bg-gray-800">
+        <footer className="bg-background border-t-2 border-border dark:border-slate-700 shadow-2xl py-4 dark:bg-gray-800">
           <div className="w-full mx-auto p-4 flex items-center justify-center">
             <span className="text-lg font-bold text-primary-500 sm:text-center dark:text-gray-400">
               © 2023 -

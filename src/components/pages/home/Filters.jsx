@@ -92,20 +92,15 @@ const Filters = () => {
         className="max-w-[80%] mb-16 w-full flex flex-col justify-between items-start relative mx-auto p-4 rounded-md -mt-56 md:-mt-72"
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
       >
-        <div
-          className="bg-headerBackground w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 md:rounded-md"
-          style={{
-            boxShadow: "0px 7px 29px 0px rgba(100, 100, 111, 0.2)",
-          }}
-        >
+        <div className="bg-headerBackground dark:bg-[#18212f] shadow-[0px,7px,29px,0px,rgba(100,100,111,0.2)] dark:shadow-[#121924] w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 md:rounded-md">
           <div className="flex flex-col space-y-2">
-            <label className="text-base font-medium text-gray-900 flex items-center justify-start">
+            <label className="text-base font-medium text-gray-900 dark:text-slate-200 flex items-center justify-start">
               <BiBuildings className="ltr:mr-2 rtl:ml-2" /> {t("Property type")}
             </label>
             <select
               onChange={handleChange}
               id="type"
-              className="mt-1.5 w-full rounded border-gray-300 text-gray-700 text-sm"
+              className="mt-1.5 w-full rounded border-gray-300 dark:border-gray-700 dark:text-slate-300 dark:bg-darkBackground text-gray-700 text-sm"
             >
               <option id="type" selected>
                 {t("Property type")}
@@ -119,13 +114,13 @@ const Filters = () => {
             </select>
           </div>
           <div className="flex flex-col space-y-2">
-            <label className="text-base font-medium text-gray-900 flex items-center justify-start">
+            <label className="text-base font-medium text-gray-900 dark:text-slate-200 flex items-center justify-start">
               <BiMap className="ltr:mr-2 rtl:ml-2" /> {t("Locations")}
             </label>
             <select
               id="location"
               onChange={handleChange}
-              className="mt-1.5 w-full rounded border-gray-300 text-gray-700 text-sm"
+              className="mt-1.5 w-full rounded border-gray-300 dark:border-gray-700 dark:text-slate-300 dark:bg-darkBackground text-gray-700 text-sm"
             >
               <option id="location" selected>
                 {t("All Locations")}
@@ -156,7 +151,7 @@ const Filters = () => {
           <div className="flex flex-col space-y-2">
             <label
               htmlFor="price"
-              className="text-base font-medium text-gray-900 flex items-center justify-start"
+              className="text-base font-medium text-gray-900 dark:text-slate-200 flex items-center justify-start"
             >
               <BiMoney className="ltr:mr-2 rtl:ml-2" /> {t("Max Price")}
             </label>
@@ -168,13 +163,13 @@ const Filters = () => {
               id="price"
               // min="0"
               placeholder="$8,544"
-              className="outline-0 rounded pl-5 border-gray-300 text-gray-700 text-sm"
+              className="outline-0 rounded pl-5 border-gray-300 dark:border-gray-700 dark:text-slate-300 dark:bg-darkBackground text-gray-700 text-sm"
             />
           </div>
           <div className="">
             <button
               onClick={handleSubmit}
-              className="transition duration-200 ease-in-out bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 active:bg-primary-800 text-white px-5 py-3 mt-6 w-full lg:w-36 md:mt-0 rounded-lg"
+              className="transition duration-200 ease-in-out bg-primary-500 dark:bg-primary-800 hover:bg-primary-600 dark:hover:bg-primary-700 focus:bg-primary-700 dark:focus:bg-primary-600 active:bg-primary-800 dark:active:bg-primary-500 text-white px-5 py-3 mt-6 w-full lg:w-36 md:mt-0 rounded-lg"
             >
               {t("Search")}
             </button>

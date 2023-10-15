@@ -159,7 +159,7 @@ const Header = () => {
         theme={themeColor === "dark" ? "dark" : "light"}
       />
       <div
-        className={`transition-all duration-200 ease-in-out border-b py-1 shadow-md bg-headerBackground dark:bg-darkBackground  ${
+        className={`transition-all duration-200 ease-in-out border-b dark:border-b-gray-700 py-1 shadow-md bg-headerBackground dark:bg-darkBackground  ${
           isNavbarScroll && "py-2"
         } sticky w-full top-0 z-40`}
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
