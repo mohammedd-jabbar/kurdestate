@@ -15,6 +15,7 @@ import { notifications } from "../components/common/Notifications";
 import UserInfo from "../components/pages/listingDetails/UserInfo";
 import Spinner from "../components/common/Spinner";
 import { useTranslation } from "react-i18next";
+import ShareListing from "../components/pages/listingDetails/ShareListing";
 
 const Listing = () => {
   const location = useLocation();
@@ -100,17 +101,17 @@ const Listing = () => {
       {/* Basic Info Section */}
       <div className="order-1 max-sm:order-2 max-sm:mt-16 flex w-full max-sm:flex-col max-sm:items-start max-sm:justify-start max-sm:mb-6 justify-between items-center">
         {/* Left Info */}
-        <div className="max-xs:w-full">
-          <div className="flex mt-6 mb-3 items-center max-xs:justify-between">
+        <div className="max-sm:w-full">
+          <div className="flex mt-6 mb-3 items-center max-sm:justify-between">
             {/* Listing Name */}
             <h1
-              className="text-3xl max-xs:text-2xl font-normal"
+              className="text-xl sm:text-2xl md:text-3xl font-normal"
               style={{ WebkitTextStrokeWidth: ".5px" }}
             >
               {i18n.language === "ku" ? listing.nameKu : listing.name}
             </h1>
             {/* Listing Type */}
-            <p className="ltr:ml-4 rtl:mr-4 bg-primary-500 py-1 px-2 mt-1 text-white rounded-full text-sm font-semibold h-full">
+            <p className="ltr:ml-4 rtl:mr-4 bg-primary-500 py-1 px-2 mt-1 text-white rounded-full text-xs sm:text-sm font-semibold h-full">
               {i18n.language === "ku"
                 ? listing.typeKu === "کرێ"
                   ? "بۆ کرێ"
@@ -130,26 +131,16 @@ const Listing = () => {
           {/* Tabs */}
         </div>
 
-        <div>
-          <div className="flex flex-col items-center justify-center">
-            {/* Share button */}
-            <div className=""></div>
-            {/* Listing Price */}
-            <h1 className="font-extrabold mb-3 text-xl text-primary-600">
-              $
-              {i18n.language === "ku"
-                ? listing.price.toIndiaDigits()
-                : listing.price &&
-                  listing.price
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            </h1>
-
-            {/* Parking Info
-            <p className="truncate font-semibold text-sm text-gray-500">
-              {listing.parking === true ? "Parking Spot" : "No Parking Spot"}
-            </p> */}
-          </div>
+        <div className="max-sm:w-full flex sm:flex-col justify-between items-center">
+          {/* Listing Price */}
+          <h1 className="font-extrabold mb-3 text-xl text-primary-600">
+            $
+            {i18n.language === "ku"
+              ? listing.price.toIndiaDigits()
+              : listing.price &&
+                listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          </h1>
+          <ShareListing listing={listing} id={listingId} />
         </div>
       </div>
       {/* left info */}

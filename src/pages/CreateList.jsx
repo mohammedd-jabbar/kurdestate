@@ -47,7 +47,7 @@ const CreateList = () => {
     images: {},
     city: "",
     area: 0,
-    yearBuilt: 1800,
+    yearBuilt: 1900,
     visibilityStreet: "",
     usage: "",
     topography: "",
@@ -65,7 +65,7 @@ const CreateList = () => {
     descriptionKu: "",
     priceKu: 0,
     areaKu: 0,
-    yearBuiltKu: 1800,
+    yearBuiltKu: 1900,
     visibilityStreetKu: "",
     usageKu: "",
     topographyKu: "",
@@ -268,7 +268,6 @@ const CreateList = () => {
                   </div>
                 </>
               )}
-
               {/* Name */}
               <p className="text-lg mt-6 font-semibold">ناو</p>
               <input
@@ -415,7 +414,6 @@ const CreateList = () => {
                 </>
               )}
               {/* Sq Ft */}
-
               <div className="flex items-center my-6">
                 <div className="w-full">
                   <p className="text-lg font-semibold">

@@ -1,24 +1,22 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { BiSolidShareAlt } from "react-icons/bi";
-import { BsFacebook, BsLinkedin } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
 
 import {
   FacebookShareButton,
   TwitterShareButton,
   TwitterIcon,
-  EmailShareButton,
-  LinkedinShareButton,
   FacebookIcon,
-  LineIcon,
-  LinkedinIcon,
-  EmailIcon,
 } from "react-share";
 
-const ShareListing = () => {
+const ShareListing = ({ listing, id }) => {
+  const { t, i18n } = useTranslation("listing");
   const [isShareLink, setIsShareLink] = useState(false);
   return (
     <>
-      <div className="relative">
+      <div className="relative" dir={i18n.language === "ku" ? "rtl" : "ltr"}>
         <button
           className="relative flex z-10 bg-white border rounded-md p-2 opacity-50 hover:opacity-100 focus:outline-none focus:border-border"
           title="click to enable menu"
@@ -27,31 +25,44 @@ const ShareListing = () => {
           <BiSolidShareAlt />
         </button>
         <div
-          className={`absolute right-0 mt-0 w-48 bg-white rounded-sm overflow-hidden shadow-lg z-20 border border-gray-100 ${
+          className={`absolute ltr:right-0 rtl:left-0 mt-0 w-48 bg-white rounded-sm overflow-hidden shadow-lg z-20 border border-gray-100 ${
             isShareLink ? "block" : "hidden"
           }`}
         >
-          <a
-            href="#"
-            title="Share on Facebook"
-            className="flex px-4 py-2 group text-sm text-gray-800 border-b hover:bg-white"
-          >
-            <BsFacebook className="h-5 w-5 group-hover:text-black text-primary-500" />
-          </a>
-          <a
-            href="#"
-            title="Share on Twitter"
-            className="flex px-4 py-2 group text-sm text-gray-800 border-b hover:bg-white"
-          ></a>
+          <button className="flex px-4 py-2 group text-sm text-gray-800 border-b hover:bg-white">
+            <FacebookShareButton
+              quote={"Just found a fantastic real estate listing!"}
+              url={`mohammedd.com/category/${listing.type}/${id}\n\n`}
+              hashtag={"#saleHouse"}
+              className="flex space-x-2 rtl:space-x-reverse"
+            >
+              <FacebookIcon round={true} size={22} />
+              <p className="text-xs text-extrabold">{t("Share to Facebook")}</p>
+            </FacebookShareButton>
+          </button>
+          <button className="flex px-4 py-2 group text-sm text-gray-800 border-b hover:bg-white">
+            <TwitterShareButton
+              title={`Just found a fantastic real estate property from kurd estate webiste!\n\n`}
+              via={`Mohammedjabbar0\n`}
+              hashtags={["Realestate", "saleHouse\n"]}
+              url={`mohammedd.com/category/${listing.type}/${id}\n\n`}
+              className="flex space-x-2 rtl:space-x-reverse"
+            >
+              <TwitterIcon round={true} size={22} />{" "}
+              <p>{t("Share to Twitter")}</p>
+            </TwitterShareButton>
+          </button>
 
           <a
-            href="#"
-            title="Share on LinkedIn"
-            className="flex group px-4 py-2 text-sm text-gray-800 border-b hover:bg-white"
+            rel="noreferrer"
+            target="_blank"
+            href={`https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&su=Kurd+Estate&body=Just+found+a+fantastic+real+estate+property+from+kurd+estate+website!%0A%0Amohammedd.com/category/${listing.type}/${id}%0A%0A`}
+            className="flex space-x-2 rtl:space-x-reverse px-4 py-2 group text-sm text-gray-800 border-b hover:bg-white"
           >
-            <BsLinkedin className="h-5 w-5 group-hover:text-black text-primary-500" />
+            <MdEmail className="w-[22px] h-[22px] text-red-500" />
+
+            <p>{t("Send with Email")}</p>
           </a>
-          <span className="text-gray-600">LinkedIn</span>
         </div>
       </div>
     </>
@@ -59,34 +70,3 @@ const ShareListing = () => {
 };
 
 export default ShareListing;
-
-// {/* <TwitterIcon
-//   title={`Just found a fantastic real estate listing from kurd estate webiste!\n\n`}
-//   via={`Mohammedjabbar0\n`}
-//   hashtags={["Realestate", "saleHouse\n"]}
-//   url={`mohammedd.com${location.pathname}\n\n`}
-// >
-//   <TwitterIcon />
-// </TwitterIcon>
-// <FacebookShareButton
-//   quote={"Just found a fantastic real estate listing!"}
-//   hashtag={"#saleHouse"}
-// >
-//   <FacebookIcon />
-// </FacebookShareButton>
-// <LinkedinShareButton
-//   source={`mohammedd.com${location.pathname}\n\n`}
-//   url={`mohammedd.com${location.pathname}\n\n`}
-// >
-//   <LinkedinIcon />
-// </LinkedinShareButton>
-// <EmailShareButton
-//   subject={"Kurd Estate"}
-//   body={`Just found a fantastic real estate listing from kurd estate website!\n\n`}
-//   separator={`mohammedd.com${location.pathname}\n\n`}
-// >
-//   <EmailIcon />
-// </EmailShareButton> */}
-// {/* <button className="bg-blue-500 text-white px-4 py-2 rounded">
-//   Twitter
-// </button> */}
