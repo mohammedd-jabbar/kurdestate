@@ -12,11 +12,11 @@ const Overview = ({ listing }) => {
   return (
     listing && (
       <div
-        className="w-full h-[89vh] max-sm:h-[60vh] bg-white max-xs:max-w-[90%] xs:max-w-[90%] lg:max-w-[85%] mx-auto overflow-y-scroll no-scrollbar"
+        className="w-full h-[89vh] max-sm:h-[60vh] bg-white dark:text-white dark:bg-darkBackground max-xs:max-w-[90%] xs:max-w-[90%] lg:max-w-[85%] mx-auto overflow-y-scroll no-scrollbar"
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
       >
         <div className="mb-2">
-          <h1 className="font-semibold text-2xl py-4 sm:py-8 border-b-2 border-border border-opacity-80">
+          <h1 className="font-semibold text-2xl py-4 sm:py-8 border-b-2 border-border dark:border-slate-600 border-opacity-80">
             {t("Property information")}
           </h1>
           <div className="grid grid-cols-3 max-sm:grid-cols-2">
@@ -73,7 +73,7 @@ const Overview = ({ listing }) => {
           </div>
         </div>
         <div className="">
-          <h1 className="font-semibold text-2xl py-4 sm:py-8 border-b-2 border-border border-opacity-80">
+          <h1 className="font-semibold text-2xl py-4 sm:py-8 border-b-2 border-border dark:border-slate-600 border-opacity-80">
             {t("Description")}
           </h1>
           <p className="px-6 py-4">

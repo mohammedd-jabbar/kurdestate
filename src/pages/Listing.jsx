@@ -105,13 +105,13 @@ const Listing = () => {
           <div className="flex mt-6 mb-3 items-center max-sm:justify-between">
             {/* Listing Name */}
             <h1
-              className="text-xl sm:text-2xl md:text-3xl font-normal"
+              className="text-xl sm:text-2xl md:text-3xl font-normal dark:text-white"
               style={{ WebkitTextStrokeWidth: ".5px" }}
             >
               {i18n.language === "ku" ? listing.nameKu : listing.name}
             </h1>
             {/* Listing Type */}
-            <p className="ltr:ml-4 rtl:mr-4 bg-primary-500 py-1 px-2 mt-1 text-white rounded-full text-xs sm:text-sm font-semibold h-full">
+            <p className="ltr:ml-4 rtl:mr-4 bg-primary-500 py-1 px-2 mt-1 text-white  rounded-full text-xs sm:text-sm font-semibold h-full">
               {i18n.language === "ku"
                 ? listing.typeKu === "کرێ"
                   ? "بۆ کرێ"
@@ -124,7 +124,7 @@ const Listing = () => {
           {/* Listing Address */}
           <div className="flex mb-6 items-center flex-start">
             <FaMapMarkerAlt className="text-primary-500 rtl:ml-1 ltr:mr-1 h-3 w-3" />
-            <p className="truncate font-semibold text-sm text-gray-500">
+            <p className="truncate font-semibold text-sm text-gray-500 dark:text-gray-300">
               {i18n.language === "ku" ? listing.addressKu : listing.address}
             </p>
           </div>
@@ -133,7 +133,7 @@ const Listing = () => {
 
         <div className="max-sm:w-full flex sm:flex-col justify-between items-center">
           {/* Listing Price */}
-          <h1 className="font-extrabold mb-3 text-xl text-primary-600">
+          <h1 className="font-extrabold mb-3 text-xl text-primary-600 dark:text-indigo-100">
             $
             {i18n.language === "ku"
               ? listing.price.toIndiaDigits()
@@ -164,7 +164,7 @@ const Listing = () => {
               ))}
             </div>
             {/* contents */}
-            <div className="font-light mb-6 order-4 max-sm:order-3 rounded transition duration-200 ease-out text-gray-500 shadow-lg hover:shadow-[0_0_12px_2px_rgba(71,85,95,0.20)] bg-white  ">
+            <div className="font-light mb-6 order-4 max-sm:order-3 rounded transition duration-200 ease-out text-gray-500 shadow-lg hover:shadow-[0_0_12px_2px_rgba(71,85,95,0.20)] bg-white dark:bg-darkBackground ">
               {tabs.map((tab) => (
                 <div
                   key={tab.id}

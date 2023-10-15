@@ -12,18 +12,18 @@ const UserInfo = ({ landLord, screen, listing }) => {
 
   return (
     <div
-      className={`md:w-1/3 shadow-lg mb-6 ${
+      className={`md:w-1/3 shadow-lg mb-6 bg-white dark:bg-darkBackground rounded-sm ${
         screen === "sm"
-          ? "max-sm:flex max-sm:order-6 rounded-md flex-col hidden mx-auto p-6  bg-white"
-          : "flex flex-col max-sm:hidden mx-auto p-6 bg-white md:-mt-3"
+          ? "max-sm:flex max-sm:order-6 rounded-md flex-col hidden mx-auto p-6 "
+          : "flex flex-col max-sm:hidden mx-auto p-6 md:-mt-3"
       }`}
       dir={i18n.language === "ku" ? "rtl" : "ltr"}
     >
       <div className="">
-        <h2 className="text-xl font-semibold pb-4 border-b border-border ">
+        <h2 className="text-xl font-semibold pb-4 border-b border-border dark:text-white dark:border-slate-700">
           {t("Property owner information")}
         </h2>
-        <div className="flex items-center mt-4 pb-6 border-b border-border">
+        <div className="flex items-center mt-4 pb-6 border-b border-border dark:text-white dark:border-slate-700">
           {landLord?.photoURL ? (
             <img
               className="w-16 rtl:ml-3 h-16 rounded-full "
@@ -54,7 +54,7 @@ const UserInfo = ({ landLord, screen, listing }) => {
           </div>
         </div>
         <div>
-          <h2 className="text-xl mt-6 font-semibold pb-4">
+          <h2 className="text-xl mt-6 font-semibold pb-4 dark:text-white">
             {i18n.language === `ku`
               ? t("Ask for the '{{nameKu}}'", { nameKu })
               : t("Ask for the '{{nameEn}}'", { nameEn })}
