@@ -49,10 +49,15 @@ const Login = () => {
     }
   };
   return (
-    <div dir={i18n.language === "ku" ? "rtl" : "ltr"} className="">
-      <h1 className="text-3xl text-center mt-8 mb-4 font-bold">{t("Login")}</h1>
+    <div
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
+      className="dark:text-white"
+    >
+      <h1 className="text-3xl text-center mt-8 mb-4 font-bold ">
+        {t("Login")}
+      </h1>
       <div className="flex justify-center items-center flex-wrap px-6 max-lg:mt-8 pb-12 mx-auto max-w-6xl">
-        <div className="bg-headerBackground w-full shadow-lg md:w-[50%] p-8 rounded-lg">
+        <div className="bg-headerBackground dark:bg-darkBackground w-full shadow-lg md:w-[50%] p-8 rounded-lg">
           <form onSubmit={handleFormSubmit}>
             <h1 className="text-2xl ltr:font-inter font-semibold">
               {t("Welcome back")}
@@ -76,7 +81,7 @@ const Login = () => {
                   type="email"
                   placeholder="example@gmail.com"
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2  text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
+                  className="w-full px-4 py-2  text-xl text-gray-700 dark:text-gray-200 bg-white dark:bg-darkBackground border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
                 />
               </div>
               <div className="relative">
@@ -88,7 +93,7 @@ const Login = () => {
                   type={showPassword ? "text" : "password"} // if showPassword is true, show text, else show password
                   placeholder="*****"
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
+                  className="w-full px-4 py-2 text-xl text-gray-700 dark:text-gray-200 bg-white dark:bg-darkBackground border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
                 />
                 {showPassword ? ( // if showPassword is true, show AiFillEyeInvisible icon
                   <AiFillEyeInvisible
@@ -112,7 +117,7 @@ const Login = () => {
               <p>
                 <Link
                   to="/forgot-password"
-                  className="text-primary-600 hover:text-primary-800 transition duration-200 ease-in-out"
+                  className="text-primary-500 hover:text-primary-600  transition duration-200 ease-in-out"
                 >
                   {t("Forgot Password?")}
                 </Link>

@@ -30,13 +30,16 @@ const ForgotPassword = () => {
   };
 
   return (
-    <section dir={i18n.language === "ku" ? "rtl" : "ltr"}>
+    <section
+      dir={i18n.language === "ku" ? "rtl" : "ltr"}
+      className="dark:text-white"
+    >
       <h1 className="text-3xl text-center mt-8 font-bold">
         {t("Forgot Password")}
       </h1>
 
       <div className="flex justify-center items-center flex-wrap px-6 max-lg:mt-8 pb-12 mx-auto max-w-6xl">
-        <div className="bg-headerBackground w-full shadow-lg mb-32 md:w-[50%] p-8 rounded-lg">
+        <div className="bg-headerBackground dark:bg-darkBackground w-full shadow-lg mb-32 md:w-[50%] p-8 rounded-lg">
           <form onSubmit={handleFormSubmit}>
             <div>
               <label className="mb-2">{t("Email")}</label>
@@ -46,7 +49,7 @@ const ForgotPassword = () => {
                 type="email"
                 placeholder="example@gmail.com"
                 onChange={handleEmailChange}
-                className="w-full px-4 py-2 mb-6 text-xl text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
+                className="w-full px-4 py-2 mb-6 text-xl text-gray-700 dark:text-gray-200 bg-white dark:bg-darkBackground border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition ease-in-out duration-[400ms]"
               />
             </div>
             <div className="flex justify-between items-center my-6 whitespace-nowrap text-sm sm:text-lg">
@@ -67,7 +70,7 @@ const ForgotPassword = () => {
             </div>
             <button
               type="submit"
-              className="w-full ltr:font-inter bg-primary-500 text-white px-7 py-3 text-sm font-semibold uppercase rounded-md shadow-md hover:bg-primary-600 transition duration-200 ease-in-out hover:shadow-lg active:bg-primary-700 active:shadow-lg"
+              className="w-full ltr:font-inter bg-primary-500 text-white  px-7 py-3 text-sm font-semibold uppercase rounded-md shadow-md hover:bg-primary-600 transition duration-200 ease-in-out hover:shadow-lg active:bg-primary-700 active:shadow-lg"
             >
               {t("Send Reset Email")}
             </button>
