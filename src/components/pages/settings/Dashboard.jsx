@@ -129,7 +129,7 @@ const Dashboard = () => {
   return (
     <div
       dir={i18n.language === "ku" ? "rtl" : "ltr"}
-      className={`mt-7 z-0 px-3 transition-all duration-200 ease-in-out  ${
+      className={`mt-7 z-0 px-3 transition-all duration-200 ease-in-out dark:bg-darkBackgroundDarker ${
         expanded
           ? `${i18n.language === "ku" ? "md:mr-[13.5rem]" : "md:ml-[13.5rem]"}`
           : `${i18n.language === "ku" ? "md:mr-[5.3rem]" : "md:ml-[5.3rem]"}`

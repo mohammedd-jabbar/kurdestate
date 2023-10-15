@@ -77,7 +77,7 @@ const ProfileContent = () => {
       }`}
     >
       <div>
-        <h1 className="text-2xl max-xs:mt-12 font-bold pb-4 border-b border-border">
+        <h1 className="text-2xl max-xs:mt-12 font-bold pb-4 border-b border-border dark:border-slate-700">
           {t("General Information")}
         </h1>
 
@@ -85,14 +85,14 @@ const ProfileContent = () => {
           <div>
             {data.emailVerified === false ? (
               <div className="">
-                <BiConfused className="w-24 h-24 my-6 border-primary-500 rounded-full" />
+                <BiConfused className="w-24 h-24 my-6 border-primary-500 dark:border-slate-600 rounded-full" />
               </div>
             ) : (
               <div className="">
                 <img
                   src={data.photoURL}
                   alt="user"
-                  className="w-24 h-24 my-6 border border-primary-500 rounded-full "
+                  className="w-24 h-24 my-6 border border-primary-500 dark:border-slate-600 rounded-full "
                 />
               </div>
             )}
@@ -100,7 +100,7 @@ const ProfileContent = () => {
           <h3 className="text-xl font-semibold pb-4">
             {t("Change your name")}
           </h3>
-          <form className="border-b border-border">
+          <form className="border-b border-border dark:border-slate-700">
             {/* name input */}
             <input
               type="text"
@@ -108,7 +108,7 @@ const ProfileContent = () => {
               disabled={!isEditingName} // If the state is false, the input will be disabled, if it's true, the input will be enabled, so the user can edit the name
               onChange={handleInputChange} // Handle the input change and update the state with the new value from the input
               value={name}
-              className={`w-full mb-6 px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition ease-in-out ${
+              className={`w-full mb-6 px-4 py-2 text-xl text-gray-700 dark:text-white bg-white dark:bg-darkBackground border border-gray-300 dark:border-gray-700 rounded-md outline-none transition ease-in-out ${
                 isEditingName &&
                 "bg-blue-100 focus:bg-blue-100 focus:border-blue-100 focus:ring-0 focus:outline-none  "
               }`}
@@ -119,7 +119,7 @@ const ProfileContent = () => {
               id="email"
               disabled
               value={email}
-              className="w-full mb-6 px-4 py-2 mt- text-xl text-gray-700 bg-white border border-gray-300 rounded-md outline-none transition ease-in-out "
+              className="w-full mb-6 px-4 py-2 mt- text-xl text-gray-700 dark:text-white dark:bg-darkBackground bg-white border border-gray-300 dark:border-gray-700 rounded-md outline-none transition ease-in-out "
             />
             <div className="flex justify-between mb-6 whitespace-nowrap text-sm sm:text-lg items-center">
               <p className="flex items-center justify-center">

@@ -167,7 +167,9 @@ const Setting = () => {
         </Sidebar>
       </main>
       {/* Render the appropriate content */}
-      <div className="max-w-6xl mx-auto">{renderContent()}</div>
+      <div className="max-w-6xl mx-auto dark:bg-darkBackgroundDarker dark:text-white">
+        {renderContent()}
+      </div>
     </>
   );
 };

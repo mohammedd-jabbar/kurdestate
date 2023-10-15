@@ -21,7 +21,7 @@ const DashboardItem = ({ listing, onDelete, onEdit, onAccept }) => {
   return (
     <div
       dir={i18n.language === "ku" ? "rtl" : "ltr"}
-      className="bg-white flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]"
+      className="bg-white flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 dark:bg-darkBackground m-[10px]"
     >
       <Link className="p-0 m-0 inline-block w-full">
         <div className="relative group h-56 w-full">
@@ -70,7 +70,7 @@ const DashboardItem = ({ listing, onDelete, onEdit, onAccept }) => {
                         .toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
-                <span className="text-sm font-semibold text-gray-500">
+                <span className="text-sm font-semibold text-gray-500 dark:text-slate-300">
                   {i18n.language === "ku"
                     ? listing.typeKu === "کرێ" && " / کرێ"
                     : listing.type === "rent" && " / month"}
@@ -78,13 +78,13 @@ const DashboardItem = ({ listing, onDelete, onEdit, onAccept }) => {
               </div>
 
               <div className="flex justify-start items-center">
-                <p className="truncate font-bold text-[#000013] text-2xl">
+                <p className="truncate font-bold text-[#000013] dark:text-white text-2xl">
                   {i18n.language === "ku" ? listing.nameKu : listing.name}
                 </p>
               </div>
               <div className="mt-1 flex justify-start items-center">
                 <FaMapMarkerAlt className="text-primary-500 h-3 w-3 ltr:mr-1 rtl:ml-1" />
-                <p className="truncate font-semibold text-sm text-gray-500">
+                <p className="truncate font-semibold text-sm text-gray-500 dark:text-gray-400">
                   {i18n.language === "ku" ? listing.addressKu : listing.address}
                 </p>
               </div>

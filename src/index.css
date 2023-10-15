@@ -67,3 +67,10 @@ html[lang="ku"],
 body[lang="ku"] {
   font-family: "rabar", sans-serif !important;
 }
+
+html.dark {
+  background-color: #121923;
+  body {
+    background-color: #121923;
+  }
+}
