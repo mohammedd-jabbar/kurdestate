@@ -89,7 +89,7 @@ const Filters = () => {
   return (
     <>
       <div
-        className="max-w-[80%] mb-16 w-full flex flex-col justify-between items-start relative mx-auto p-4 rounded-md -mt-56 md:-mt-72"
+        className="max-w-[80%] dark:bg-[#18212f] mb-16 w-full flex flex-col justify-between items-start relative mx-auto p-4 rounded-md -mt-56 md:-mt-72"
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
       >
         <div className="bg-headerBackground dark:bg-[#18212f] shadow-[0px,7px,29px,0px,rgba(100,100,111,0.2)] dark:shadow-[#121924] w-full grid grid-cols-1 max-lg:space-y-5 lg:flex justify-between items-center p-5 md:rounded-md">

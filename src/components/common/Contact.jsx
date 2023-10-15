@@ -11,7 +11,7 @@ const Contact = ({ userRef, listing }) => {
     const getLandLord = async () => {
       const docRef = doc(db, "users", userRef);
       const docSnap = await getDoc(docRef);
-      console.log(docSnap.data());
+
       if (docSnap.exists()) {
         setLandLord(docSnap.data());
       } else {

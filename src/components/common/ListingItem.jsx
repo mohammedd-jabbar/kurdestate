@@ -317,25 +317,27 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center">
-                <BiSolidCarGarage className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
+              {listing.category !== "land" && (
+                <div className="flex md:inline-flex flex-col sm:shrink-0 items-center justify-center">
+                  <BiSolidCarGarage className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
-                <div className="ltr:mt-1.5 rtl:sm:mt-1.5">
-                  <p className="max-sm:text-xs text-gray-500 dark:text-gray-400 truncate xl:font-base">
-                    {i18n.language === "ku"
-                      ? listing.parkingKu > 1
-                        ? `${listing.parkingKu} گەراج`
-                        : !listing.parkingKu
-                        ? "گەراجی نییە"
-                        : "1 گەراج"
-                      : listing.parking > 1
-                      ? `${listing.parking} Garages`
-                      : !listing.parking
-                      ? "No Garage"
-                      : "1 Garage"}
-                  </p>
+                  <div className="ltr:mt-1.5 rtl:sm:mt-1.5">
+                    <p className="max-sm:text-xs text-gray-500 dark:text-gray-400 truncate xl:font-base">
+                      {i18n.language === "ku"
+                        ? listing.parkingKu > 1
+                          ? `${listing.parkingKu} گەراج`
+                          : !listing.parkingKu
+                          ? "گەراجی نییە"
+                          : "1 گەراج"
+                        : listing.parking > 1
+                        ? `${listing.parking} Garages`
+                        : !listing.parking
+                        ? "No Garage"
+                        : "1 Garage"}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </a>

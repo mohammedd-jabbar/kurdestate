@@ -9,6 +9,7 @@ const NavbarDropDown = ({
   name,
   email,
   isDropDown,
+  toggleLanguageDropdown,
 }) => {
   const { t, i18n } = useTranslation("header");
 
@@ -21,7 +22,10 @@ const NavbarDropDown = ({
       <button
         className="flex transition duration-150 ease-in-out text-sm focus:outline-none bg-transparent rounded-full md:mr-0 "
         type="button"
-        onClick={() => toggleDropdown()}
+        onClick={() => {
+          toggleDropdown();
+          toggleLanguageDropdown(false);
+        }}
       >
         {profilePhoto ? (
           <img
@@ -40,7 +44,7 @@ const NavbarDropDown = ({
       {/* Drop down */}
       <div
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
-        className={`absolute rtl:left-1 ltr:right-1 top-12 bg-white dark:bg-darkBackground divide-y divide-gray-100 rounded-lg shadow w-44 ${
+        className={`absolute rtl:left-1 ltr:right-1 top-12 bg-white dark:bg-darkBackground divide-y divide-gray-100 dark:divide-gray-600 rounded-lg shadow w-44 ${
           isDropDown
             ? "duration-300 transition-opacity ease-in-out opacity-100"
             : "hidden opacity-0 pointer-events-none"

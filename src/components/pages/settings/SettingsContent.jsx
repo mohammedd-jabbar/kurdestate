@@ -84,7 +84,7 @@ const SettingsContent = () => {
           //       // User re-authenticated.
           //     })
           //     .catch((error) => {
-          //       console.log(error);
+          //
           //       // An error ocurred
           //       // ...
           //     });

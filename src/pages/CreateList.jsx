@@ -192,10 +192,8 @@ const CreateList = () => {
     return <Spinner />;
   }
 
-  console.log(formDataKu);
-
   return (
-    <>
+    <div className="dark:text-white">
       <main
         className="md:max-w-3xl max-w-md px-2 mx-auto"
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
@@ -845,7 +843,7 @@ const CreateList = () => {
           </form>
         </div>
       </main>
-    </>
+    </div>
   );
 };
 

@@ -29,6 +29,11 @@ import { MdApartment } from "react-icons/md";
 import { GiIsland } from "react-icons/gi";
 import { AiOutlineShop } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
+import { notifications } from "../components/common/Notifications";
+
+// importing aos
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Home = () => {
   const { t, i18n } = useTranslation("home");
@@ -37,6 +42,10 @@ const Home = () => {
 
   // Create reference to store the DOM element containing the animation
   const el = useRef(null);
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   useEffect(() => {
     const typed = new Typed(el.current, {
@@ -86,7 +95,7 @@ const Home = () => {
         });
         setListings(listings);
       } catch (error) {
-        console.log(error);
+        notifications("Could not fetch", true);
       }
     };
     fetchListings();
@@ -120,6 +129,7 @@ const Home = () => {
       <Filters />
 
       <div
+        data-aos={i18n.language === "ku" ? "fade-left" : "fade-right"}
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
         className="bg-background dark:bg-darkBackground"
       >
@@ -172,7 +182,10 @@ const Home = () => {
           )}
           {/* listings */}
           {listings && listings.length > 0 && (
-            <div className="my-20">
+            <div
+              className="my-20"
+              data-aos={i18n.language === "ku" ? "fade-left" : "fade-right"}
+            >
               <h2 className="px-3 font-semibold text-3xl text-center text-black dark:text-white">
                 {t("Discover Our Listings")}
               </h2>
@@ -219,6 +232,7 @@ const Home = () => {
 
           {/* Images */}
           <div
+            data-aos={i18n.language === "ku" ? "fade-right" : "fade-left"}
             dir={i18n.language === "ku" ? "rtl" : "ltr"}
             className="my-16 bg-background dark:bg-darkBackground w-full h-full text-center"
           >
@@ -303,7 +317,10 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <div className="py-16 mt-12 bg-background dark:bg-darkBackground w-full h-full text-center">
+          <div
+            data-aos={i18n.language === "ku" ? "fade-left" : "fade-right"}
+            className="py-16 mt-12 bg-background dark:bg-darkBackground w-full h-full text-center"
+          >
             <h1 className="font-semibold text-3xl dark:text-white">
               {t("Why Choose Us")}
             </h1>

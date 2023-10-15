@@ -6,7 +6,12 @@ const DropdownButton = ({
   isNavbarScroll,
 }) => {
   return (
-    <button className="relative lg:hidden" onClick={toggleContentDropDown}>
+    <button
+      className="relative lg:hidden"
+      onClick={() => {
+        toggleContentDropDown();
+      }}
+    >
       <div className="relative flex overflow-hidden items-center justify-center rounded-full h-[50px] transform transition-all ring-0 ring-opacity-30 duration-200">
         <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
           {!isContentDropDown && (

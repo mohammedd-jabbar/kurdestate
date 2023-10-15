@@ -31,7 +31,7 @@ export default function Sidebar({ children }) {
           expanded ? "ltr:md:mr-12 rtl:md:ml-12 w-52" : "max-md:hidden"
         }`}
       >
-        <nav className="h-full flex flex-col bg-white dark:bg-darkBackground border-r shadow-sm">
+        <nav className="h-full flex flex-col bg-white dark:bg-darkBackground border-r dark:border-slate-700 shadow-sm">
           <div className="p-4 pb-2 flex justify-between items-center">
             <div
               className={`h-5 text-xl flex items-center justify-center font-bold overflow-hidden transition-all ${
@@ -56,7 +56,7 @@ export default function Sidebar({ children }) {
           </SidebarContext.Provider>
 
           <div
-            className={`border-t mb-4 flex p-3 ${
+            className={`border-t dark:border-slate-700 mb-4 flex p-3 ${
               !expanded && "max-sm:border-none"
             }`}
           >

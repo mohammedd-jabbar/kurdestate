@@ -32,10 +32,10 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
               className="mx-auto my-4 w-72 max-sm:w-38 z-50"
               dir={i18n.language === "ku" ? "rtl" : "ltr"}
             >
-              <h3 className="text-lg font-black text-gray-800">
+              <h3 className="text-lg font-black text-gray-800 dark:text-white">
                 {t("Confirm Delete")}
               </h3>
-              <p className="text-sm text-gray-500 pt-2">
+              <p className="text-sm text-gray-500 dark:text-gray-300 pt-2">
                 {t("Are you sure you want to delete this listing?")}
               </p>
             </div>
@@ -45,7 +45,7 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
             >
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full font-inter bg-white border border-border text-black rounded-md py-1.5 px-3 "
+                className="w-full font-inter bg-white dark:bg-darkBackground dark:border-slate-700 border border-border dark:text-white text-black rounded-md py-1.5 px-3 "
               >
                 {t("Cancel")}
               </button>
@@ -65,7 +65,7 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
       />
       <div
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
-        className="bg-white flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]"
+        className="bg-white dark:bg-darkBackground flex flex-col justify-between items-center rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]"
       >
         <Link className="p-0 m-0 inline-block w-full">
           <div className="relative group h-56 w-full">
@@ -112,7 +112,7 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </span>
-                  <span className="text-sm font-semibold text-gray-500">
+                  <span className="text-sm font-semibold text-gray-500 dark:text-white">
                     {i18n.language === "ku"
                       ? listing.typeKu === "کرێ" && " / کرێ"
                       : listing.type === "rent" && " / month"}
@@ -120,13 +120,13 @@ const PostItem = ({ listing, onDelete, onEdit, id }) => {
                 </div>
 
                 <div className="flex justify-start items-center">
-                  <p className="truncate font-bold text-[#000013] text-2xl">
+                  <p className="truncate font-bold text-[#000013] dark:text-white text-2xl">
                     {i18n.language === "ku" ? listing.nameKu : listing.name}
                   </p>
                 </div>
                 <div className="mt-1 flex justify-start items-center">
                   <FaMapMarkerAlt className="text-primary-500 h-3 w-3 ltr:mr-1 rtl:ml-1" />
-                  <p className="truncate font-semibold text-sm text-gray-500">
+                  <p className="truncate font-semibold text-sm text-gray-500 dark:text-gray-400">
                     {i18n.language === "ku"
                       ? listing.addressKu
                       : listing.address}

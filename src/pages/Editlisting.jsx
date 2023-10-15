@@ -248,7 +248,7 @@ const EditListing = () => {
   }
 
   return (
-    <>
+    <div className="dark:text-white">
       <main
         className="md:max-w-3xl max-w-md px-2 mx-auto"
         dir={i18n.language === "ku" ? "rtl" : "ltr"}
@@ -894,7 +894,7 @@ const EditListing = () => {
           </form>
         </div>
       </main>
-    </>
+    </div>
   );
 };
 

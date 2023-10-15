@@ -128,11 +128,19 @@ const Header = () => {
   }
 
   // toggle dropdowns
-  const toggleDropdown = () => {
-    setIsDropDown(!isDropDown);
+  const toggleDropdown = (is) => {
+    if (is === false) {
+      setIsDropDown(false);
+    } else {
+      setIsDropDown(!isDropDown);
+    }
   };
-  const toggleLanguageDropdown = () => {
-    setIsLanguageDropDown(!isLanguageDropDown);
+  const toggleLanguageDropdown = (is) => {
+    if (is === false) {
+      setIsLanguageDropDown(false);
+    } else {
+      setIsLanguageDropDown(!isLanguageDropDown);
+    }
   };
 
   const toggleContentDropDown = () => {
@@ -283,6 +291,7 @@ const Header = () => {
               toggleLanguageDropdown={toggleLanguageDropdown}
               isLanguageDropDown={isLanguageDropDown}
               handleLanguageChange={handleLanguageChange}
+              toggleDropdown={toggleDropdown}
             />
             {userAuth ? (
               <div className="flex justify-between items-center max-xs:space-x-3 max-lg:space-x-6 rtl:space-x-reverse">
@@ -301,6 +310,7 @@ const Header = () => {
                   profilePhoto={profilePhoto}
                   name={name}
                   email={email}
+                  toggleLanguageDropdown={toggleLanguageDropdown}
                 />
               </div>
             ) : (
