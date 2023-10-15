@@ -112,17 +112,17 @@ const SettingsContent = () => {
           <>
             {/* fix the module center when small size */}
             <div className="mx-auto my-4 max-md:text-start w-72 max-md:w-56 z-50">
-              <h3 className="max-md:text-sm text-lg font-black text-gray-800">
+              <h3 className="max-md:text-sm text-lg font-black text-gray-800 dark:text-white">
                 {t("Confirm Delete Account")}
               </h3>
-              <p className="max-md:text-xs text-sm text-gray-500 pt-2">
+              <p className="max-md:text-xs text-sm text-gray-500 dark:text-gray-400 pt-2">
                 {t("Are you sure you want to delete your account?")}
               </p>
             </div>
             <div className="flex mt-8 gap-6">
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full font-inter bg-white border border-border text-black rounded-md py-1.5 px-3 "
+                className="w-full font-inter bg-white dark:bg-slate-700 border border-border dark:border-slate-700 dark:text-white text-black rounded-md py-1.5 px-3 "
               >
                 {t("Cancel")}
               </button>
@@ -138,7 +138,7 @@ const SettingsContent = () => {
         onClose={() => setIsOpen(false)}
       />
       <div dir={i18n.language === "ku" ? "rtl" : "ltr"}>
-        <h1 className="text-2xl font-bold pb-4 border-b border-border">
+        <h1 className="text-2xl font-bold pb-4 border-b border-border dark:border-slate-700">
           {t("Settings")}
         </h1>
         {/* Dark mode changer */}

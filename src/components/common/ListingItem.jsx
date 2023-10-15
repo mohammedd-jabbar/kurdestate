@@ -107,7 +107,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
   return (
     <div
       dir={i18n.language === "ku" ? "rtl" : "ltr"}
-      className="bg-white relative flex flex-col justify-between items-center rounded shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden mb-8 m-[10px]"
+      className="bg-white relative flex flex-col justify-between items-center rounded shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden dark:bg-darkBackground mb-8 m-[10px]"
     >
       {/* the top animation for rent or sell */}
       {(listing.category === "house" ||
@@ -118,7 +118,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
             i18n.language === "ku" ? "right-2" : "left-2"
           } duration-200 group group-hover:scale-105 w-24 h-8 bg-primary-500`}
         >
-          <p className="text-center pt-1.5 text-gray-100 font-semibold text-sm">
+          <p className="text-center pt-1.5 text-gray-100 dark:text-slate-300 font-semibold text-sm">
             {i18n.language === "ku"
               ? listing.typeKu === "کرێ"
                 ? "کرێ"
@@ -150,14 +150,14 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
           {onRemove ? (
             <button
               onClick={handleRemoveFromFavorites}
-              className={`absolute group shadow end-4 bottom-30 border-2 border-border text-primary-500 z-10 rounded-full bg-white p-2 transition duration-200 hover:text-white focus:text-white active:text-white hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 `}
+              className={`absolute group shadow end-4 bottom-30 border-2 border-border dark:border-slate-800 text-primary-500  z-10 rounded-full bg-white p-2 transition duration-200 hover:text-white focus:text-white active:text-white hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 `}
             >
               <MdDeleteForever className="h-8 w-8" />
             </button>
           ) : (
             <button
               onClick={handleAddToFavorites}
-              className={`absolute group shadow end-4 bottom-30 border-2 border-border z-10 rounded-full bg-white p-2 transition duration-200 hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 
+              className={`absolute group shadow end-4 bottom-30 border-2 border-border dark:border-slate-800 z-10 rounded-full bg-white dark:bg-darkBackgroundDarker p-2 transition duration-200 hover:border-primary-500 dark:hover:border-slate-900 dark:hover:bg-darkBackgroundDarker hover:bg-primary-500 focus:border-primary-600 dark:focus:bg-darkBackgroundDarker dark:focus:border-slate-900 focus:bg-primary-600  active:border-primary-700 active:bg-primary-700 dark:active:bg-darkBackgroundDarker
                ${isFavorite ? "!border-primary-500 !bg-primary-500" : ""}`}
             >
               <Heart isFav={isFavorite} />
@@ -165,7 +165,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
           )}
 
           <div className="mb-2">
-            <div className="mb-6 border-b-2 pb-4 space-y-2 border-gray-400 border-opacity-20">
+            <div className="mb-6 border-b-2 pb-4 space-y-2 border-gray-400  border-opacity-20">
               <div>
                 <dt className="sr-only">{t("Price")}</dt>
 
@@ -181,7 +181,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
                 {(listing.category === "house" ||
                   listing.category === "apartment" ||
                   listing.category === "shop") && (
-                  <span className="text-sm font-semibold text-gray-500">
+                  <span className="text-sm font-semibold text-gray-500 dark:text-white">
                     {i18n.language === "ku"
                       ? listing.typeKu === "کرێ" && " / کرێ"
                       : listing.type === "rent" && " / month"}
@@ -190,13 +190,13 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
               </div>
 
               <div className="flex justify-start items-center">
-                <p className="truncate font-bold text-[#000013] text-2xl">
+                <p className="truncate font-bold text-[#000013] text-2xl dark:text-white">
                   {i18n.language === "ku" ? listing.nameKu : listing.name}
                 </p>
               </div>
               <div className="mt-1 flex justify-start items-center">
                 <FaMapMarkerAlt className="text-primary-500 mr-1 h-3 w-3" />
-                <p className="truncate font-semibold text-sm text-gray-500">
+                <p className="truncate font-semibold text-sm text-gray-500 dark:text-gray-400">
                   {i18n.language === "ku" ? listing.addressKu : listing.address}
                 </p>
               </div>
@@ -216,7 +216,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
                   ""
                 )}
                 <div className="ltr:mt-1.5">
-                  <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
+                  <p className="max-sm:text-xs text-gray-500 dark:text-gray-400 truncate xl:font-base">
                     {i18n.language === "ku"
                       ? listing.category === "apartment"
                         ? listing.beds > 1
@@ -269,7 +269,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
                 )}
 
                 <div className="ltr:mt-1.5">
-                  <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
+                  <p className="max-sm:text-xs text-gray-500 dark:text-gray-400 truncate xl:font-base">
                     {i18n.language === "ku"
                       ? listing.category === "apartment"
                         ? listing.baths > 1
@@ -312,7 +312,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
                 <MdOutlineCalendarMonth className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="ltr:mt-1.5 rtl:sm:mt-1.5">
-                  <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
+                  <p className="max-sm:text-xs text-gray-500 dark:text-gray-400 truncate xl:font-base">
                     {listing.yearBuilt}
                   </p>
                 </div>
@@ -321,7 +321,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
                 <BiSolidCarGarage className="text-primary-500 max-xs:h-3 max-xs:w-3 h-4 w-4" />
 
                 <div className="ltr:mt-1.5 rtl:sm:mt-1.5">
-                  <p className="max-sm:text-xs text-gray-500 truncate xl:font-base">
+                  <p className="max-sm:text-xs text-gray-500 dark:text-gray-400 truncate xl:font-base">
                     {i18n.language === "ku"
                       ? listing.parkingKu > 1
                         ? `${listing.parkingKu} گەراج`

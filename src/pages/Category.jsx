@@ -165,7 +165,7 @@ const Category = () => {
       className="max-w-6xl mx-auto px-3"
       dir={i18n.language === "ku" ? "rtl" : "ltr"}
     >
-      <h1 className="text-3xl text-center my-6 font-bold">
+      <h1 className="text-3xl text-center my-6 font-bold dark:text-white">
         {categoryName === "rent"
           ? t("Places for Rent")
           : categoryName === "sell"
@@ -197,7 +197,7 @@ const Category = () => {
             <div className="flex justify-center items-center">
               <button
                 onClick={handleFetchMoreListings}
-                className="bg-white px-3 py-1.5 text-gray-700 border border-gray-300 my-6 hover:border-slate-600 rounded transition duration-150 ease-in-out"
+                className="bg-white dark:bg-darkBackground dark:border-slate-700 dark:text-white px-3 py-1.5 text-gray-700 border border-gray-300 my-6 hover:border-slate-600 rounded transition duration-150 ease-in-out"
               >
                 {t("Load More")}
               </button>
