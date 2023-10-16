@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps",
+  apiKey: import.meta.env.VITE_APIKEY_FIREBASE,
   authDomain: "kurdhomes.firebaseapp.com",
   projectId: "kurdhomes",
   storageBucket: "kurdhomes.appspot.com",
-  messagingSenderId: "1036759382952",
-  appId: "1:1036759382952:web:2a314aa053c4745d25bb9d",
+  messagingSenderId: import.meta.env.VITE_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 // Initialize Firebase
