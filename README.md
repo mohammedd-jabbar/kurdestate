@@ -11,15 +11,23 @@ Kurd Estate simplifies the process of buying or renting properties. Sellers can 
 ## Key Features
 
 - Property Search: Effortlessly search for properties based on your preferences.
-  <img src="/public/images/1.png" width="200">
+  <img src="/public/images/1.png">
 - Categories: Listings are organized into categories for easy exploration.
+  <img src="/public/images/2.png">
 - User Accounts: Create an account to save your favorite listings and track your inquiries.
+  <img src="/public/images/3.png">
 - Interactive Maps: Visualize property locations within the listings.
+  <img src="/public/images/4.png">
 - Dark and Light Modes: Seamlessly switch between dark and light themes for optimal viewing.
+  <img src="/public/images/5.png">
 - Multi-language Support: Enjoy our platform in your preferred language.
+  <img src="/public/images/6.png">
 - Responsive Design: Access Kurd Estate from any device, be it desktop, tablet, or mobile phone.
+  <img src="/public/images/7.png">
 - Contact Form: Reach out to sellers easily through our integrated contact form.
+  <img src="/public/images/8.png">
 - Admin Dashboard: Sellers can manage their listings via a user-friendly dashboard
+  <img src="/public/images/9.png">
 
 ## Design
 

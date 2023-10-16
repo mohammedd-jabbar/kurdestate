@@ -136,7 +136,7 @@ const Dashboard = () => {
       }`}
     >
       <h2 className="text-2xl text-center font-semibold my-6">
-        {t("My Properties")}
+        {t("Properties")}
       </h2>
       {!isLoading && listings.length > 0 && (
         <>
