@@ -74,9 +74,7 @@ const Home = () => {
         const q = query(
           listingRef,
           where("status", "==", "accepted"),
-          orderBy("type"),
-          orderBy("timeStamp", "desc"),
-          limit(4)
+          orderBy("timeStamp", "desc")
         );
 
         const snapShotQuery = await getDocs(q);
