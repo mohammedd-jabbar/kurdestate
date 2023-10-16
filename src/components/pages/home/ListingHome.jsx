@@ -35,7 +35,7 @@ const ListingHome = ({ listing, id }) => {
           />
           {/* <div className="absolute  z-10"></div> */}
           {/* transition the transform and when group mean parent hover then translate the text with duration 300ms */}
-          <div className="absolute bottom-3 ltr:left-1 px-2 sm:px-4 transform transition-transform group-hover:-translate-y-8 duration-[.5s] ease-in-out ">
+          <div className="absolute bottom-3 px-2 sm:px-4 transform transition-transform group-hover:-translate-y-8 duration-[.5s] ease-in-out ">
             <h1 className="text-white truncate text-2xl font-semibold">
               {i18n.language === "ku" ? listing.nameKu : listing.name}
             </h1>

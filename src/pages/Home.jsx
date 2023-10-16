@@ -135,6 +135,7 @@ const Home = () => {
               </h2>
               <div>
                 <Swiper
+                  dir={"ltr"}
                   className="my-6"
                   breakpoints={{
                     100: {
@@ -181,6 +182,7 @@ const Home = () => {
               </h2>
               <div>
                 <Swiper
+                  dir={"ltr"}
                   className="my-6"
                   breakpoints={{
                     100: {

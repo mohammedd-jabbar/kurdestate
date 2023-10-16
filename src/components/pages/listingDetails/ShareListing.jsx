@@ -31,7 +31,7 @@ const ShareListing = ({ listing, id }) => {
           <button className="flex px-4 w-full py-2 group text-sm text-gray-800 dark:text-white border-b dark:hover:bg-slate-700 hover:bg-white">
             <FacebookShareButton
               quote={"Just found a fantastic real estate listing!"}
-              url={`mohammedd.com/category/${listing.type}/${id}\n\n`}
+              url={`mohammedd.com/category/${listing.type}/${id}`}
               hashtag={"#saleHouse"}
               className="flex space-x-2 rtl:space-x-reverse"
             >
