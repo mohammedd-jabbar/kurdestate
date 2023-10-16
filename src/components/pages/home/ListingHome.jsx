@@ -14,9 +14,6 @@ const ListingHome = ({ listing, id }) => {
     });
   };
 
-  const yearBuiltKu = listing.yearBuiltKu;
-  const yearBuilt = listing.yearBuilt;
-
   return (
     <div
       dir={i18n.language === "ku" ? "rtl" : "ltr"}
@@ -32,11 +29,11 @@ const ListingHome = ({ listing, id }) => {
             width={"100%"}
             height={"100%"}
             // scale to size how much transform
-            className="h-full group-hover:scale-110 absolute object-cover"
+            className="h-full group-hover:scale-110 absolute object-cover brightness-90 dark:brightness-75"
             src={listing.imgUrls[0]}
             effect="blur"
           />
-
+          {/* <div className="absolute  z-10"></div> */}
           {/* transition the transform and when group mean parent hover then translate the text with duration 300ms */}
           <div className="absolute bottom-3 ltr:left-1 px-2 sm:px-4 transform transition-transform group-hover:-translate-y-8 duration-[.5s] ease-in-out ">
             <h1 className="text-white truncate text-2xl font-semibold">
@@ -53,28 +50,22 @@ const ListingHome = ({ listing, id }) => {
             </h3>
             <div className="flex justify-start space-x-3 rtl:space-x-reverse text-white items-center">
               <p className="font-medium max-sm:text-sm">
-                {}
                 {i18n.language === "ku"
-                  ? listing.beds > 1
-                    ? `${listing.beds} ژوور`
-                    : "1 ژوور"
-                  : listing.beds > 1
-                  ? `${listing.beds} Beds | `
-                  : "1 Bed | "}
+                  ? `${listing.categoryKu}`
+                  : `${
+                      listing.category.charAt(0).toUpperCase() +
+                      listing.category.slice(1)
+                    }`}
               </p>
+              <div className="h-[15px] w-[2px] bg-white "></div>
               <p className="font-medium max-sm:text-sm">
                 {i18n.language === "ku"
-                  ? listing.bath > 1
-                    ? `${listing.bath} حەمام`
-                    : "1 حەمام"
-                  : listing.bath > 1
-                  ? `${listing.bath} Baths | `
-                  : "1 Bath | "}
-              </p>
-              <p className="max-sm:text-sm font-medium">
-                {i18n.language === "ku"
-                  ? `دروستکراوە لە ${yearBuiltKu}`
-                  : `Built in ${yearBuilt}`}
+                  ? listing.typeKu === "کرێ"
+                    ? "بۆ کرێ"
+                    : "بۆ فرۆشتن"
+                  : listing.type === "rent"
+                  ? "For Rent"
+                  : "For Sell"}
               </p>
             </div>
           </div>

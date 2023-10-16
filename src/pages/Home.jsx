@@ -221,18 +221,20 @@ const Home = () => {
           )}
 
           {/* category */}
-          <Slide>
-            <div
-              dir={i18n.language === "ku" ? "rtl" : "ltr"}
-              className="my-16 bg-background dark:bg-darkBackground w-full h-full text-center"
-            >
-              <h1 className="font-semibold text-3xl text-black dark:text-slate-100">
-                {t("Explore Our Properties")}
-              </h1>
-              <p className="text-gray-500 dark:text-slate-100 text-sm font-medium mt-1">
-                {t("Discover Your Ideal Home with Us")}
-              </p>
-              <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+
+          <div
+            dir={i18n.language === "ku" ? "rtl" : "ltr"}
+            className="my-16 bg-background dark:bg-darkBackground w-full h-full text-center"
+          >
+            <h1 className="font-semibold text-3xl text-black dark:text-slate-100">
+              {t("Explore Our Properties")}
+            </h1>
+            <p className="text-gray-500 dark:text-slate-100 text-sm font-medium mt-1">
+              {t("Discover Your Ideal Home with Us")}
+            </p>
+
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+              <Slide direction="up" delay={0}>
                 <Link
                   to={"category/house"}
                   className="cursor-pointer group p-4 shadow-lg bg-white rounded-lg flex justify-center items-center flex-col hover:scale-105 transition-all duration-300 ease-in-out"
@@ -251,6 +253,8 @@ const Home = () => {
                   </h2>
                   <div className="pb-24"></div>
                 </Link>
+              </Slide>
+              <Slide direction="up" delay={150}>
                 <Link
                   to={"category/apartment"}
                   className="cursor-pointer group p-4 shadow-lg bg-white rounded-lg flex justify-center items-center flex-col hover:scale-105 transition-all duration-300 ease-in-out"
@@ -269,6 +273,8 @@ const Home = () => {
                   </h2>
                   <div className="pb-24"></div>
                 </Link>
+              </Slide>
+              <Slide direction="up" delay={250}>
                 <Link
                   to={"category/land"}
                   className="cursor-pointer group p-4 shadow-lg bg-white rounded-lg flex justify-center items-center flex-col hover:scale-105 transition-all duration-300 ease-in-out"
@@ -287,6 +293,8 @@ const Home = () => {
                   </h2>
                   <div className="pb-24"></div>
                 </Link>
+              </Slide>
+              <Slide direction="up" delay={350}>
                 <Link
                   to={"category/shop"}
                   className="cursor-pointer group p-4 shadow-lg bg-white rounded-lg flex justify-center items-center flex-col hover:scale-105 transition-all duration-300 ease-in-out"
@@ -305,21 +313,22 @@ const Home = () => {
                   </h2>
                   <div className="pb-24"></div>
                 </Link>
-              </div>
+              </Slide>
             </div>
-          </Slide>
+          </div>
           {/* images */}
-          <Slide direction="left">
-            <div
-              id="my-slide"
-              className="py-16 mt-12 bg-background dark:bg-darkBackground w-full h-full text-center"
-            >
-              <h1 className="font-semibold text-3xl dark:text-white">
-                {t("Why Choose Us")}
-              </h1>
-              <p className="text-gray-500 dark:text-slate-200 text-sm font-medium">
-                {t("At Our Company, We Prioritize Your Satisfaction")}
-              </p>
+
+          <div
+            id="my-slide"
+            className="py-16 mt-12 bg-background dark:bg-darkBackground w-full h-full text-center"
+          >
+            <h1 className="font-semibold text-3xl dark:text-white">
+              {t("Why Choose Us")}
+            </h1>
+            <p className="text-gray-500 dark:text-slate-200 text-sm font-medium">
+              {t("At Our Company, We Prioritize Your Satisfaction")}
+            </p>
+            <Slide direction="left" delay={400} cascade>
               <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
                 <div className="p-6 bg-white dark:bg-[#18212f] pb-12 transition-all duration-200 ease-in-out hover:shadow-xl hover:scale-105 rounded-lg shadow-md">
                   <p className="text-center">
@@ -382,8 +391,8 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-            </div>
-          </Slide>
+            </Slide>
+          </div>
         </div>
         <footer className="bg-background border-t-2 border-border dark:border-slate-700 shadow-2xl py-4 dark:bg-gray-800">
           <div className="w-full mx-auto p-4 flex items-center justify-center">
