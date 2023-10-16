@@ -175,51 +175,49 @@ const Home = () => {
           )}
           {/* listings */}
           {listings && listings.length > 0 && (
-            <Slide>
-              <div className="my-20">
-                <h2 className="px-3 font-semibold text-3xl text-center text-black dark:text-white">
-                  {t("Discover Our Listings")}
-                </h2>
-                <div>
-                  <Swiper
-                    className="my-6"
-                    breakpoints={{
-                      100: {
-                        slidesPerView: 1.2,
-                        spaceBetween: 20,
-                      },
-                      640: {
-                        slidesPerView: 2.2,
-                        spaceBetween: 20,
-                      },
-                      796: {
-                        slidesPerView: 2.4,
-                        spaceBetween: 25,
-                      },
-                      930: {
-                        slidesPerView: 2.8,
-                        spaceBetween: 25,
-                      },
-                      1110: {
-                        slidesPerView: 3.7,
-                        spaceBetween: 30,
-                      },
-                    }}
-                    loop={false}
-                    freeMode={true}
-                    mousewheel={true}
-                    grabCursor={true}
-                    modules={[FreeMode, Mousewheel]}
-                  >
-                    {listings.map((rent) => (
-                      <SwiperSlide key={rent.id}>
-                        <ListingHome listing={rent.data} id={rent.id} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
+            <div className="my-20">
+              <h2 className="px-3 font-semibold text-3xl text-center text-black dark:text-white">
+                {t("Discover Our Listings")}
+              </h2>
+              <div>
+                <Swiper
+                  className="my-6"
+                  breakpoints={{
+                    100: {
+                      slidesPerView: 1.2,
+                      spaceBetween: 20,
+                    },
+                    640: {
+                      slidesPerView: 2.2,
+                      spaceBetween: 20,
+                    },
+                    796: {
+                      slidesPerView: 2.4,
+                      spaceBetween: 25,
+                    },
+                    930: {
+                      slidesPerView: 2.8,
+                      spaceBetween: 25,
+                    },
+                    1110: {
+                      slidesPerView: 3.7,
+                      spaceBetween: 30,
+                    },
+                  }}
+                  loop={false}
+                  freeMode={true}
+                  mousewheel={true}
+                  grabCursor={true}
+                  modules={[FreeMode, Mousewheel]}
+                >
+                  {listings.map((rent) => (
+                    <SwiperSlide key={rent.id}>
+                      <ListingHome listing={rent.data} id={rent.id} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
-            </Slide>
+            </div>
           )}
 
           {/* category */}
