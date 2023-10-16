@@ -49,8 +49,6 @@ const Header = () => {
     setDarkSide(checked);
   };
 
-  // console.log(import.meta.env.VITE_GEOCODE_API);
-
   // navbar animation
   useEffect(() => {
     window.addEventListener("scroll", () => {
