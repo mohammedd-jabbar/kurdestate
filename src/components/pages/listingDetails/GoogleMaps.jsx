@@ -4,7 +4,7 @@ import useDarkSide from "../../common/darkmode/useDarkSide";
 
 const GoogleMaps = ({ geo }) => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps",
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API,
   });
 
   if (!isLoaded) return <div>Loading...</div>;

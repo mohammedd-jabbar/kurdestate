@@ -52,7 +52,6 @@ const Category = () => {
 
           setLoading(false);
         } catch (error) {
-         
           notifications("Could not fetch offers", true);
         }
       } else {
@@ -82,7 +81,6 @@ const Category = () => {
 
           setLoading(false);
         } catch (error) {
-          
           notifications("Could not fetch", true);
         }
       }
@@ -119,7 +117,6 @@ const Category = () => {
 
         setLoading(false);
       } catch (error) {
-    
         notifications("Could not fetch", true);
       }
     } else {
@@ -150,7 +147,6 @@ const Category = () => {
 
         setLoading(false);
       } catch (error) {
-      
         notifications("Could not fetch");
       }
     }

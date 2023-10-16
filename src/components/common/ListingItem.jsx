@@ -14,13 +14,17 @@ import { BiSolidCarGarage, BiStreetView } from "react-icons/bi";
 import { LuBedDouble } from "react-icons/lu";
 import { BsHouseGearFill } from "react-icons/bs";
 import Heart from "../../assets/svg/Heart.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { UserInfoContext } from "../../store/UserInfoProvider.jsx";
 
 const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const { t, i18n } = useTranslation("settings");
+
+  // users data
+  const { data } = useContext(UserInfoContext);
 
   useEffect(() => {
     // Check if the "favorites" value is valid JSON data
@@ -147,21 +151,25 @@ const ListingItem = ({ listing, id, onDelete, onEdit, onRemove = false }) => {
         </div>
         {/* Heart wishList */}
         <a className="block w-full relative p-3 sm:p-4">
-          {onRemove ? (
-            <button
-              onClick={handleRemoveFromFavorites}
-              className={`absolute group shadow end-4 bottom-30 border-2 border-border dark:border-slate-800 text-primary-500  z-10 rounded-full bg-white p-2 transition duration-200 hover:text-white focus:text-white active:text-white hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 `}
-            >
-              <MdDeleteForever className="h-8 w-8" />
-            </button>
-          ) : (
-            <button
-              onClick={handleAddToFavorites}
-              className={`absolute group shadow end-4 bottom-30 border-2 border-border dark:border-slate-800 z-10 rounded-full bg-white dark:bg-darkBackgroundDarker p-2 transition duration-200 hover:border-primary-500 dark:hover:border-slate-900 dark:hover:bg-darkBackgroundDarker hover:bg-primary-500 focus:border-primary-600 dark:focus:bg-darkBackgroundDarker dark:focus:border-slate-900 focus:bg-primary-600  active:border-primary-700 active:bg-primary-700 dark:active:bg-darkBackgroundDarker
+          {data && data !== undefined && (
+            <>
+              {onRemove ? (
+                <button
+                  onClick={handleRemoveFromFavorites}
+                  className={`absolute group shadow end-4 bottom-30 border-2 border-border dark:border-slate-800 text-primary-500  z-10 rounded-full bg-white p-2 transition duration-200 hover:text-white focus:text-white active:text-white hover:border-primary-500 hover:bg-primary-500 focus:border-primary-600 focus:bg-primary-600 active:border-primary-700 active:bg-primary-700 `}
+                >
+                  <MdDeleteForever className="h-8 w-8" />
+                </button>
+              ) : (
+                <button
+                  onClick={handleAddToFavorites}
+                  className={`absolute group shadow end-4 bottom-30 border-2 border-border dark:border-slate-800 z-10 rounded-full bg-white dark:bg-darkBackgroundDarker p-2 transition duration-200 hover:border-primary-500 dark:hover:border-slate-900 dark:hover:bg-darkBackgroundDarker hover:bg-primary-500 focus:border-primary-600 dark:focus:bg-darkBackgroundDarker dark:focus:border-slate-900 focus:bg-primary-600  active:border-primary-700 active:bg-primary-700 dark:active:bg-darkBackgroundDarker
                ${isFavorite ? "!border-primary-500 !bg-primary-500" : ""}`}
-            >
-              <Heart isFav={isFavorite} />
-            </button>
+                >
+                  <Heart isFav={isFavorite} />
+                </button>
+              )}
+            </>
           )}
 
           <div className="mb-2">

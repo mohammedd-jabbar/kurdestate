@@ -5,6 +5,14 @@
   font-weight: regular;
 }
 
+body {
+  background-color: #f5f7fb;
+}
+
+body.dark {
+  background-color: #121923;
+}
+/* fix aos favs dark mode */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,19 +66,8 @@ html {
   background-color: white;
 }
 
-body {
-  background-color: #f5f7fb;
-}
-
 /* Apply the nrt font for Kurdish language (ku) */
 html[lang="ku"],
 body[lang="ku"] {
   font-family: "rabar", sans-serif !important;
-}
-
-html.dark {
-  background-color: #121923;
-  body {
-    background-color: #121923;
-  }
 }

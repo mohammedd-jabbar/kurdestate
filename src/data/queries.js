@@ -137,7 +137,9 @@ export const addListing = async (form) => {
 
   // this is for a google api for geo location
   const res = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${form.address}&key=AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps`
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${
+      form.address
+    }&key=${import.meta.env.VITE_GEOCODE_API}`
   );
 
   const data = await res.json();
@@ -228,7 +230,9 @@ export const editListing = async (form) => {
 
   // this is for a google api for geo location
   const res = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${form.address}&key=AIzaSyBJfZw-DJ1F1vIaZuahr_EeXHcT2dlnIps`
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${
+      form.address
+    }&key=${import.meta.env.VITE_GEOCODE_API}`
   );
 
   const data = await res.json();
