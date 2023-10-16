@@ -1,3 +1,5 @@
+<img src="/public/house.svg" width="200">
+
 # Kurd Estate: Real Estate Platform
 
 Welcome to Kurd Estate, your go-to platform for finding the perfect property! Whether you're looking to buy or rent, our user-friendly website offers a seamless experience for property buyers.
@@ -8,15 +10,16 @@ Kurd Estate simplifies the process of buying or renting properties. Sellers can 
 
 ## Key Features
 
-*  Property Search: Effortlessly search for properties based on your preferences.
-*  Categories: Listings are organized into categories for easy exploration.
-*  User Accounts: Create an account to save your favorite listings and track your inquiries.
-*  Interactive Maps: Visualize property locations within the listings.
-*  Dark and Light Modes: Seamlessly switch between dark and light themes for optimal viewing.
-*  Multi-language Support: Enjoy our platform in your preferred language.
-*  Responsive Design: Access Kurd Estate from any device, be it desktop, tablet, or mobile phone.
-*  Contact Form: Reach out to sellers easily through our integrated contact form.
-*  Admin Dashboard: Sellers can manage their listings via a user-friendly dashboard
+- Property Search: Effortlessly search for properties based on your preferences.
+  <img src="/public/images/1.png" width="200">
+- Categories: Listings are organized into categories for easy exploration.
+- User Accounts: Create an account to save your favorite listings and track your inquiries.
+- Interactive Maps: Visualize property locations within the listings.
+- Dark and Light Modes: Seamlessly switch between dark and light themes for optimal viewing.
+- Multi-language Support: Enjoy our platform in your preferred language.
+- Responsive Design: Access Kurd Estate from any device, be it desktop, tablet, or mobile phone.
+- Contact Form: Reach out to sellers easily through our integrated contact form.
+- Admin Dashboard: Sellers can manage their listings via a user-friendly dashboard
 
 ## Design
 
@@ -24,11 +27,9 @@ Kurd Estate embraces a visually appealing design featuring sleek cards and an el
 
 ## Technology Stack
 
-*  Frontend: Built with React for a responsive and interactive user experience.
-*  Styling: Tailwind CSS ensures a modern and stylish look.
-*  Backend: Firebase powers our backend, providing a reliable and scalable infrastructure.
-
-
+- Frontend: Built with React for a responsive and interactive user experience.
+- Styling: Tailwind CSS ensures a modern and stylish look.
+- Backend: Firebase powers our backend, providing a reliable and scalable infrastructure.
 
 ## Installation
 
@@ -65,6 +66,5 @@ Now you're all set! Kurd Estate is up and running on your local machine.
 At Kurd Estate, we are committed to continuous improvement. While our platform is functional, we acknowledge that there's always room for better code and enhanced features. We appreciate your feedback as it helps us grow and provide a better experience for our users.
 
 ## License
+
 This project is licensed under the MIT License.
-
-
