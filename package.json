@@ -1,8 +1,7 @@
 {
   "name": "kurdestate",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "description": "Real Estate Website",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
