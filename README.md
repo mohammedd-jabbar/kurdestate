@@ -4,7 +4,17 @@
 
 Welcome to Kurd Estate, your go-to platform for finding the perfect property! Whether you're looking to buy or rent, our user-friendly website offers a seamless experience for property buyers.
 
-## Overview
+[![Netlify Status](https://api.netlify.com/api/v1/badges/56dbc569-2252-4590-8c58-5aa24e45ab3e/deploy-status)](https://app.netlify.com/sites/bespoke-banoffee-b43833/deploys)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+## Index
+- [About](#about)
+- [Technology Stack](#technology-stack)
+- [Key Features](#key-features)
+- [Installation](#installation)
+- [License](#license)
+
+## About
 
 Kurd Estate simplifies the process of buying or renting properties. Sellers can easily list their properties, and potential buyers can browse through a diverse range of listings. Our platform boasts a clean and intuitive user interface, ensuring a smooth navigation experience for all users.
 
@@ -75,4 +85,4 @@ At Kurd Estate, we are committed to continuous improvement. While our platform i
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the GPL V3 License.
