@@ -55,7 +55,7 @@ To get started with Kurd Estate, follow these steps:
 
 #### Clone the repository:
 
-    git clone [YOUR_GITHUB_REPO_URL]
+    git clone https://github.com/mohammed019/kurdestate.git
 
 #### Navigate to the project directory:
 
