@@ -9,8 +9,8 @@ Welcome to Kurd Estate, your go-to platform for finding the perfect property! Wh
 
 ## Index
 - [About](#about)
-- [Technology Stack](#technology-stack)
 - [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
 - [Installation](#installation)
 - [License](#license)
 
