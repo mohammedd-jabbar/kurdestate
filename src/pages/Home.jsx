@@ -398,7 +398,7 @@ const Home = () => {
           <div className="w-full mx-auto p-4 flex items-center justify-center">
             <span className="text-lg font-bold text-primary-500 sm:text-center dark:text-gray-400">
               © 2023 -
-              <a href="https://mohammedd.com/" className="">
+              <a href="https://mohammedd.com/" target="_blank">
                 {" "}
                 Mohammed Jabbar{" "}
               </a>
